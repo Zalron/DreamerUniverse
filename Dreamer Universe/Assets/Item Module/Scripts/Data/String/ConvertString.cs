@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
-namespace RPGLootGenerator
+namespace ItemModule
 {
     public static class ConvertString
     {

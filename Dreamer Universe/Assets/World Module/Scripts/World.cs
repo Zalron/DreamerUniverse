@@ -102,19 +102,15 @@ namespace WorldGenerator
         }
         void CreateChunk()
         {
-
             ChunkCoord c = chunksToCreate[0];
             chunksToCreate.RemoveAt(0);
             activeChunks.Add(c);
             chunks[c.x, c.y, c.z].Init();
-
         }
         void UpdateChunks()
         {
-
             bool updated = false;
             int index = 0;
-
             while (!updated && index < chunksToUpdate.Count - 1)
             {
 

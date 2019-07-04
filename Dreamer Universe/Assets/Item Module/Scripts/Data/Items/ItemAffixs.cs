@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace RPGLootGenerator
+namespace ItemModule
 {
     public enum ItemAffix
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-namespace RPGLootGenerator
+namespace ItemModule
 {
     [CreateAssetMenu(fileName = "Item", menuName = "Item/Item Mod", order = 1)]
     public class ItemMod : ScriptableObject

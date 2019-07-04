@@ -12,8 +12,8 @@ namespace GalaxyGenerator
     }
     public class Sector
     {
-        static public Mesh sphereMesh;
-        public  SectorType sectorType;
+        public Mesh sphereMesh;
+        public SectorType sectorType;
         public Galaxy galaxy;
         public string sectorName;
         public Vector3 sectorPosition;
@@ -21,12 +21,13 @@ namespace GalaxyGenerator
         public int numSectorStars;
         public GameObject sectorGameObject;
         static public Sector sector;
-        public Sector(SectorType SectorType, Vector3 SectorPosition, string SectorName, int NumSectorStars)
+        public Sector(SectorType SectorType, Vector3 SectorPosition, string SectorName, int NumSectorStars, Mesh sectorSphereMesh)
         {
             sectorName = SectorName;
             sectorType = SectorType;
             sectorPosition = SectorPosition; 
             numSectorStars = NumSectorStars;
+            sphereMesh = sectorSphereMesh;
             sectorGameObject = new GameObject(sectorName);
             GenerateSector(SectorType);
         }

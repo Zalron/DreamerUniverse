@@ -22,7 +22,6 @@ namespace GalaxyGenerator
         {
             GenerateGalaxy((int)(player.transform.position.x / SectorSize), (int)(player.transform.position.y / SectorSize), (int)(player.transform.position.z / SectorSize), 1, 1);
             //sphereMesh = starSystemsObjectMaster.GetComponent<MeshFilter>().mesh;
-            Sector.sphereMesh = sphereMesh;
             //Destroy(starSystemsObjectMaster);
         }
         public static string BuildSectorName(Vector3 v) // assigning a name to a Sector
@@ -33,7 +32,7 @@ namespace GalaxyGenerator
         {
             Vector3 SectorPosition = new Vector3(x * SectorSize, y * SectorSize, z * SectorSize);
             string sn = BuildSectorName(SectorPosition);
-            Sector.sector = new Sector(SectorType.Core, SectorPosition, sn, 0);
+            Sector.sector = new Sector(SectorType.Core, SectorPosition, sn, 0, sphereMesh);
         }
         void GenerateGalaxy(int x, int y, int z, int startradius, int radius)// builds Sectors around the player
         {

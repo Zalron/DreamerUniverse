@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be70b6945006c4555b389bdccf49e0bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sphereMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  sphereMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   player: {fileID: 1697370928}
 --- !u!1 &170076733
 GameObject:

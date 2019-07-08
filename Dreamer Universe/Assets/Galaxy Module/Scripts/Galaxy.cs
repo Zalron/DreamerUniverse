@@ -14,9 +14,9 @@ namespace GalaxyGenerator
         public static int SectorSize = 1000;
         public static ConcurrentDictionary<string, Sector> sectors;
         public static List<string> toRemove = new List<string>(); // a list to remove the chunks that are not needed from the dictionary
-        public static int galaxyHeight = 120; // the height of the world
-        public static int galaxyLength = 1000; // the height of the world
-        public static int galaxyWidth = 1000; // the height of the world
+        public static int galaxyHeight = 120; // the height of the Galaxy
+        public static int galaxyLength = 1000; // the length of the Galaxy
+        public static int galaxyWidth = 1000; // the width of the Galaxy
         // Start is called before the first frame update
         void Start()
         {
@@ -50,6 +50,30 @@ namespace GalaxyGenerator
             GenerateSectorAt(x, y + 1, z);
             //builds chunk down
             GenerateSectorAt(x, y - 1, z);
+
+            GenerateSectorAt(x - 1, y, z - 1);
+            GenerateSectorAt(x - 1, y, z + 1);
+            GenerateSectorAt(x + 1, y, z + 1);
+            GenerateSectorAt(x + 1, y, z - 1);
+
+            GenerateSectorAt(x, y - 1, z + 1);
+            GenerateSectorAt(x, y - 1, z - 1);
+            GenerateSectorAt(x, y + 1, z + 1);
+            GenerateSectorAt(x, y + 1, z - 1);
+
+            GenerateSectorAt(x - 1, y - 1, z);
+            GenerateSectorAt(x - 1, y + 1, z);
+            GenerateSectorAt(x + 1, y + 1, z);
+            GenerateSectorAt(x + 1, y - 1, z);
+
+            GenerateSectorAt(x - 1, y - 1, z - 1);
+            GenerateSectorAt(x + 1, y - 1, z - 1);
+            GenerateSectorAt(x + 1, y + 1, z - 1);
+            GenerateSectorAt(x + 1, y + 1, z + 1);
+            GenerateSectorAt(x - 1, y - 1, z + 1);
+            GenerateSectorAt(x - 1, y + 1, z + 1);
+            GenerateSectorAt(x + 1, y - 1, z + 1);
+            GenerateSectorAt(x - 1, y + 1, z - 1);
         }
         //SectorType GenerateSectorType(Vector3 SectorPosition)
         //{

@@ -21,9 +21,12 @@ namespace GalaxyGenerator
         public int numSectorStars;
         public GameObject sectorGameObject;
         static public Sector sector;
-        public Sector(SectorType SectorType, Vector3 SectorPosition, string SectorName, int NumSectorStars, Mesh sectorSphereMesh)
+        public SectorCoord sectorCoord;
+
+        public Sector(SectorCoord SectorCoord, SectorType SectorType, Vector3 SectorPosition, string SectorName, int NumSectorStars, Mesh sectorSphereMesh)
         {
             sectorName = SectorName;
+            sectorCoord = SectorCoord;
             sectorType = SectorType;
             sectorPosition = SectorPosition; 
             numSectorStars = NumSectorStars;
@@ -72,6 +75,50 @@ namespace GalaxyGenerator
             new StarSystem(StarType.NONE, StarType.NONE, StarType.NONE, StarSystemType.COUNT, 0, StarPosition, ssn, sector, starSystemObject);
             starSystemObject.transform.SetParent(sectorGameObject.transform);
 
+        }
+    }
+    public class SectorCoord
+    {
+        public int x;
+        public int y;
+        public int z;
+
+        public SectorCoord()
+        {
+            x = 0;
+            y = 0;
+            z = 0;
+        }
+        public SectorCoord(int _x, int _y, int _z)
+        {
+            x = _x;
+            y = _y;
+            z = _z;
+        }
+        public SectorCoord(Vector3 pos)
+        {
+            int xCheck = Mathf.FloorToInt(pos.x);
+            int yCheck = Mathf.FloorToInt(pos.y);
+            int zCheck = Mathf.FloorToInt(pos.z);
+
+            x = xCheck / Galaxy.SectorSize;
+            y = yCheck / Galaxy.SectorSize;
+            z = zCheck / Galaxy.SectorSize;
+        }
+        public bool Equals(SectorCoord other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+            else if (other.x == x && other.y == y && other.z == z)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

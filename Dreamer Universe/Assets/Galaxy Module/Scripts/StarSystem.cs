@@ -13,7 +13,7 @@ namespace GalaxyGenerator
         TRINARY_STAR_SYSTEM,
         COUNT,
     }
-    public enum StarType 
+    public enum StarTypes 
     {   
         NONE,
         PULSAR,
@@ -32,15 +32,15 @@ namespace GalaxyGenerator
     public class StarSystem
     {
         public int numPlanets;
-        public StarType starType1;
-        public StarType starType2;
-        public StarType starType3;
+        public StarTypes starType1;
+        public StarTypes starType2;
+        public StarTypes starType3;
         public StarSystemType starSystemType;
         public Vector3 starPosition;
         public Sector sector;
         public GameObject starSystemsObject;
         public string starSystemName;
-        public StarSystem(StarType StarType1, StarType StarType2, StarType StarType3, StarSystemType StarSystemType, int NumPlanets, Vector3 StarPosition, string StarSystemName, Sector Sector, GameObject StarSystemObject) 
+        public StarSystem(StarTypes StarType1, StarTypes StarType2, StarTypes StarType3, StarSystemType StarSystemType, int NumPlanets, Vector3 StarPosition, string StarSystemName, Sector Sector, GameObject StarSystemObject) 
         {
             numPlanets = NumPlanets;
             starSystemType = StarSystemType;
@@ -62,23 +62,23 @@ namespace GalaxyGenerator
         {
             if (StarSystemType == StarSystemType.SINGULAR_STAR_SYSTEM || StarSystemType == StarSystemType.SINGULAR_VARIABLE_STAR_SYSTEM) 
             {
-                starType1 = (StarType)Random.Range(0, (int)StarType.COUNT);
-                starType2 = StarType.NONE;
-                starType3 = StarType.NONE;
+                starType1 = (StarTypes)Random.Range(0, (int)StarTypes.COUNT);
+                starType2 = StarTypes.NONE;
+                starType3 = StarTypes.NONE;
                 numPlanets = (int)Random.Range(0,9);
             }
             if (StarSystemType == StarSystemType.BINARY_STAR_SYSTEM || StarSystemType == StarSystemType.ECLIPSING_BINARY_STAR_SYSTEM || StarSystemType == StarSystemType.XRAY_BINARY_STAR_SYSTEM)
             {
-                starType1 = (StarType)Random.Range(0, (int)StarType.COUNT);
-                starType2 = (StarType)Random.Range(0, (int)StarType.COUNT);
-                starType3 = StarType.NONE;
+                starType1 = (StarTypes)Random.Range(0, (int)StarTypes.COUNT);
+                starType2 = (StarTypes)Random.Range(0, (int)StarTypes.COUNT);
+                starType3 = StarTypes.NONE;
                 numPlanets = (int)Random.Range(0, 9);
             }
             if (StarSystemType == StarSystemType.TRINARY_STAR_SYSTEM)
             {
-                starType1 = (StarType)Random.Range(0, (int)StarType.COUNT);
-                starType2 = (StarType)Random.Range(0, (int)StarType.COUNT);
-                starType3 = (StarType)Random.Range(0, (int)StarType.COUNT);
+                starType1 = (StarTypes)Random.Range(0, (int)StarTypes.COUNT);
+                starType2 = (StarTypes)Random.Range(0, (int)StarTypes.COUNT);
+                starType3 = (StarTypes)Random.Range(0, (int)StarTypes.COUNT);
                 numPlanets = (int)Random.Range(0, 9);
             }
         }

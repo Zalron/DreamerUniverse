@@ -16,19 +16,17 @@ namespace GalaxyGenerator
         public SectorType sectorType;
         public Galaxy galaxy;
         public string sectorName;
-        public Vector3 sectorPosition;
         public GameObject starSystemObject;
         public int numSectorStars;
         public GameObject sectorGameObject;
         static public Sector sector;
         public SectorCoord sectorCoord;
 
-        public Sector(SectorCoord SectorCoord, SectorType SectorType, Vector3 SectorPosition, string SectorName, int NumSectorStars, Mesh sectorSphereMesh)
+        public Sector(SectorCoord SectorCoord, SectorType SectorType, string SectorName, int NumSectorStars, Mesh sectorSphereMesh)
         {
             sectorName = SectorName;
             sectorCoord = SectorCoord;
             sectorType = SectorType;
-            sectorPosition = SectorPosition; 
             numSectorStars = NumSectorStars;
             sphereMesh = sectorSphereMesh;
             sectorGameObject = new GameObject(sectorName);
@@ -58,7 +56,7 @@ namespace GalaxyGenerator
             }
             for (int i = 0; i < numSectorStars; i++)
             {
-                Vector3 StarPosition = new Vector3(Random.Range(sectorPosition.x, Galaxy.SectorSize + sectorPosition.x + 1), Random.Range(sectorPosition.y, Galaxy.SectorSize + sectorPosition.y + 1), Random.Range(sectorPosition.z, Galaxy.SectorSize + sectorPosition.z + 1));
+                Vector3 StarPosition = new Vector3(Random.Range(sectorCoord.x, Galaxy.SectorSize + sectorCoord.x + 1), Random.Range(sectorCoord.y, Galaxy.SectorSize + sectorCoord.y + 1), Random.Range(sectorCoord.z, Galaxy.SectorSize + sectorCoord.z + 1));
                 float fStarSystemSize = Random.Range(1, 10);
                 Vector3 StarSystemSize = new Vector3(fStarSystemSize, fStarSystemSize, fStarSystemSize);
                 GenerateStarSystem(StarPosition, StarSystemSize, sectorName, sectorGameObject);
@@ -72,7 +70,7 @@ namespace GalaxyGenerator
             starSystemObject.AddComponent<MeshRenderer>();
             starSystemObject.transform.position = StarPosition;
             starSystemObject.transform.localScale = StarSystemSize;
-            new StarSystem(StarType.NONE, StarType.NONE, StarType.NONE, StarSystemType.COUNT, 0, StarPosition, ssn, sector, starSystemObject);
+            new StarSystem(StarTypes.NONE, StarTypes.NONE, StarTypes.NONE, StarSystemType.COUNT, 0, StarPosition, ssn, sector, starSystemObject);
             starSystemObject.transform.SetParent(sectorGameObject.transform);
 
         }

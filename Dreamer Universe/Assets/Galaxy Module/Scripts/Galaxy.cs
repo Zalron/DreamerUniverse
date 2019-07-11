@@ -6,7 +6,7 @@ namespace GalaxyGenerator
 {
     public class Galaxy : MonoBehaviour
     {
-
+        public StarType[] starTypeTable;
         //public Sector sector;
         public Mesh sphereMesh;
         public GameObject player;
@@ -32,7 +32,15 @@ namespace GalaxyGenerator
         {
             Vector3 SectorPosition = new Vector3(x * SectorSize, y * SectorSize, z * SectorSize);
             string sn = BuildSectorName(SectorPosition);
-            Sector.sector = new Sector(SectorType.Core, SectorPosition, sn, 0, sphereMesh);
+            SectorCoord sectorCoord = GetSectorCoordFromVector3(SectorPosition);
+            Sector.sector = new Sector(sectorCoord, SectorType.Core, sn, 0, sphereMesh);
+        }
+        SectorCoord GetSectorCoordFromVector3(Vector3 pos)
+        {
+            int x = Mathf.FloorToInt(pos.x / SectorSize);
+            int y = Mathf.FloorToInt(pos.y / SectorSize);
+            int z = Mathf.FloorToInt(pos.z / SectorSize);
+            return new SectorCoord(x, y, z);
         }
         void GenerateGalaxy(int x, int y, int z, int startradius, int radius)// builds Sectors around the player
         {

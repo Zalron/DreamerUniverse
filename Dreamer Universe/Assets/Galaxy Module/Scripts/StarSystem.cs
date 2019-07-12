@@ -6,10 +6,7 @@ namespace GalaxyGenerator
     public enum StarSystemType 
     {
         SINGULAR_STAR_SYSTEM,
-        SINGULAR_VARIABLE_STAR_SYSTEM,
         BINARY_STAR_SYSTEM,
-        XRAY_BINARY_STAR_SYSTEM,
-        ECLIPSING_BINARY_STAR_SYSTEM,
         TRINARY_STAR_SYSTEM,
         COUNT,
     }
@@ -60,14 +57,14 @@ namespace GalaxyGenerator
         }
         void GenerateStars(StarSystemType StarSystemType) 
         {
-            if (StarSystemType == StarSystemType.SINGULAR_STAR_SYSTEM || StarSystemType == StarSystemType.SINGULAR_VARIABLE_STAR_SYSTEM) 
+            if (StarSystemType == StarSystemType.SINGULAR_STAR_SYSTEM) 
             {
                 starType1 = (StarTypes)Random.Range(0, (int)StarTypes.COUNT);
                 starType2 = StarTypes.NONE;
                 starType3 = StarTypes.NONE;
                 numPlanets = (int)Random.Range(0,9);
             }
-            if (StarSystemType == StarSystemType.BINARY_STAR_SYSTEM || StarSystemType == StarSystemType.ECLIPSING_BINARY_STAR_SYSTEM || StarSystemType == StarSystemType.XRAY_BINARY_STAR_SYSTEM)
+            if (StarSystemType == StarSystemType.BINARY_STAR_SYSTEM)
             {
                 starType1 = (StarTypes)Random.Range(0, (int)StarTypes.COUNT);
                 starType2 = (StarTypes)Random.Range(0, (int)StarTypes.COUNT);

@@ -6,7 +6,8 @@ namespace GalaxyGenerator
 {
     public class Galaxy : MonoBehaviour
     {
-        public StarType[] starTypeTable;
+        public static StarType[] starTypeTable;
+        public static Planet[] planetTypeTable;
         //public Sector sector;
         public Mesh sphereMesh;
         public GameObject player;
@@ -44,36 +45,40 @@ namespace GalaxyGenerator
         }
         void GenerateGalaxy(int x, int y, int z, int startradius, int radius)// builds Sectors around the player
         {
-            //builds chunk center
+            //builds sector center
             GenerateSectorAt(x, y, z);
-            //builds chunk forward
+            //builds sector forward
             GenerateSectorAt(x, y, z + 1);
-            //builds chunk back
+            //builds sector back
             GenerateSectorAt(x, y, z - 1);
-            //builds chunk left
+            //builds sector left
             GenerateSectorAt(x - 1, y, z);
-            //builds chunk right
+            //builds sector right
             GenerateSectorAt(x + 1, y, z);
-            //builds chunk up
+            //builds sector up
             GenerateSectorAt(x, y + 1, z);
-            //builds chunk down
+            //builds sector down
             GenerateSectorAt(x, y - 1, z);
 
+            //builds sectors on the x and z planes
             GenerateSectorAt(x - 1, y, z - 1);
             GenerateSectorAt(x - 1, y, z + 1);
             GenerateSectorAt(x + 1, y, z + 1);
             GenerateSectorAt(x + 1, y, z - 1);
 
+            //builds sectors on the y and z planes
             GenerateSectorAt(x, y - 1, z + 1);
             GenerateSectorAt(x, y - 1, z - 1);
             GenerateSectorAt(x, y + 1, z + 1);
             GenerateSectorAt(x, y + 1, z - 1);
 
+            //builds sectors on the x and z planes
             GenerateSectorAt(x - 1, y - 1, z);
             GenerateSectorAt(x - 1, y + 1, z);
             GenerateSectorAt(x + 1, y + 1, z);
             GenerateSectorAt(x + 1, y - 1, z);
 
+            //builds edge sectors on the x y z planes
             GenerateSectorAt(x - 1, y - 1, z - 1);
             GenerateSectorAt(x + 1, y - 1, z - 1);
             GenerateSectorAt(x + 1, y + 1, z - 1);

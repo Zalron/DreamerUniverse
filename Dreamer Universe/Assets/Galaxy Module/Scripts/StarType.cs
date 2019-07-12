@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace GalaxyGenerator
 {
+    [CreateAssetMenu(fileName = "StarType", menuName = "Galaxy/StarType", order = 1)]
     public class StarType : ScriptableObject
     {
         public string starTypeString;

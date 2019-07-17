@@ -6,8 +6,8 @@ namespace GalaxyGenerator
 {
     public class Galaxy : MonoBehaviour
     {
-        public static StarType[] starTypeTable;
-        public static Planet[] planetTypeTable;
+        public StarType[] starTypeTable;
+        public Planet[] planetTypeTable;
         //public Sector sector;
         public Mesh sphereMesh;
         public GameObject player;
@@ -34,7 +34,7 @@ namespace GalaxyGenerator
             Vector3 SectorPosition = new Vector3(x * SectorSize, y * SectorSize, z * SectorSize);
             string sn = BuildSectorName(SectorPosition);
             SectorCoord sectorCoord = GetSectorCoordFromVector3(SectorPosition);
-            Sector.sector = new Sector(sectorCoord, SectorType.Core, sn, 0, sphereMesh);
+            Sector.sector = new Sector(sectorCoord, SectorType.Core, sn, 0, sphereMesh, this);
         }
         SectorCoord GetSectorCoordFromVector3(Vector3 pos)
         {

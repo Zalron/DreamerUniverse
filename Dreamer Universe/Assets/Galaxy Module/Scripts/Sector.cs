@@ -22,7 +22,7 @@ namespace GalaxyGenerator
         static public Sector sector;
         public SectorCoord sectorCoord;
 
-        public Sector(SectorCoord SectorCoord, SectorType SectorType, string SectorName, int NumSectorStars, Mesh sectorSphereMesh)
+        public Sector(SectorCoord SectorCoord, SectorType SectorType, string SectorName, int NumSectorStars, Mesh sectorSphereMesh, Galaxy Galaxy)
         {
             sectorName = SectorName;
             sectorCoord = SectorCoord;
@@ -30,6 +30,7 @@ namespace GalaxyGenerator
             numSectorStars = NumSectorStars;
             sphereMesh = sectorSphereMesh;
             sectorGameObject = new GameObject(sectorName);
+            galaxy = Galaxy;
             GenerateSector(SectorType);
         }
         public static string BuildStarSystemName(Vector3 v, string sectorName) // assigning a name to a Sector
@@ -70,7 +71,7 @@ namespace GalaxyGenerator
             starSystemObject.AddComponent<MeshRenderer>();
             starSystemObject.transform.position = StarPosition;
             starSystemObject.transform.localScale = StarSystemSize;
-            new StarSystem(StarTypes.NONE, StarTypes.NONE, StarTypes.NONE, StarSystemType.COUNT, 0, StarPosition, ssn, sector, starSystemObject);
+            new StarSystem(null, null, null, StarSystemType.COUNT, 0, StarPosition, ssn, sector, starSystemObject, galaxy);
             starSystemObject.transform.SetParent(sectorGameObject.transform);
 
         }

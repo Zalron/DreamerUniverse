@@ -8,9 +8,12 @@ namespace GalaxyGenerator
     {
         public string starTypeString;
         public Material starColour;
-        public int temperature;
-        public int size;
+        public int temperatureK;
+        public int radiusMetric_m;
         public int luminosity;
-        public int mass;
+        public int absoluteMagnitude;
+        public int massMetric_m;
+        public int habitableZone;
+        public float abundance;
     }
 }

@@ -176,6 +176,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be70b6945006c4555b389bdccf49e0bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  starTypeTable:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  planetTypeTable: []
   sphereMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   player: {fileID: 1697370928}
 --- !u!1 &170076733
@@ -397,3 +406,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flySpeed: 3
+  maxFlySpeed: 300
+  minFlySpeed: 1

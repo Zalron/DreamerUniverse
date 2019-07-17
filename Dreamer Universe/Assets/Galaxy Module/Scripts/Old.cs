@@ -4,6 +4,22 @@ using UnityEngine;
 
 public class Old
 {
+    //public enum StarTypes
+    //{
+    //    NONE,
+    //    PULSAR,
+    //    NEUTRON_STAR,
+    //    WHITE_DWARF,
+    //    BROWN_DWARF,
+    //    YELLOW_DWARF,
+    //    YELLOW,
+    //    BLUE,
+    //    WHITE,
+    //    BLUE_GIANT,
+    //    RED_GIANT,
+    //    SUPER_RED_GIANT,
+    //    COUNT,
+    //}
     //public void CreateSphere()
     //{
     //Find radius using simple length equation (distance between center and northPoint)
@@ -182,7 +198,7 @@ public class Old
     //    mesh.vertices = vertices;
     //    mesh.triangles = triangles;
     //    mesh.RecalculateNormals();
-        //CombineSphereInstances();
+    //CombineSphereInstances();
     //}
     //public void CombineSphereInstances()
     //{

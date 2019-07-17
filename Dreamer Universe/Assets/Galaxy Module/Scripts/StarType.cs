@@ -11,7 +11,7 @@ namespace GalaxyGenerator
         public int temperatureK;
         public int radiusMetric_m;
         public int luminosity;
-        public int absoluteMagnitude;
+        public float absoluteMagnitude;
         public int massMetric_m;
         public int habitableZone;
         public float abundance;

@@ -177,13 +177,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starTypeTable:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 4b7387adb0994e740acc2c226117125c, type: 2}
+  - {fileID: 11400000, guid: de453c3904153254d9bccb26fb8caf7b, type: 2}
+  - {fileID: 11400000, guid: 42490170a79870045a6fe05a95d42ae7, type: 2}
+  - {fileID: 11400000, guid: 4ac09f6b2bb31fe41948433216bdfc85, type: 2}
+  - {fileID: 11400000, guid: 3b7eaa1b163c16141a796c69e2e683ec, type: 2}
+  - {fileID: 11400000, guid: 70c0224125ee86a408d999ff1abfc57b, type: 2}
+  - {fileID: 11400000, guid: 5583ef43565335242b03f244a9a8d650, type: 2}
   planetTypeTable: []
   sphereMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   player: {fileID: 1697370928}
@@ -203,7 +203,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &170076734
 Light:
   m_ObjectHideFlags: 0
@@ -328,7 +328,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 5000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -405,6 +405,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a503f1c1783de5428bc9d519bd6b79e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flySpeed: 3
+  flySpeed: 150
   maxFlySpeed: 300
   minFlySpeed: 1

@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3d693467e6399f943bb990bfe8df36ac, type: 3}
-  m_Name: White
+  m_Name: LightYellow
   m_EditorClassIdentifier: 
-  starTypeString: A5V
-  starColour: {fileID: 2100000, guid: 2e59cd32d95fd5340af972d466bb5a1f, type: 2}
-  temperatureK: 45000
+  starTypeString: D5V
+  starColour: {fileID: 2100000, guid: 52c39a6ed74bbe74cbfc87497570d712, type: 2}
+  temperatureK: 6400
   radiusMetric_m: 0
-  luminosity: 790000
-  absoluteMagnitude: -6.7
+  luminosity: 6
+  absoluteMagnitude: 0
   massMetric_m: 0
   habitableZone: 0
   abundance: 0

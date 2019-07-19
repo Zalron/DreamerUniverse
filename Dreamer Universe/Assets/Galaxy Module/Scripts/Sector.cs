@@ -21,11 +21,13 @@ namespace GalaxyGenerator
         public GameObject sectorGameObject;
         static public Sector sector;
         public SectorCoord sectorCoord;
+        public SectorCoord trueSectorCoord;
 
-        public Sector(SectorCoord SectorCoord, SectorType SectorType, string SectorName, int NumSectorStars, Mesh sectorSphereMesh, Galaxy Galaxy)
+        public Sector(SectorCoord SectorCoord, SectorCoord TrueSectorCoord, SectorType SectorType, string SectorName, int NumSectorStars, Mesh sectorSphereMesh, Galaxy Galaxy)
         {
             sectorName = SectorName;
             sectorCoord = SectorCoord;
+            trueSectorCoord = TrueSectorCoord;
             sectorType = SectorType;
             numSectorStars = NumSectorStars;
             sphereMesh = sectorSphereMesh;
@@ -35,7 +37,7 @@ namespace GalaxyGenerator
         }
         public static string BuildStarSystemName(Vector3 v, string sectorName) // assigning a name to a Sector
         {
-            return (int)v.x + "_" + (int)v.y + "_" + (int)v.z + "_Sector: " + sectorName;
+            return (int)v.x + "_" + (int)v.y + "_" + (int)v.z + "_: " + sectorName;
         }
         public void GenerateSector(SectorType sectorType)
         {
@@ -57,7 +59,7 @@ namespace GalaxyGenerator
             }
             for (int i = 0; i < numSectorStars; i++)
             {
-                Vector3 StarPosition = new Vector3(Random.Range(sectorCoord.x, Galaxy.SectorSize + sectorCoord.x + 1), Random.Range(sectorCoord.y, Galaxy.SectorSize + sectorCoord.y + 1), Random.Range(sectorCoord.z, Galaxy.SectorSize + sectorCoord.z + 1));
+                Vector3 StarPosition = new Vector3(Random.Range(trueSectorCoord.x, Galaxy.SectorSize + trueSectorCoord.x + 1), Random.Range(trueSectorCoord.y, Galaxy.SectorSize + trueSectorCoord.y + 1), Random.Range(trueSectorCoord.z, Galaxy.SectorSize + trueSectorCoord.z + 1));
                 float fStarSystemSize = Random.Range(1, 10);
                 Vector3 StarSystemSize = new Vector3(fStarSystemSize, fStarSystemSize, fStarSystemSize);
                 GenerateStarSystem(StarPosition, StarSystemSize, sectorName, sectorGameObject);
@@ -71,9 +73,8 @@ namespace GalaxyGenerator
             starSystemObject.AddComponent<MeshRenderer>();
             starSystemObject.transform.position = StarPosition;
             starSystemObject.transform.localScale = StarSystemSize;
-            new StarSystem(null, null, null, StarSystemType.COUNT, 0, StarPosition, ssn, sector, starSystemObject, galaxy);
             starSystemObject.transform.SetParent(sectorGameObject.transform);
-
+            new StarSystem(null, null, null, StarSystemType.COUNT, 0, StarPosition, ssn, sector, starSystemObject, galaxy);
         }
     }
     public class SectorCoord

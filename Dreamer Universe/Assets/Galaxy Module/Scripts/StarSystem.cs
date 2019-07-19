@@ -22,24 +22,25 @@ namespace GalaxyGenerator
         public Sector sector;
         public GameObject starSystemsObject;
         public string starSystemName;
-        public StarSystem(StarType StarType1, StarType StarType2, StarType StarType3, StarSystemType StarSystemType, int NumPlanets, Vector3 StarPosition, string StarSystemName, Sector Sector, GameObject StarSystemObject, Galaxy Galaxy) 
+        public StarSystem(StarType StarType1, StarType StarType2, StarType StarType3, StarSystemType StarSystemType, int NumPlanets, Vector3 StarPosition, string StarSystemName, Sector Sector, GameObject StarSystemsObject, Galaxy Galaxy) 
         {
             galaxy = Galaxy;
             numPlanets = NumPlanets;
-            starSystemType = StarSystemType;
             starType1 = StarType1;
             starType2 = StarType2;
             starType3 = StarType3;
             starPosition = StarPosition;
             starSystemName = StarSystemName;
             sector = Sector;
-            starSystemsObject = StarSystemObject;
+            starSystemType = StarSystemType;
             GenerateStarSystemType();
-            GenerateStars(StarSystemType);
+            starSystemsObject = StarSystemsObject;
+            GenerateStars(starSystemType);
+            starSystemsObject.GetComponent<MeshRenderer>().material = starType1.starColour;
         }
         void GenerateStarSystemType() 
         {
-            starSystemType = (StarSystemType)Random.Range(0, (int)StarSystemType.COUNT); 
+            starSystemType = (StarSystemType)Random.Range(0, (int)StarSystemType.COUNT);
         }
         void GenerateStars(StarSystemType StarSystemType) 
         {
@@ -49,7 +50,7 @@ namespace GalaxyGenerator
                 starType1 = galaxy.starTypeTable[starType1Int];
                 starType2 = null;
                 starType3 = null;
-                numPlanets = (int)Random.Range(0,9);
+                numPlanets = (int)Random.Range(0, 9);
             }
             if (StarSystemType == StarSystemType.BINARY_STAR_SYSTEM)
             {

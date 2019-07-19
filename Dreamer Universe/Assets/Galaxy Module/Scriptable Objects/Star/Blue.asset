@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d693467e6399f943bb990bfe8df36ac, type: 3}
+  m_Name: Blue
+  m_EditorClassIdentifier: 
+  starTypeString: A5V
+  starColour: {fileID: 2100000, guid: 2e59cd32d95fd5340af972d466bb5a1f, type: 2}
+  temperatureK: 45000
+  radiusMetric_m: 0
+  luminosity: 790000
+  absoluteMagnitude: -6.7
+  massMetric_m: 0
+  habitableZone: 0
+  abundance: 0

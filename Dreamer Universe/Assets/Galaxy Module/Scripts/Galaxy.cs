@@ -25,16 +25,24 @@ namespace GalaxyGenerator
             //sphereMesh = starSystemsObjectMaster.GetComponent<MeshFilter>().mesh;
             //Destroy(starSystemsObjectMaster);
         }
-        public static string BuildSectorName(Vector3 v) // assigning a name to a Sector
+        public static string BuildSectorName(SectorCoord v) // assigning a name to a Sector
         {
             return "Sector : " + (int)v.x + "_" + (int)v.y + "_" + (int)v.z;
         }
         void GenerateSectorAt(int x, int y, int z)// builds Sectors
         {
             Vector3 SectorPosition = new Vector3(x * SectorSize, y * SectorSize, z * SectorSize);
-            string sn = BuildSectorName(SectorPosition);
+            SectorCoord rawSectorCoord = GetRawSectorCoordFromVector3(SectorPosition);
             SectorCoord sectorCoord = GetSectorCoordFromVector3(SectorPosition);
-            Sector.sector = new Sector(sectorCoord, SectorType.Core, sn, 0, sphereMesh, this);
+            string sn = BuildSectorName(sectorCoord);
+            Sector.sector = new Sector(sectorCoord, rawSectorCoord, SectorType.Core, sn, 0, sphereMesh, this);
+        }
+        SectorCoord GetRawSectorCoordFromVector3(Vector3 pos)
+        {
+            int x = (int)pos.x;
+            int y = (int)pos.y;
+            int z = (int)pos.z;
+            return new SectorCoord(x, y, z);
         }
         SectorCoord GetSectorCoordFromVector3(Vector3 pos)
         {

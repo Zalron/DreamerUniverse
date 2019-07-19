@@ -15,9 +15,9 @@ MonoBehaviour:
   starTypeString: E2V
   starColour: {fileID: 2100000, guid: f644eec886ad2ea4bb62273f8259471e, type: 2}
   temperatureK: 5800
-  radiusMetric_m: 0
+  radiusMetric_m: 696
   luminosity: 0
   absoluteMagnitude: 0
-  massMetric_m: 0
+  massMetric_m: 198850
   habitableZone: 0
   abundance: 0

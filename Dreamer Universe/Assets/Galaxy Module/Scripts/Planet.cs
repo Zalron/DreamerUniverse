@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 namespace GalaxyGenerator
 {
     [CreateAssetMenu(fileName = "Planet", menuName = "Galaxy/Planet", order = 1)]
@@ -15,8 +16,10 @@ namespace GalaxyGenerator
         public int planetRotationSpeed;
         public bool plaetHasWater;
         public bool planetHasAstroidBelt;
+        [EnableIf("planetHasAstroidBelt")]
         public int planetAstroidBeltSize;
         public bool planetHasSatellite;
+        [EnableIf("planetHasSatellite")]
         public int planetSatelliteNumber;
     }
 }

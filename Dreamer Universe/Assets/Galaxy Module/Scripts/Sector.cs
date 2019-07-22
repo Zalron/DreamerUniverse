@@ -22,18 +22,32 @@ namespace GalaxyGenerator
         static public Sector sector;
         public SectorCoord sectorCoord;
         public SectorCoord trueSectorCoord;
+        private bool _isActive;
+        public bool threadLocked = false;
 
-        public Sector(SectorCoord SectorCoord, SectorCoord TrueSectorCoord, SectorType SectorType, string SectorName, int NumSectorStars, Mesh sectorSphereMesh, Galaxy Galaxy)
+        public Sector(bool generateOnLoad, SectorCoord SectorCoord, SectorCoord TrueSectorCoord, Mesh sectorSphereMesh, Galaxy Galaxy)
         {
-            sectorName = SectorName;
+            galaxy = Galaxy;
             sectorCoord = SectorCoord;
             trueSectorCoord = TrueSectorCoord;
-            sectorType = SectorType;
-            numSectorStars = NumSectorStars;
             sphereMesh = sectorSphereMesh;
+            _isActive = true;
+            if (generateOnLoad)
+            {
+                Init();
+            }
+        }
+        public static string BuildSectorName(SectorCoord v) // assigning a name to a Sector
+        {
+            return "Sector : " + (int)v.x + "_" + (int)v.y + "_" + (int)v.z;
+        }
+        public void Init()
+        {
+            string sn = BuildSectorName(sectorCoord);
+            sectorName = sn;
             sectorGameObject = new GameObject(sectorName);
-            galaxy = Galaxy;
-            GenerateSector(SectorType);
+            sectorType = SectorType.Core;
+            GenerateSector(sectorType);
         }
         public static string BuildStarSystemName(Vector3 v, string sectorName) // assigning a name to a Sector
         {

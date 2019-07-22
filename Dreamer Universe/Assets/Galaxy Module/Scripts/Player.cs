@@ -39,11 +39,11 @@ public class Player : MonoBehaviour
         mouseWheel = Input.GetAxis("Mouse ScrollWheel");
         if (mouseWheel < 0f)
         {
-            flySpeed--;
+            flySpeed -= mouseWheel;
         }
         else if (mouseWheel > 0f)
         {
-            flySpeed++;
+            flySpeed += mouseWheel;
         }
     }
 }

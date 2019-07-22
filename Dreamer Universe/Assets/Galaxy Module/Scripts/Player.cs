@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     private float mouseHorizontal;
     private float mouseVertical;
     private float mouseWheel;
+    public float mouseScrollSpeed;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,11 +40,11 @@ public class Player : MonoBehaviour
         mouseWheel = Input.GetAxis("Mouse ScrollWheel");
         if (mouseWheel < 0f)
         {
-            flySpeed -= mouseWheel;
+            flySpeed -= mouseWheel * mouseScrollSpeed;
         }
         else if (mouseWheel > 0f)
         {
-            flySpeed += mouseWheel;
+            flySpeed += mouseWheel * mouseScrollSpeed;
         }
     }
 }

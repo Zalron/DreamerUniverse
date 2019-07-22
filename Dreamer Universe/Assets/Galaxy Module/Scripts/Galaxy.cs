@@ -8,38 +8,89 @@ namespace GalaxyGenerator
     {
         public StarType[] starTypeTable;
         public Planet[] planetTypeTable;
-        //public Sector sector;
+
         public Mesh sphereMesh;
         public GameObject player;
-        //public GameObject starSystemsObjectMaster;
+
+        List<Sector> galaxySectors;
+        public SectorCoord playerSectorCoord;
+        SectorCoord playerLastSectorCoord;
+
+        public Vector3 playerSectorCoordVector;
+
         public static int SectorSize = 1000;
-        public static ConcurrentDictionary<string, Sector> sectors;
-        public static List<string> toRemove = new List<string>(); // a list to remove the chunks that are not needed from the dictionary
+
         public static int galaxyHeight = 120; // the height of the Galaxy
         public static int galaxyLength = 1000; // the length of the Galaxy
         public static int galaxyWidth = 1000; // the width of the Galaxy
+
+        List<SectorCoord> sectorsToCreate = new List<SectorCoord>();
+        List<Sector> sectorsToUpdate = new List<Sector>();
+        public Queue<Sector> sectorsToDraw = new Queue<Sector>();
+
         // Start is called before the first frame update
         void Start()
         {
             GenerateGalaxy((int)(player.transform.position.x / SectorSize), (int)(player.transform.position.y / SectorSize), (int)(player.transform.position.z / SectorSize), 1);
-            //sphereMesh = starSystemsObjectMaster.GetComponent<MeshFilter>().mesh;
-            //Destroy(starSystemsObjectMaster);
+            playerLastSectorCoord = GetSectorCoordFromVector3(player.transform.position);
         }
         void Update()
         {
+            playerSectorCoord = GetSectorCoordFromVector3(player.transform.position);
+            playerSectorCoordVector = playerSectorCoord;
+            if (!playerSectorCoord.Equals(playerLastSectorCoord))
+            {
 
+            }
         }
-        public static string BuildSectorName(SectorCoord v) // assigning a name to a Sector
+        void GenerateGalaxy(int x, int y, int z, int startradius)// builds Sectors around the player
         {
-            return "Sector : " + (int)v.x + "_" + (int)v.y + "_" + (int)v.z;
+            //builds sector center
+            GenerateSectorAt(x, y, z, true);
+            //builds sector forward
+            GenerateSectorAt(x, y, z + startradius, true);
+            //builds sector back
+            GenerateSectorAt(x, y, z - startradius, true);
+            //builds sector left
+            GenerateSectorAt(x - startradius, y, z, true);
+            //builds sector right
+            GenerateSectorAt(x + startradius, y, z, true);
+            //builds sector up
+            GenerateSectorAt(x, y + startradius, z, true);
+            //builds sector down
+            GenerateSectorAt(x, y - startradius, z, true);
+
+            //builds sectors on the x and z planes
+            GenerateSectorAt(x - startradius, y, z - startradius, true);
+            GenerateSectorAt(x - startradius, y, z + startradius, true);
+            GenerateSectorAt(x + startradius, y, z + startradius, true);
+            GenerateSectorAt(x + startradius, y, z - startradius, true);
+
+            //builds sectors on the y and z planes
+            GenerateSectorAt(x, y - startradius, z + startradius, true);
+            GenerateSectorAt(x, y - startradius, z - startradius, true);
+            GenerateSectorAt(x, y + startradius, z + startradius, true);
+            GenerateSectorAt(x, y + startradius, z - startradius, true);
+
+            //builds sectors on the x and z planes
+            GenerateSectorAt(x - startradius, y - startradius, z, true);
+            GenerateSectorAt(x - startradius, y + startradius, z, true);
+            GenerateSectorAt(x + startradius, y + startradius, z, true);
+            GenerateSectorAt(x + startradius, y - startradius, z, true);
+
+            //builds edge sectors on the x y z planes
+            GenerateSectorAt(x - startradius, y - startradius, z - startradius, true);
+            GenerateSectorAt(x + startradius, y - startradius, z - startradius, true);
+            GenerateSectorAt(x + startradius, y + startradius, z - startradius, true);
+            GenerateSectorAt(x + startradius, y + startradius, z + startradius, true);
+            GenerateSectorAt(x - startradius, y - startradius, z + startradius, true);
+            GenerateSectorAt(x - startradius, y + startradius, z + startradius, true);
+            GenerateSectorAt(x + startradius, y - startradius, z + startradius, true);
+            GenerateSectorAt(x - startradius, y + startradius, z - startradius, true);
         }
-        void GenerateSectorAt(int x, int y, int z)// builds Sectors
+        void CheckViewDistance()
         {
-            Vector3 SectorPosition = new Vector3(x * SectorSize, y * SectorSize, z * SectorSize);
-            SectorCoord rawSectorCoord = GetRawSectorCoordFromVector3(SectorPosition);
-            SectorCoord sectorCoord = GetSectorCoordFromVector3(SectorPosition);
-            string sn = BuildSectorName(sectorCoord);
-            Sector.sector = new Sector(true, sectorCoord, rawSectorCoord, SectorType.Core, sn, 0, sphereMesh, this);
+
         }
         SectorCoord GetRawSectorCoordFromVector3(Vector3 pos)
         {
@@ -55,50 +106,38 @@ namespace GalaxyGenerator
             int z = Mathf.FloorToInt(pos.z / SectorSize);
             return new SectorCoord(x, y, z);
         }
-        void GenerateGalaxy(int x, int y, int z, int startradius)// builds Sectors around the player
+        public Vector3 GetSectorVectorFromSectorCoord(SectorCoord sectorCoord)
         {
-            //builds sector center
-            GenerateSectorAt(x, y, z);
-            //builds sector forward
-            GenerateSectorAt(x, y, z + startradius);
-            //builds sector back
-            GenerateSectorAt(x, y, z - startradius);
-            //builds sector left
-            GenerateSectorAt(x - startradius, y, z);
-            //builds sector right
-            GenerateSectorAt(x + startradius, y, z);
-            //builds sector up
-            GenerateSectorAt(x, y + startradius, z);
-            //builds sector down
-            GenerateSectorAt(x, y - startradius, z);
 
-            //builds sectors on the x and z planes
-            GenerateSectorAt(x - startradius, y, z - startradius);
-            GenerateSectorAt(x - startradius, y, z + startradius);
-            GenerateSectorAt(x + startradius, y, z + startradius);
-            GenerateSectorAt(x + startradius, y, z - startradius);
-
-            //builds sectors on the y and z planes
-            GenerateSectorAt(x, y - startradius, z + startradius);
-            GenerateSectorAt(x, y - startradius, z - startradius);
-            GenerateSectorAt(x, y + startradius, z + startradius);
-            GenerateSectorAt(x, y + startradius, z - startradius);
-
-            //builds sectors on the x and z planes
-            GenerateSectorAt(x - startradius, y - startradius, z);
-            GenerateSectorAt(x - startradius, y + startradius, z);
-            GenerateSectorAt(x + startradius, y + startradius, z);
-            GenerateSectorAt(x + startradius, y - startradius, z);
-
-            //builds edge sectors on the x y z planes
-            GenerateSectorAt(x - startradius, y - startradius, z - startradius);
-            GenerateSectorAt(x + startradius, y - startradius, z - startradius);
-            GenerateSectorAt(x + startradius, y + startradius, z - startradius);
-            GenerateSectorAt(x + startradius, y + startradius, z + startradius);
-            GenerateSectorAt(x - startradius, y - startradius, z + startradius);
-            GenerateSectorAt(x - startradius, y + startradius, z + startradius);
-            GenerateSectorAt(x + startradius, y - startradius, z + startradius);
-            GenerateSectorAt(x - startradius, y + startradius, z - startradius);
+        }
+        void GenerateSectorAt(int x, int y, int z, bool isGeneratedAtStarttime)// builds Sectors
+        {
+            Vector3 SectorPosition = new Vector3(x * SectorSize, y * SectorSize, z * SectorSize);
+            SectorCoord rawSectorCoord = GetRawSectorCoordFromVector3(SectorPosition);
+            SectorCoord sectorCoord = GetSectorCoordFromVector3(SectorPosition);
+            new Sector(isGeneratedAtStarttime, sectorCoord, rawSectorCoord, sphereMesh, this);
+        }
+        bool IsSectorInGalaxy(SectorCoord coord)
+        {
+            if (coord.x > 0 && coord.x < galaxyLength - 1 && coord.y > 0 && coord.y < galaxyHeight - 1 && coord.z > 0 && coord.z < galaxyWidth - 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        bool IsStarSystemInWorld(Vector3 pos)
+        {
+            if (pos.x >= 0 && pos.x < galaxyLength && pos.y >= 0 && pos.y < galaxyHeight && pos.z >= 0 && pos.z < galaxyWidth)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

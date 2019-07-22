@@ -44,7 +44,6 @@ namespace WorldGenerator
         }
         public void Start()
         {
-            
             seed = Random.Range(1, 9999999);
             Random.InitState(seed);
             spawnPosition = new Vector3((WorldSizeInChunks * Chunk.chunkSize) / 2f, biome.solidGroundHeight + 20, (WorldSizeInChunks * Chunk.chunkSize) / 2f);
@@ -58,10 +57,10 @@ namespace WorldGenerator
             {
                 CheckViewDistance();
             }
-            //if (!applyingModifications)
-            //{
-            //    ApplyModifications();
-            //}
+            if (!applyingModifications)
+            {
+                ApplyModifications();
+            }
             if (chunksToCreate.Count > 0)
             {
                 CreateChunk();

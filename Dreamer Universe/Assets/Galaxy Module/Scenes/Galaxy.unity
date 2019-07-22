@@ -184,7 +184,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3b7eaa1b163c16141a796c69e2e683ec, type: 2}
   - {fileID: 11400000, guid: 70c0224125ee86a408d999ff1abfc57b, type: 2}
   - {fileID: 11400000, guid: 5583ef43565335242b03f244a9a8d650, type: 2}
-  planetTypeTable: []
+  planetTypeTable:
+  - {fileID: 11400000, guid: bfa9ab14decdec2419f2ac7c8abb16d5, type: 2}
   sphereMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   player: {fileID: 1697370928}
 --- !u!1 &170076733

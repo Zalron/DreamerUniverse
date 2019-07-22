@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e11c7cd08d6684f6b98a9d7a0ea6cb6e, type: 3}
   m_Name: SuperEarth
   m_EditorClassIdentifier: 
-  planetString: 
+  planetString: SuperEarth
   planetMass: 0
   planetTemperature: 0
   planetRadius: 0

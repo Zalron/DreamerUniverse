@@ -25,29 +25,23 @@ namespace GalaxyGenerator
         private bool _isActive;
         public bool threadLocked = false;
 
-        public Sector(bool generateOnLoad, SectorCoord SectorCoord, SectorCoord TrueSectorCoord, Mesh sectorSphereMesh, Galaxy Galaxy)
+        public Sector(SectorCoord SectorCoord, SectorCoord TrueSectorCoord, Mesh sectorSphereMesh, Galaxy Galaxy)
         {
             galaxy = Galaxy;
             sectorCoord = SectorCoord;
             trueSectorCoord = TrueSectorCoord;
             sphereMesh = sectorSphereMesh;
+            string sn = BuildSectorName(sectorCoord);
+            sectorName = sn;
             _isActive = true;
-            if (generateOnLoad)
-            {
-                Init();
-            }
+            sectorGameObject = new GameObject(sectorName);
+            sectorGameObject.transform.SetParent(galaxy.transform);
+            sectorType = SectorType.Core;
+            GenerateSector(sectorType);
         }
         public static string BuildSectorName(SectorCoord v) // assigning a name to a Sector
         {
             return "Sector : " + (int)v.x + "_" + (int)v.y + "_" + (int)v.z;
-        }
-        public void Init()
-        {
-            string sn = BuildSectorName(sectorCoord);
-            sectorName = sn;
-            sectorGameObject = new GameObject(sectorName);
-            sectorType = SectorType.Core;
-            GenerateSector(sectorType);
         }
         public static string BuildStarSystemName(Vector3 v, string sectorName) // assigning a name to a Sector
         {
@@ -57,7 +51,7 @@ namespace GalaxyGenerator
         {
             if (sectorType == SectorType.Core)
             {
-                numSectorStars = Random.Range(500, 800 + 1);
+                numSectorStars = Random.Range(1000, 1200 + 1);
             }
             else if (sectorType == SectorType.Middle)
             {
@@ -89,6 +83,19 @@ namespace GalaxyGenerator
             starSystemObject.transform.localScale = StarSystemSize;
             starSystemObject.transform.SetParent(sectorGameObject.transform);
             new StarSystem(null, null, null, StarSystemType.COUNT, 0, StarPosition, ssn, sector, starSystemObject, galaxy);
+        }
+        public bool IsActive
+        {
+            get { return _isActive; }
+            set
+            {
+                _isActive = value;
+                if (sectorGameObject != null)
+                {
+                    _isActive = true;
+                    
+                }
+            }
         }
     }
     public class SectorCoord

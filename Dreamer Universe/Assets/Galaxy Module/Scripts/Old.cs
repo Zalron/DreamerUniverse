@@ -204,4 +204,47 @@ public class Old
     //{
     //    mesh.CombineMeshes(mesh);
     //}
+    //manual sector creation
+    ////builds sector center
+    //GenerateSectorAt(x, y, z, true);
+    ////builds sector forward
+    //GenerateSectorAt(x, y, z + startradius, true);
+    ////builds sector back
+    //GenerateSectorAt(x, y, z - startradius, true);
+    ////builds sector left
+    //GenerateSectorAt(x - startradius, y, z, true);
+    ////builds sector right
+    //GenerateSectorAt(x + startradius, y, z, true);
+    ////builds sector up
+    //GenerateSectorAt(x, y + startradius, z, true);
+    ////builds sector down
+    //GenerateSectorAt(x, y - startradius, z, true);
+
+    ////builds sectors on the x and z planes
+    //GenerateSectorAt(x - startradius, y, z - startradius, true);
+    //GenerateSectorAt(x - startradius, y, z + startradius, true);
+    //GenerateSectorAt(x + startradius, y, z + startradius, true);
+    //GenerateSectorAt(x + startradius, y, z - startradius, true);
+
+    ////builds sectors on the y and z planes
+    //GenerateSectorAt(x, y - startradius, z + startradius, true);
+    //GenerateSectorAt(x, y - startradius, z - startradius, true);
+    //GenerateSectorAt(x, y + startradius, z + startradius, true);
+    //GenerateSectorAt(x, y + startradius, z - startradius, true);
+
+    ////builds sectors on the x and z planes
+    //GenerateSectorAt(x - startradius, y - startradius, z, true);
+    //GenerateSectorAt(x - startradius, y + startradius, z, true);
+    //GenerateSectorAt(x + startradius, y + startradius, z, true);
+    //GenerateSectorAt(x + startradius, y - startradius, z, true);
+
+    ////builds edge sectors on the x y z planes
+    //GenerateSectorAt(x - startradius, y - startradius, z - startradius, true);
+    //GenerateSectorAt(x + startradius, y - startradius, z - startradius, true);
+    //GenerateSectorAt(x + startradius, y + startradius, z - startradius, true);
+    //GenerateSectorAt(x + startradius, y + startradius, z + startradius, true);
+    //GenerateSectorAt(x - startradius, y - startradius, z + startradius, true);
+    //GenerateSectorAt(x - startradius, y + startradius, z + startradius, true);
+    //GenerateSectorAt(x + startradius, y - startradius, z + startradius, true);
+    //GenerateSectorAt(x - startradius, y + startradius, z - startradius, true);
 }

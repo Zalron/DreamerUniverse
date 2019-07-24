@@ -25,6 +25,7 @@ namespace GalaxyGenerator
         public static int galaxyWidth = 1000; // the width of the Galaxy
 
         List<Sector> createdSectors = new List<Sector>();
+        List<SectorCoord> createdSectorCoords = new List<SectorCoord>();
         List<Sector> activeSectors = new List<Sector>();
         List<Sector> sectorsToCreate = new List<Sector>();
         List<Sector> sectorsToUpdate = new List<Sector>();
@@ -79,6 +80,10 @@ namespace GalaxyGenerator
                         {
                             GenerateSectorAt(x, y, z);
                         }
+                        if (IsSectorCreatedBefore(new SectorCoord(x, y, z)))
+                        {
+
+                        }
                         for (int i = 0; i < previouslyActiveSector.Count; i++)
                         {
                             if (previouslyActiveSector[i].Equals(new SectorCoord(x,y,z)))
@@ -112,11 +117,12 @@ namespace GalaxyGenerator
         public Vector3 GetSectorVectorFromSectorCoord(SectorCoord sectorCoord)
         {
             Vector3 sectorCoordVector3convert;
-            sectorCoordVector3convert.x = sectorCoord.x;
-            sectorCoordVector3convert.y = sectorCoord.y;
-            sectorCoordVector3convert.z = sectorCoord.z;
+            sectorCoordVector3convert.x = sectorCoord.x / SectorSize;
+            sectorCoordVector3convert.y = sectorCoord.y / SectorSize;
+            sectorCoordVector3convert.z = sectorCoord.z / SectorSize;
             return sectorCoordVector3convert;
         }
+        //void  
         void GenerateSectorAt(int x, int y, int z)// builds Sectors
         {
             Vector3 SectorPosition = new Vector3(x * SectorSize, y * SectorSize, z * SectorSize);
@@ -125,10 +131,24 @@ namespace GalaxyGenerator
             Sector i = new Sector(sectorCoord, rawSectorCoord, sphereMesh, this);
             createdSectors.Add(i);
             activeSectors.Add(i);
+            createdSectorCoords.Add(sectorCoord);
+        }
+        bool IsSectorCreatedBefore(SectorCoord coord)
+        {
+            if (createdSectorCoords.Contains(coord))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         bool IsSectorInGalaxy(SectorCoord coord)
         {
-            if (coord.x > -galaxyLength * SectorSize + 1 && coord.x < galaxyLength * SectorSize - 1 && coord.y > -galaxyHeight * SectorSize + 1 && coord.y < galaxyHeight * SectorSize - 1 && coord.z > -galaxyLength * SectorSize + 1 && coord.z < galaxyWidth * SectorSize - 1)
+            if (coord.x >= -galaxyLength + 1 && coord.x <= galaxyLength - 1 
+                && coord.y >= -galaxyHeight + 1 && coord.y <= galaxyHeight - 1 
+                && coord.z >= -galaxyLength + 1 && coord.z <= galaxyWidth - 1)
             {
                 return true;
             }

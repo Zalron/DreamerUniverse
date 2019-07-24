@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: GrassLand
   m_EditorClassIdentifier: 
   biomeName: GrassLand
-  solidGroundHeight: 500
-  terrainHeightFromSoild: 510
+  solidGroundHeight: 100
+  terrainHeightFromSoild: 110
   terrainOffset: 60
   terrainOctaves: 4
   terrainSmooth: 0.008
@@ -29,8 +29,8 @@ MonoBehaviour:
   lodes:
   - blockType: {fileID: 11400000, guid: f2f82397394f0044190c155e47611dd9, type: 2}
     BlockID: 5
-    minHeight: 450
-    maxHeight: 510
+    minHeight: 50
+    maxHeight: 110
     scale: 5
     octaves: 2
     persistance: 3
@@ -38,8 +38,8 @@ MonoBehaviour:
     offset: 2
   - blockType: {fileID: 11400000, guid: 52afa2e5ff8b83043a54c16198fb817e, type: 2}
     BlockID: 4
-    minHeight: 100
-    maxHeight: 510
+    minHeight: 50
+    maxHeight: 110
     scale: 5
     octaves: 2
     persistance: 3
@@ -47,8 +47,8 @@ MonoBehaviour:
     offset: 1
   - blockType: {fileID: 11400000, guid: 256a094b43c409a4ca476b66e24d9b3f, type: 2}
     BlockID: 3
-    minHeight: 500
-    maxHeight: 510
+    minHeight: 100
+    maxHeight: 110
     scale: 5
     octaves: 2
     persistance: 0.3

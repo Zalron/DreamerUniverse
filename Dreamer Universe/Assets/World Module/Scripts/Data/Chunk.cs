@@ -29,7 +29,7 @@ namespace WorldGenerator
 
         private bool _isActive;
         private bool IsBlockMapPopulated = false;
-        public bool threadLocked = false;
+        private bool threadLocked = false;
         public Chunk(ChunkCoord _coord, World _world, bool generateOnLoad)
         {
             coord = _coord;
@@ -85,7 +85,6 @@ namespace WorldGenerator
             {
                 BlockMod m = modifications.Dequeue();
                 Vector3 pos = m.position -= position;
-                Debug.Log(m.position);
                 blockMap[(int)pos.x, (int)pos.y, (int)pos.z] = m.id;
             }
             ClearMeshData();

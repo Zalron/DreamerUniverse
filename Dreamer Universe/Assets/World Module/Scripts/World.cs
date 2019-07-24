@@ -37,7 +37,7 @@ namespace WorldGenerator
         public GameObject debugScreen;
 
         public static readonly int ViewDistanceInChunks = 3;
-        public static readonly int WorldSizeInChunks = 64;
+        public static readonly int WorldSizeInChunks = 16;
         public static int WorldSizeInBlocks
         {
             get { return WorldSizeInChunks * Chunk.chunkSize; }
@@ -125,6 +125,32 @@ namespace WorldGenerator
                 }
             }
         }
+        void ApplyModifications()
+        {
+            applyingModifications = true;
+            while (modifications.Count > 0)
+            {
+                Queue<BlockMod> queue = modifications.Dequeue();
+                //Debug.Log(queue.Count);
+                while (queue.Count > 0)
+                {
+                    BlockMod b = queue.Dequeue();
+                    ChunkCoord c = GetChunkCoordFromVector3(b.position);
+                    //Debug.Log(chunks);
+                    if (chunks[c.x, c.y, c.z] == null)
+                    {
+                        chunks[c.x, c.y, c.z] = new Chunk(c, this, true);
+                        activeChunks.Add(c);
+                    }
+                    chunks[c.x, c.y, c.z].modifications.Enqueue(b);
+                    if (!chunksToUpdate.Contains(chunks[c.x, c.y, c.z]))
+                    {
+                        chunksToUpdate.Add(chunks[c.x, c.y, c.z]);
+                    }
+                }
+            }
+            applyingModifications = false;
+        }
         ChunkCoord GetChunkCoordFromVector3(Vector3 pos)
         {
             int x = Mathf.FloorToInt(pos.x / Chunk.chunkSize);
@@ -180,37 +206,12 @@ namespace WorldGenerator
                 chunks[c.x, c.y, c.z].IsActive = false;
             } 
         }
-        void ApplyModifications()
-        {
-            applyingModifications = true;
-            while (modifications.Count > 0)
-            {
-                Queue<BlockMod> queue = modifications.Dequeue();
-                Debug.Log(queue.Count);
-                while (queue.Count > 0)
-                {
-                    BlockMod b = queue.Dequeue();
-                    ChunkCoord c = GetChunkCoordFromVector3(b.position);
-                    Debug.Log(chunks);
-                    if (chunks[c.x, c.y, c.z] == null)
-                    {
-                        chunks[c.x, c.y, c.z] = new Chunk(c, world, true);
-                        activeChunks.Add(c);
-                    }
-                    chunks[c.x, c.y, c.z].modifications.Enqueue(b);
-                    if (!chunksToUpdate.Contains(chunks[c.x, c.y, c.z]))
-                    {
-                        chunksToUpdate.Add(chunks[c.x, c.y, c.z]);
-                    }
-                }
-            }
-            applyingModifications = false;
-        }
+        
         public bool CheckForSolidBlockInChunk(Vector3 pos)
         {
             ChunkCoord thisChunk = new ChunkCoord(pos);
 
-            if (!IsBlockInWorld(pos))
+            if (!IsChunkInWorld(thisChunk))
             {
                 return false;
             }
@@ -224,7 +225,7 @@ namespace WorldGenerator
         {
             ChunkCoord thisChunk = new ChunkCoord(pos);
 
-            if (!IsBlockInWorld(pos))
+            if (!IsChunkInWorld(thisChunk))
             {
                 return false;
             }
@@ -253,7 +254,7 @@ namespace WorldGenerator
             {
                 blockValue = 3; //Grass
             }
-            else if (yPos <= terrainHeight && yPos > terrainHeight - 4)
+            else if (yPos < terrainHeight && yPos > terrainHeight - 4)
             {
                 blockValue = 5; // Dirt
             }
@@ -271,7 +272,7 @@ namespace WorldGenerator
             {
                 foreach (Lode lode in biome.lodes)
                 {
-                    if (yPos >= lode.minHeight && yPos <= lode.maxHeight)
+                    if (yPos > lode.minHeight && yPos < lode.maxHeight)
                     {
                         if (Terrian.FBM3D(pos.x, pos.y, pos.z, lode.offset, lode.octaves, (int)lode.persistance, lode.scale, lode.threshold))
                         {

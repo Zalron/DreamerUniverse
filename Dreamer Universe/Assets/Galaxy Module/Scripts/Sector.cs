@@ -18,6 +18,7 @@ namespace GalaxyGenerator
         public string sectorName;
         public GameObject starSystemObject;
         public int numSectorStars;
+        //public StarSystem[] starSystemsInSector = new StarSystem[];
         public GameObject sectorGameObject;
         static public Sector sector;
         public SectorCoord sectorCoord;

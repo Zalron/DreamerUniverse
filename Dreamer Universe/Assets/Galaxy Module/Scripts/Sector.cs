@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading;
 namespace GalaxyGenerator
 {
     public enum SectorType
@@ -37,7 +38,7 @@ namespace GalaxyGenerator
             _isActive = true;
             sectorGameObject = new GameObject(sectorName);
             sectorGameObject.transform.SetParent(galaxy.transform);
-            sectorType = SectorType.Core;
+            sectorType = SectorTypeGeneration(sectorCoord);
             GenerateSector(sectorType);
         }
         public static string BuildSectorName(SectorCoord v) // assigning a name to a Sector
@@ -48,19 +49,44 @@ namespace GalaxyGenerator
         {
             return (int)v.x + "_" + (int)v.y + "_" + (int)v.z + "_: " + sectorName;
         }
+        public SectorType SectorTypeGeneration(SectorCoord sectorCoord)
+        {
+            SectorType sectorType;
+            if (sectorCoord.x > 0 && sectorCoord.x <= 50 || sectorCoord.y > 0 && sectorCoord.y <= 30 || sectorCoord.z > 0 && sectorCoord.z <= 50)
+            {
+                sectorType = SectorType.Core;
+                return sectorType;
+            }
+            if (sectorCoord.x > 50 && sectorCoord.x <= 100 || sectorCoord.y > 30 && sectorCoord.y <= 35 || sectorCoord.x > 50 && sectorCoord.z <= 100)
+            {
+                sectorType = SectorType.Middle;
+                return sectorType;
+            }
+            if (sectorCoord.x > 100 && sectorCoord.x <= 200 || sectorCoord.y > 35 && sectorCoord.y <= 50 || sectorCoord.x > 100 && sectorCoord.z <= 200)
+            {
+                sectorType = SectorType.Edge;
+                return sectorType;
+            }
+            else
+            {
+                sectorType = SectorType.Far;
+                return sectorType;
+            }
+
+        }
         public void GenerateSector(SectorType sectorType)
         {
             if (sectorType == SectorType.Core)
             {
-                numSectorStars = Random.Range(1000, 1200 + 1);
+                numSectorStars = Random.Range(4500, 5000 + 1);
             }
             else if (sectorType == SectorType.Middle)
             {
-                numSectorStars = Random.Range(200, 500 + 1);
+                numSectorStars = Random.Range(1000, 1500 + 1);
             }
             else if (sectorType == SectorType.Edge)
             {
-                numSectorStars = Random.Range(50, 200 + 1);
+                numSectorStars = Random.Range(100, 200 + 1);
             }
             else if (sectorType == SectorType.Far)
             {
@@ -93,7 +119,7 @@ namespace GalaxyGenerator
                 _isActive = value;
                 if (sectorGameObject != null)
                 {
-                    _isActive = true;
+                    sectorGameObject.SetActive(value);
                     
                 }
             }

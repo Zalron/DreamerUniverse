@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Concurrent;
 using UnityEngine;
 namespace GalaxyGenerator
 {
@@ -97,7 +96,6 @@ namespace GalaxyGenerator
             foreach (Sector c in previouslyActiveSector)
             {
                 c.IsActive = false;
-                Destroy(c.sectorGameObject);
             }
         }
         SectorCoord GetRawSectorCoordFromVector3(Vector3 pos)
@@ -117,9 +115,9 @@ namespace GalaxyGenerator
         public Vector3 GetSectorVectorFromSectorCoord(SectorCoord sectorCoord)
         {
             Vector3 sectorCoordVector3convert;
-            sectorCoordVector3convert.x = sectorCoord.x / SectorSize;
-            sectorCoordVector3convert.y = sectorCoord.y / SectorSize;
-            sectorCoordVector3convert.z = sectorCoord.z / SectorSize;
+            sectorCoordVector3convert.x = sectorCoord.x;
+            sectorCoordVector3convert.y = sectorCoord.y;
+            sectorCoordVector3convert.z = sectorCoord.z;
             return sectorCoordVector3convert;
         }
         //void  

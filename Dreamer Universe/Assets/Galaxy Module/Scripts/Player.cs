@@ -42,7 +42,7 @@ public class Player : MonoBehaviour
         {
             flySpeed -= mouseWheel * mouseScrollSpeed;
         }
-        else if (mouseWheel > 0f)
+        if (mouseWheel > -0f)
         {
             flySpeed += mouseWheel * mouseScrollSpeed;
         }

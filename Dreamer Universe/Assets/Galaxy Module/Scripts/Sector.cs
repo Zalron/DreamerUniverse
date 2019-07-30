@@ -52,24 +52,37 @@ namespace GalaxyGenerator
         public SectorType SectorTypeGeneration(SectorCoord sectorCoord)
         {
             SectorType sectorType;
-            if (sectorCoord.x > 0 && sectorCoord.x <= 50 || sectorCoord.y > 0 && sectorCoord.y <= 30 || sectorCoord.z > 0 && sectorCoord.z <= 50)
+            if (sectorCoord.x >= 0 && sectorCoord.x <= 50 || sectorCoord.x >= -0 && sectorCoord.x <= -50 ||
+                sectorCoord.y >= 0 && sectorCoord.y <= 30 || sectorCoord.y >= -0 && sectorCoord.y <= -30 ||
+                sectorCoord.z >= 0 && sectorCoord.z <= 50 || sectorCoord.z >= -0 && sectorCoord.z <= -50)
             {
                 sectorType = SectorType.Core;
                 return sectorType;
             }
-            if (sectorCoord.x > 50 && sectorCoord.x <= 100 || sectorCoord.y > 30 && sectorCoord.y <= 35 || sectorCoord.x > 50 && sectorCoord.z <= 100)
+            if (sectorCoord.x > 50 && sectorCoord.x <= 100 || sectorCoord.x > -50 && sectorCoord.x <= -100 ||
+                sectorCoord.y > 30 && sectorCoord.y <= 35 || sectorCoord.y > -30 && sectorCoord.y <= -35 ||
+                sectorCoord.z > 50 && sectorCoord.z <= 100 || sectorCoord.z > -50 && sectorCoord.z <= -100)
             {
                 sectorType = SectorType.Middle;
                 return sectorType;
             }
-            if (sectorCoord.x > 100 && sectorCoord.x <= 200 || sectorCoord.y > 35 && sectorCoord.y <= 50 || sectorCoord.x > 100 && sectorCoord.z <= 200)
+            if (sectorCoord.x > 100 && sectorCoord.x <= 200 || sectorCoord.x > -100 && sectorCoord.x <= -200 ||
+                sectorCoord.y > 35 && sectorCoord.y <= 40 || sectorCoord.y > -35 && sectorCoord.y <= -40 ||
+                sectorCoord.z > 100 && sectorCoord.z <= 200 || sectorCoord.z > -100 && sectorCoord.z <= -200)
             {
                 sectorType = SectorType.Edge;
                 return sectorType;
             }
-            else
+            if (sectorCoord.x > 200 && sectorCoord.x <= 500 || sectorCoord.x > -200 && sectorCoord.x <= -500 ||
+                sectorCoord.y > 40 && sectorCoord.y <= 50 || sectorCoord.y > -40 && sectorCoord.y <= -50 ||
+                sectorCoord.z > 200 && sectorCoord.z <= 500 || sectorCoord.z > -200 && sectorCoord.z <= -500)
             {
                 sectorType = SectorType.Far;
+                return sectorType;
+            }
+            else
+            {
+                sectorType = SectorType.Core;
                 return sectorType;
             }
 

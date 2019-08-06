@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading;
-namespace GalaxyGenerator
+namespace GalaxyModule
 {
     public enum SectorType
     {

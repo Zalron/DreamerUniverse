@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-namespace WorldGenerator
+namespace WorldModule
 {
     public class ToolBar : MonoBehaviour
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace WorldGenerator
+namespace WorldModule
 {
     [CreateAssetMenu(fileName ="BlockType", menuName = "ScriptableObject/BlockType", order = 1)]
     public class BlockType : ScriptableObject

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Jobs;
 using UnityEngine.UI;
 using Unity.Jobs;
-namespace WorldGenerator
+namespace WorldModule
 {
     public class World : MonoBehaviour
     {

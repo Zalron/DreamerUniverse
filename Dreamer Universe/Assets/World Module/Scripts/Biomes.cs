@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using SimplexNoise;
 using UnityEngine;
-namespace WorldGenerator
+namespace WorldModule
 {
     [CreateAssetMenu(fileName = "Biomes", menuName = "ScriptableObject/Biomes", order = 1)]
     public class Biomes : ScriptableObject

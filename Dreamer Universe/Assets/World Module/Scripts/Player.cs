@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-namespace WorldGenerator
+namespace WorldModule
 {
     public class Player : MonoBehaviour
     {

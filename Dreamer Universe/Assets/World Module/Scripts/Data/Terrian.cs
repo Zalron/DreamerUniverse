@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using SimplexNoise;
 using UnityEngine;
-namespace WorldGenerator
+namespace WorldModule
 {
     public static class Terrian
     {

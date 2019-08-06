@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
-namespace WorldGenerator
+namespace WorldModule
 {
     public class Chunk
     {

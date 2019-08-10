@@ -136,82 +136,230 @@ namespace CharacterModule
     }
     public class Characters
     {
-        //Stats
+        //Character overview
+        public string name;
         public CharacterLevel characterLevel;
         public CharacterType characterType;
         public CharacterSpecialisation characterSpecialisation;
 
+        //Skillpoint
         public int skillpoints;
         public int spentSkillPoints;
 
-        public int life;
-        public int energy;
-        public int movementSpeed;
-        public int magic;
-        public int shield;
-        public int armour;
-
-        //Stats Extra
+        //Stats
         //Life
         public int baseFromGearLife;
         public int baseFromTreeLife;
         public int totalBaseLife;
+        public float increasedFromGearLife;
+        public float increasedFromTreeLife;
         public float totalIncreasedLife;
-        public int totalLife;
-        public int reservedLife;
+        public float totalLife;
         public int unreservedLife;
+        public int reservedLife;
+        //Life Regen
+        public int baseLifeRegenFromGear;
+        public int baseLifeRegenFromTree;
+        public int totalBaseLifeRegen;
+        public float increasedLifeRegenFromGear;
+        public float increasedLifeRegenFromTree;
         public float increasedLifeRegen;
-        public int lifeRegen;
+        public float totalLifeRegen;
+        //Life Regen Delay
+        public int baseLifeRegenDelayFromGear;
+        public int baseLifeRegenDelayFromTree;
+        public int totalBaseLifeRegenDelay;
+        public float reducedLifeRegenDelayFromGear;
+        public float reducedLifeRegenDelayFromTree;
+        public float reducedLifeRegenDelay;
+        public float totalLifeRegenDelay;
+        //Energy
+        public int baseFromGearEnergy;
+        public int baseFromTreeEnergy;
+        public int totalBaseEnergy;
+        public float increasedFromGearEnergy;
+        public float increasedFromTreeEnergy;
+        public float totalIncreasedEnergy;
+        public float totalEnergy;
+        public int unreservedEnergy;
+        public int reservedEnergy;
+        //Energy Recharge
+        public int baseEnergyRechargeFromGear;
+        public int baseEnergyRechargeFromTree;
+        public int totalBaseEnergyRecharge;
+        public float increasedEnergyRechargeFromGear;
+        public float increasedEnergyRechargeFromTree;
+        public float increasedEnergyRecharge;
+        public float totalEnergyRecharge;
+        //Energy Recharge Delay
+        public int baseEnergyRechargeDelayFromGear;
+        public int baseEnergyRechargeDelayFromTree;
+        public int totalBaseEnergyRechargeDelay;
+        public float reducedEnergyRechargeDelayFromGear;
+        public float reducedEnergyRechargeDelayFromTree;
+        public float reducedEnergyRechargeDelay;
+        public float totalEnergyRechargeDelay;
+        //Movement
+        public int baseFromGearMovement;
+        public int baseFromTreeMovement;
+        public int totalBaseMovement;
+        public float increasedFromGearMovement;
+        public float increasedFromTreeMovement;
+        public float totalIncreasedMovement;
+        public float totalMovement;
         //Magic
         public int baseFromGearMagic;
         public int baseFromTreeMagic;
         public int totalBaseMagic;
+        public float increasedFromGearMagic;
+        public float increasedFromTreeMagic;
         public float totalIncreasedMagic;
-        public int totalMagic;
-        public int reservedMagic;
+        public float totalMagic;
         public int unreservedMagic;
+        public int reservedMagic;
+        //Magic Regen
+        public int baseMagicRegenFromGear;
+        public int baseMagicRegenFromTree;
+        public int totalBaseMagicRegen;
+        public float increasedMagicRegenFromGear;
+        public float increasedMagicRegenFromTree;
         public float increasedMagicRegen;
-        public int magicRegen;
+        public float totalMagicRegen;
+        //Life Regen Delay
+        public int baseMagicRegenDelayFromGear;
+        public int baseMagicRegenDelayFromTree;
+        public int totalBaseMagicRegenDelay;
+        public float reducedMagicRegenDelayFromGear;
+        public float reducedMagicRegenDelayFromTree;
+        public float reducedMagicRegenDelay;
+        public float totalMagicRegenDelay;
         //Shield
         public int baseFromGearShield;
         public int baseFromTreeShield;
         public int totalBaseShield;
+        public float increasedFromGearShield;
+        public float increasedFromTreeShield;
         public float totalIncreasedShield;
-        public int totalShield;
-        public int rechargeRate;
-        public float increasedRechargeRate;
-        public int rechargeDelay;
-        public float reducedRechargeDelay;
-        public int shieldRegen;
+        public float totalShield;
+        //Shield Recharge Rate
+        public int shieldBaseRechargeRateFromGear;
+        public int shieldBaseRechargeRateFromTree;
+        public int totalBaseRechargeRate;
+        public float increasedShieldRechargeRateFromGear;
+        public float increasedShieldRechargeRateFromTree;
+        public float totalShieldIncreasedRechargeDelay;
+        public float totalShieldRechargeDelay;
+        //Shield Recharge Delay
+        public int shieldBaseRechargeDelayFromGear;
+        public int shieldBaseRechargeDelayFromTree;
+        public int totalBaseRechargeDelay;
+        public float reducedShieldRechargeDelayFromGear;
+        public float reducedShieldRechargeDelayFromTree;
+        public float totalShieldReducedRechargeDelay;
+        public float totalShieldRechargeRate;
         //Armour
         public int baseFromGearArmour;
         public int baseFromTreeArmour;
         public int totalBaseArmour;
+        public float increasedFromGearArmour;
+        public float increasedFromTreeArmour;
         public float totalIncreasedArmour;
-        public int totalArmour;
+        public float totalArmour;
+        //Armour Recharge Rate
+        public int armourBaseRechargeRateFromGear;
+        public int armourBaseRechargeRateFromTree;
+        public int totalArmourRechargeRate;
+        public float increasedArmourRechargeRateFromGear;
+        public float increasedArmourRechargeRateFromTree;
+        public float totalIncreasedRechargeRate;
+        public float totalRechargedRate;
+        //Armour Recharge Delay
+        public int armourBaseRechargeDelayFromGear;
+        public int armourBaseRechargeDelayFromTree;
+        public int totalArmourBaseRechargeDelay;
+        public float reducedArmourRechargeDelayFromGear;
+        public float reducedArmourRechargeDelayFromTree;
+        public float totalReducedRechargeDelay;
+        public float totalRechargedDelay;
 
         //Resistances
-        public int magicRadiaionResistances;
-        public int magicInsanityResistances;
-        public int magicStiffnessResistances;
+        //Radiation Resistance
+        public int baseFromGearMagicRadiaionResistances;
+        public int baseFromTreeMagicRadiaionResistances;
+        public int totalBaseMagicRadiaionResistances;
+        public float increasedFromGearMagicRadiaionResistances;
+        public float increasedFromTreeMagicRadiaionResistances;
+        public float totalIncreasedMagicRadiaionResistances;
+        public float totalMagicRadiaionResistances;
+        //Insanity Resistance
+        public int baseFromGearMagicInsanityResistances;
+        public int baseFromTreeMagicInsanityResistances;
+        public int totalBaseMagicInsanityResistances;
+        public float increasedFromGearMagicInsanityResistances;
+        public float increasedFromTreeMagicInsanityResistances;
+        public float totalIncreasedMagicInsanityResistances;
+        public float totalMagicInsanityResistances;
+        //Stiffness Resistance
+        public int baseFromGearMagicStiffnessResistances;
+        public int baseFromTreeMagicStiffnessResistances;
+        public int totalBaseMagicStiffnessResistances;
+        public float increasedFromGearMagicStiffnessResistances;
+        public float increasedFromTreeMagicStiffnessResistances;
+        public float totalIncreasedMagicStiffnessResistances;
+        public float totalMagicStiffnessResistances;
 
         //Attributes
-        public int strength;
-        public int endurance;
-        public int dexterity;
-        public int luck;
-        public int intelligence;
-        public int willpower;
-
-        //Attributes Extra
-        public int strengthRequired;
-        public int enduranceRequired;
-        public int dexterityRequired;
-        public int luckRequired;
-        public int intelligenceRequired;
-        public int willpowerRequired;
-        public Characters(CharacterLevel _characterLevel, CharacterType _characterType)
+        //Strength
+        public int baseFromGearStrength;
+        public int baseFromTreeStrength;
+        public int totalBaseStrength;
+        public float increasedFromGearStrength;
+        public float increasedFromTreeStrength;
+        public float totalIncreasedStrength;
+        public float totalStrength;
+        //Endurance
+        public int baseFromGearEndurance;
+        public int baseFromTreeEndurance;
+        public int totalBaseEndurance;
+        public float increasedFromGearEndurance;
+        public float increasedFromTreeEndurance;
+        public float totalIncreasedEndurance;
+        public float totalEndurances;
+        //Dexterity
+        public int baseFromGearDexterity;
+        public int baseFromTreeDexterity;
+        public int totalBaseDexterity;
+        public float increasedFromGearDexterity;
+        public float increasedFromTreeDexterity;
+        public float totalIncreasedDexterity;
+        public float totalDexterity;
+        //Luck
+        public int baseFromGearLuck;
+        public int baseFromTreeLuck;
+        public int totalBaseLuck;
+        public float increasedFromGearLuck;
+        public float increasedFromTreeLuck;
+        public float totalIncreasedLuck;
+        public float totalLuck;
+        //Intelligence
+        public int baseFromGearIntelligence;
+        public int baseFromTreeIntelligence;
+        public int totalBaseIntelligence;
+        public float increasedFromGearIntelligence;
+        public float increasedFromTreeIntelligence;
+        public float totalIncreasedIntelligence;
+        public float totalIntelligence;
+        //Willpower
+        public int baseFromGearWillpower;
+        public int baseFromTreeWillpower;
+        public int totalBaseWillpower;
+        public float increasedFromGearWillpower;
+        public float increasedFromTreeWillpower;
+        public float totalIncreasedWillpower;
+        public float totalWillpower;
+        public Characters(string _name,CharacterLevel _characterLevel, CharacterType _characterType)
         {
+            name = _name;
             characterType = _characterType;
             characterLevel = _characterLevel;
         }

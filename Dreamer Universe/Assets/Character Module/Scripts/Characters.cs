@@ -312,51 +312,27 @@ namespace CharacterModule
         //Strength
         public int baseFromGearStrength;
         public int baseFromTreeStrength;
-        public int totalBaseStrength;
-        public float increasedFromGearStrength;
-        public float increasedFromTreeStrength;
-        public float totalIncreasedStrength;
-        public float totalStrength;
+        public int totalStrength;
         //Endurance
         public int baseFromGearEndurance;
         public int baseFromTreeEndurance;
-        public int totalBaseEndurance;
-        public float increasedFromGearEndurance;
-        public float increasedFromTreeEndurance;
-        public float totalIncreasedEndurance;
-        public float totalEndurances;
+        public int totalEndurance;
         //Dexterity
         public int baseFromGearDexterity;
         public int baseFromTreeDexterity;
-        public int totalBaseDexterity;
-        public float increasedFromGearDexterity;
-        public float increasedFromTreeDexterity;
-        public float totalIncreasedDexterity;
-        public float totalDexterity;
+        public int totalDexterity;
         //Luck
         public int baseFromGearLuck;
         public int baseFromTreeLuck;
-        public int totalBaseLuck;
-        public float increasedFromGearLuck;
-        public float increasedFromTreeLuck;
-        public float totalIncreasedLuck;
-        public float totalLuck;
+        public int totalLuck;
         //Intelligence
         public int baseFromGearIntelligence;
         public int baseFromTreeIntelligence;
-        public int totalBaseIntelligence;
-        public float increasedFromGearIntelligence;
-        public float increasedFromTreeIntelligence;
-        public float totalIncreasedIntelligence;
-        public float totalIntelligence;
+        public int totalIntelligence;
         //Willpower
         public int baseFromGearWillpower;
         public int baseFromTreeWillpower;
-        public int totalBaseWillpower;
-        public float increasedFromGearWillpower;
-        public float increasedFromTreeWillpower;
-        public float totalIncreasedWillpower;
-        public float totalWillpower;
+        public int totalWillpower;
         public Characters(string _name,CharacterLevel _characterLevel, CharacterType _characterType)
         {
             name = _name;

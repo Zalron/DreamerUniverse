@@ -12,6 +12,7 @@ namespace CharacterModule
     public class Skillnodes : ScriptableObject
     {
         public Skillnodetype skillnodeType;
+        //Stats
         public int lifeGained;
         public int energyGained;
         public int movementSpeedGained;
@@ -19,5 +20,12 @@ namespace CharacterModule
         public int shieldGained;
         public int armourGained;
 
+        //Attributes
+        public int strengthGained;
+        public int enduranceGained;
+        public int dexterityGained;
+        public int luckGained;
+        public int intelligenceGained;
+        public int willpowerGained;
     }
 }

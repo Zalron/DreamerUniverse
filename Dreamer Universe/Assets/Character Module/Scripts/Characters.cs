@@ -140,8 +140,10 @@ namespace CharacterModule
         public CharacterLevel characterLevel;
         public CharacterType characterType;
         public CharacterSpecialisation characterSpecialisation;
+
         public int skillpoints;
         public int spentSkillPoints;
+
         public int life;
         public int energy;
         public int movementSpeed;
@@ -189,7 +191,9 @@ namespace CharacterModule
         public int totalArmour;
 
         //Resistances
-        public int magicResistances;
+        public int magicRadiaionResistances;
+        public int magicInsanityResistances;
+        public int magicStiffnessResistances;
 
         //Attributes
         public int strength;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace WorldModule
 {
-    public static class Block
+    public struct Block
     {
         public static readonly int TextureAtlasSizeInBlocks = 16;
         public static float NormalizedBlockTextureSize

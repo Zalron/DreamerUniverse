@@ -128,10 +128,18 @@ namespace WorldModule
         void ApplyModifications()
         {
             applyingModifications = true;
+            if (modifications.Count < 0)
+            {
+                Debug.Log(modifications.Count);
+            }
             while (modifications.Count > 0)
             {
                 Queue<BlockMod> queue = modifications.Dequeue();
                 //Debug.Log(queue.Count);
+                if (queue.Count < 0)
+                {
+                    Debug.Log(queue.Count);
+                }
                 while (queue.Count > 0)
                 {
                     BlockMod b = queue.Dequeue();
@@ -319,15 +327,15 @@ namespace WorldModule
             }
         }
     }
-    public class BlockMod
+    public struct BlockMod
     {
         public Vector3 position;
         public byte id;
-        public BlockMod()
-        {
-            position = new Vector3();
-            id = 0;
-        }
+        //public BlockMod()
+        //{
+        //    position = new Vector3();
+        //    id = 0;
+        //}
         public BlockMod(Vector3 _position, byte _id)
         {
             position = _position;

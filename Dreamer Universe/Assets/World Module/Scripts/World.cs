@@ -32,7 +32,7 @@ namespace WorldModule
 
         bool applyingModifications = false;
 
-        Queue<Queue<BlockMod>> modifications = new Queue<Queue<BlockMod>>();
+        readonly Queue<Queue<BlockMod>> modifications = new Queue<Queue<BlockMod>>();
 
         public GameObject debugScreen;
 
@@ -128,15 +128,14 @@ namespace WorldModule
         void ApplyModifications()
         {
             applyingModifications = true;
-            if (modifications.Count < 0)
+            if (modifications.Count <= 0)
             {
                 Debug.Log(modifications.Count);
             }
             while (modifications.Count > 0)
             {
                 Queue<BlockMod> queue = modifications.Dequeue();
-                //Debug.Log(queue.Count);
-                if (queue.Count < 0)
+                if (queue.Count <= 0)
                 {
                     Debug.Log(queue.Count);
                 }
@@ -144,7 +143,6 @@ namespace WorldModule
                 {
                     BlockMod b = queue.Dequeue();
                     ChunkCoord c = GetChunkCoordFromVector3(b.position);
-                    //Debug.Log(chunks);
                     if (chunks[c.x, c.y, c.z] == null)
                     {
                         chunks[c.x, c.y, c.z] = new Chunk(c, this, true);
@@ -331,11 +329,6 @@ namespace WorldModule
     {
         public Vector3 position;
         public byte id;
-        //public BlockMod()
-        //{
-        //    position = new Vector3();
-        //    id = 0;
-        //}
         public BlockMod(Vector3 _position, byte _id)
         {
             position = _position;

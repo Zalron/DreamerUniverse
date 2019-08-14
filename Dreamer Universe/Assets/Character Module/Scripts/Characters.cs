@@ -136,7 +136,7 @@ namespace CharacterModule
     }
     public class Characters
     {
-        //Character overview
+        //Character Type and general
         public string name;
         public CharacterLevel characterLevel;
         public CharacterType characterType;
@@ -146,10 +146,34 @@ namespace CharacterModule
         public int skillpoints;
         public int spentSkillPoints;
 
+        //Attributes
+        public int Strength;
+        public int Dexterity;
+        public int Intelligence;
+        public int Luck;
+        public int Enduance;
+        public int Willpower;
+
+        //Stats
+        public int Life;
+        public int Energy;
+        public int Magic;
+        public int Armour;
+        public int Movement;
+        public int Accuracy;
+        public int Shields;
+
         //Stats gain on level
         public const int lifeGainOnLevel = 6;
         public const int magicGainOnLevel = 6;
         public const int enegryGainOnLevel = 6;
+
+        //Resistances
+        public int Radiation;
+        public int Insanity;
+        public int Stiffness;
+
+        
 
         public Characters(string _name, CharacterLevel _characterLevel, CharacterType _characterType)
         {
@@ -160,19 +184,18 @@ namespace CharacterModule
 
         //
 
-        //Stats gain on attribute
+        //Stats gain on attributes
 
-
-
+        #region Attributes
         //Attributes
         //Strength
-        public int flatFromGearStrength;
-        public int baseFromTreeStrength;
-        public int totalBaseStrength;
-        public float increasedFromGearStrength;
-        public float increasedFromTreeStrength;
-        public float totalIncreasedStrength;
+        public int flatFromGearStrength, flatFromTreeStrength, totalFlatStrength;
+        public float increasedFromGearStrength, increasedFromTreeStrength, increasedTotalStrength;
+        public float decreasedFromGearStrength, decreasedFromTreeStrength, decreasedTotalStrength;
+        public float moreFromGearStrength, moreFromTreeStrength, moreTotalStrength;
+        public float lessFromGearStrength, lessFromTreeStrength, lessTotalStrength;
         public int totalStrength;
+
         //Endurance
         public int baseFromGearEndurance;
         public int baseFromTreeEndurance;
@@ -213,7 +236,7 @@ namespace CharacterModule
         public float increasedFromTreeWillpower;
         public float totalIncreasedWillpower;
         public int totalWillpower;
-
+        #endregion
         //Stats
 
         //Life
@@ -321,7 +344,7 @@ namespace CharacterModule
         public float increasedMagicRegenFromTree;
         public float totalIncreasedMagicRegen;
         public float totalMagicRegen;
-        //Life Regen Delay
+        //Magic Regen Delay
         public int baseMagicRegenDelayFromGear;
         public int baseMagicRegenDelayFromTree;
         public int totalBaseMagicRegenDelay;

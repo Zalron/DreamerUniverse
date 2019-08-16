@@ -13,18 +13,20 @@ namespace CharacterModule
         #region Attributes
         //Attributes
         //Strength
-        public int flatFromGearStrength, flatFromTreeStrength, totalFlatStrength;
-        public float increasedFromGearStrength, increasedFromTreeStrength, increasedTotalStrength;
-        public float decreasedFromGearStrength, decreasedFromTreeStrength, decreasedTotalStrength;
-        public float moreFromGearStrength, moreFromTreeStrength, moreTotalStrength;
-        public float lessFromGearStrength, lessFromTreeStrength, lessTotalStrength;
+        public int moreFromGearStrength, moreFromTreeStrength, moreTotalStrength;
+        public int lessFromGearStrength, lessFromTreeStrength, lessTotalStrength;
+        public int flatTotalStrength;
+        public int increasedFromGearStrength, increasedFromTreeStrength, increasedTotalStrength;
+        public int decreasedFromGearStrength, decreasedFromTreeStrength, decreasedTotalStrength;
+        public int additivePercentageTotalStrength;
         public int totalStrength;
         //Endurance
-        public int flatFromGearEndurance, flatFromTreeEndurance, totalFlatEndurance;
-        public float increasedFromGearEndurance, increasedFromTreeEndurance, increasedTotalEndurance;
-        public float decreasedFromGearEndurance, decreasedFromTreeEndurance, decreasedTotalEndurance;
-        public float moreFromGearEndurance, moreFromTreeEndurance, moreTotalEndurance;
-        public float lessFromGearEndurance, lessFromTreeEndurance, lessTotalEndurance;
+        public int moreFromGearEndurance, moreFromTreeEndurance, moreTotalEndurance;
+        public int lessFromGearEndurance, lessFromTreeEndurance, lessTotalEndurance;
+        public int flatTotalEndurance;
+        public int increasedFromGearEndurance, increasedFromTreeEndurance, increasedTotalEndurance;
+        public int decreasedFromGearEndurance, decreasedFromTreeEndurance, decreasedTotalEndurance;
+        public int additivePercentageTotalEndurance;
         public int totalEndurance;
         //Dexterity
         public int baseFromGearDexterity;

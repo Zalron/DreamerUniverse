@@ -6,23 +6,32 @@ namespace CharacterModule
 {
     static public class CharacterCalculations
     {
-        static public int AttributeStatMCalculator(int moreFromGearStrength, int moreFromTreeStrength)
+        static public int AttributeStatIDMLCalculator(int numFromGear, int numFromTree)
         {
-            int moreTotalStrength = 0;
-            moreTotalStrength += moreFromGearStrength;
-            moreTotalStrength += moreFromTreeStrength;
-            return moreTotalStrength;
+            int numTotal = 0;
+            numTotal += numFromGear;
+            numTotal += numFromTree;
+            return numTotal;
         }
-        static public int AttributeStatLCalculator(int lessFromGearStrength, int lessFromTreeStrength)
+        static public int AttributeStatIDMLTotalCalculator(int numPlusTotal, int numMinusTotal)
         {
-            int lessTotalStrength = 0;
-            lessTotalStrength += lessFromGearStrength;
-            lessTotalStrength += lessFromTreeStrength;
-            return lessTotalStrength;
+            int numTotal = 0;
+            numTotal += numPlusTotal;
+            numTotal -= numMinusTotal;
+            return numTotal;
         }
-        static public int AttributeStatMLCalculator(int moreTotalStrength, int lessTotalStrength)
+        static public int AttributeStatTotalCalculator(int numflatTotal, int numAdditivePercentageTotal)
         {
-
+            int numTotal = 0;
+            numTotal += numflatTotal;
+            float percentage;
+            percentage = numAdditivePercentageTotal / 100 + 1;
+            float numPercentage;
+            numPercentage = numTotal;
+            numPercentage *= percentage;
+            Mathf.RoundToInt(numPercentage);
+            numTotal = (int)numPercentage;
+            return numTotal;
         }
     }
 }

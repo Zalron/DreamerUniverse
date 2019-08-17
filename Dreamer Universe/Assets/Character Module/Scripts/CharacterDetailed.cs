@@ -10,6 +10,13 @@ namespace CharacterModule
         public const int magicGainOnLevel = 6;
         public const int enegryGainOnLevel = 6;
 
+        //Stats gain on every ten Attribute
+        public const int lifeGainForTenStrength = 5;
+        public const int evasionGainForTenDexterity = 5;
+        public const int magicGainForTenIntelligence = 5;
+        public const int energyGainForTenEnduance = 5;
+        public const int Willpower = 5;
+
         #region Attributes
         //Attributes
         //Strength
@@ -29,36 +36,36 @@ namespace CharacterModule
         public int additivePercentageTotalEndurance;
         public int totalEndurance;
         //Dexterity
-        public int baseFromGearDexterity;
-        public int baseFromTreeDexterity;
-        public int totalBaseDexterity;
-        public float increasedFromGearDexterity;
-        public float increasedFromTreeDexterity;
-        public float totalIncreasedDexterity;
+        public int moreFromGearDexterity, moreFromTreeDexterity, moreTotalDexterity;
+        public int lessFromGearDexterity, lessFromTreeDexterity, lessTotalDexterity;
+        public int flatTotalDexterity;
+        public int increasedFromGearDexterity, increasedFromTreeDexterity, increasedTotalDexterity;
+        public int decreasedFromGearDexterity, decreasedFromTreeDexterity, decreasedTotalDexterity;
+        public int additivePercentageTotalDexterity;
         public int totalDexterity;
         //Luck
-        public int baseFromGearLuck;
-        public int baseFromTreeLuck;
-        public int totalBaseLuck;
-        public float increasedFromGearLuck;
-        public float increasedFromTreeLuck;
-        public float totalIncreasedLuck;
+        public int moreFromGearLuck, moreFromTreeLuck, moreTotalLuck;
+        public int lessFromGearLuck, lessFromTreeLuck, lessTotalLuck;
+        public int flatTotalLuck;
+        public int increasedFromGearLuck, increasedFromTreeLuck, increasedTotalLuck;
+        public int decreasedFromGearLuck, decreasedFromTreeLuck, decreasedTotalLuck;
+        public int additivePercentageTotalLuck;
         public int totalLuck;
         //Intelligence
-        public int baseFromGearIntelligence;
-        public int baseFromTreeIntelligence;
-        public int totalBaseIntelligence;
-        public float increasedFromGearIntelligence;
-        public float increasedFromTreeIntelligence;
-        public float totalIncreasedIntelligence;
+        public int moreFromGearIntelligence, moreFromTreeIntelligence, moreTotalIntelligence;
+        public int lessFromGearIntelligence, lessFromTreeIntelligence, lessTotalIntelligence;
+        public int flatTotalIntelligence;
+        public int increasedFromGearIntelligence, increasedFromTreeIntelligence, increasedTotalIntelligence;
+        public int decreasedFromGearIntelligence, decreasedFromTreeIntelligence, decreasedTotalIntelligence;
+        public int additivePercentageTotalIntelligence;
         public int totalIntelligence;
         //Willpower
-        public int baseFromGearWillpower;
-        public int baseFromTreeWillpower;
-        public int totalBaseWillpower;
-        public float increasedFromGearWillpower;
-        public float increasedFromTreeWillpower;
-        public float totalIncreasedWillpower;
+        public int moreFromGearWillpower, moreFromTreeWillpower, moreTotalWillpower;
+        public int lessFromGearWillpower, lessFromTreeWillpower, lessTotalWillpower;
+        public int flatTotalWillpower;
+        public int increasedFromGearWillpower, increasedFromTreeWillpower, increasedTotalWillpower;
+        public int decreasedFromGearWillpower, decreasedFromTreeWillpower, decreasedTotalWillpower;
+        public int additivePercentageTotalWillpower;
         public int totalWillpower;
         #endregion
 
@@ -73,8 +80,6 @@ namespace CharacterModule
         public float increasedFromTreeLife;
         public float totalIncreasedLife;
         public float totalLife;
-        public int unreservedLife;
-        public int reservedLife;
         //Life Regen
         public int baseLifeRegenFromGear;
         public int baseLifeRegenFromTree;
@@ -108,8 +113,6 @@ namespace CharacterModule
         public float increasedFromTreeEnergy;
         public float totalIncreasedEnergy;
         public float totalEnergy;
-        public int unreservedEnergy;
-        public int reservedEnergy;
         //Energy Recharge
         public int baseEnergyRechargeFromGear;
         public int baseEnergyRechargeFromTree;
@@ -160,8 +163,6 @@ namespace CharacterModule
         public float increasedFromTreeMagic;
         public float totalIncreasedMagic;
         public float totalMagic;
-        public int unreservedMagic;
-        public int reservedMagic;
         //Magic Regen
         public int baseMagicRegenFromGear;
         public int baseMagicRegenFromTree;

@@ -160,17 +160,28 @@ namespace CharacterModule
         public int LifeRegen;
         public int LifeRegenDelay;
         public int LifeLeech;
+        public int UnreservedLife;
+        public int ReservedLife;
         public int Energy;
+        public int EnergyRechange;
+        public int EnergyRechangeDelay;
+        public int UnreservedEnergy;
+        public int ReservedEnergy;
+        public int Movement;
+        public int Accuracy;
+        public int Shields;
         public int Magic;
         public int MagicRegen;
         public int MagicRegenDelay;
         public int MagicLeech;
+        public int UnreservedMagic;
+        public int ReservedMagic;
+        public int Shield;
+        public int ShieldRecharge;
+        public int ShieldRechargeDelay;
         public int Armour;
         public int ArmourRegen;
         public int ArmourRegenDelay;
-        public int Movement;
-        public int Accuracy;
-        public int Shields;
 
         //Resistances
         public int Radiation;
@@ -197,6 +208,8 @@ namespace CharacterModule
         public Item Equipment4;
         public Item Equipment5;
         public Item Equipment6;
+
+        // Inventory
 
         public Characters(string _name, CharacterLevel _characterLevel, CharacterType _characterType)
         {

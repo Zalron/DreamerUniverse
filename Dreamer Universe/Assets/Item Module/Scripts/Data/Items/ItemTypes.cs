@@ -71,7 +71,7 @@ namespace ItemModule
         ARMOUR_POWERARMOUR_HEAVY_HANDS,
         ARMOUR_POWERARMOUR_HEAVY_SHOULDERS,
         ARMOUR_POWERARMOUR_HEAVY_BACKPACK,
-        //Armour Power Armour
+        //Armour
         ARMOUR_NONPOWERARMOUR_HEAD,
         ARMOUR_NONPOWERARMOUR_CHEST,
         ARMOUR_NONPOWERARMOUR_ARMS,
@@ -80,13 +80,16 @@ namespace ItemModule
         ARMOUR_NONPOWERARMOUR_HANDS,
         ARMOUR_NONPOWERARMOUR_SHOULDERS,
         ARMOUR_NONPOWERARMOUR_BACKPACK,
-        CURRENCY_Stackable,
-        CURRENCY_NonStackable,
+        //Currency
+        CURRENCY_STACKABLE,
+        CURRENCY_NONSTACKABLE,
+        //Equipment
         EQUIPMENT_FLASK,
         EQUIPMENT_QUIVERS,
         EQUIPMENT_MAGAZINES,
         EQUIPMENT_GRENADES,
         EQUIPMENT_MINES,
+        //Spells
         SPELLS,
     }
     [CreateAssetMenu(fileName = "Item", menuName = "Item/Item Types", order = 1)]

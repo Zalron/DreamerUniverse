@@ -1,6 +1,7 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ItemModule;
 namespace CharacterModule
 {
     public class CharacterDetailed
@@ -17,60 +18,65 @@ namespace CharacterModule
         public const int energyGainForTenEnduance = 5;
         public const int Willpower = 5;
 
-        public int moreFromGear, moreFromTree, moreTotal;
-        public int lessFromGear, lessFromTree, lessTotal;
+        public int addFromGear, addFromTree, addTotal;
+        public int minusFromGear, minusFromTree, minusTotal;
         public int flatTotal;
         public int increasedFromGear, increasedFromTree, increasedTotal;
         public int decreasedFromGear, decreasedFromTree, decreasedTotal;
         public int additivePercentageTotal;
+        public List<ItemMod> moreFromGear;
+        public List<Skillnodes> moreFromTree;
+        public List<ItemMod> lessFromGear;
+        public List<Skillnodes> lessFromTree;
+        public int multiplicativePercentageTotal;
         public int total;
 
         #region Attributes
         //Attributes
 
         //Strength
-        public int moreFromGearStrength, moreFromTreeStrength, moreTotalStrength;
-        public int lessFromGearStrength, lessFromTreeStrength, lessTotalStrength;
+        public int addFromGearStrength, addFromTreeStrength, addTotalStrength;
+        public int minusFromGearStrength, minusFromTreeStrength, minusTotalStrength;
         public int flatTotalStrength;
         public int increasedFromGearStrength, increasedFromTreeStrength, increasedTotalStrength;
         public int decreasedFromGearStrength, decreasedFromTreeStrength, decreasedTotalStrength;
         public int additivePercentageTotalStrength;
         public int totalStrength;
         //Endurance
-        public int moreFromGearEndurance, moreFromTreeEndurance, moreTotalEndurance;
-        public int lessFromGearEndurance, lessFromTreeEndurance, lessTotalEndurance;
+        public int addFromGearEndurance, addFromTreeEndurance, addTotalEndurance;
+        public int minusFromGearEndurance, minusFromTreeEndurance, minusTotalEndurance;
         public int flatTotalEndurance;
         public int increasedFromGearEndurance, increasedFromTreeEndurance, increasedTotalEndurance;
         public int decreasedFromGearEndurance, decreasedFromTreeEndurance, decreasedTotalEndurance;
         public int additivePercentageTotalEndurance;
         public int totalEndurance;
         //Dexterity
-        public int moreFromGearDexterity, moreFromTreeDexterity, moreTotalDexterity;
-        public int lessFromGearDexterity, lessFromTreeDexterity, lessTotalDexterity;
+        public int addFromGearDexterity, addFromTreeDexterity, addTotalDexterity;
+        public int minusFromGearDexterity, minusFromTreeDexterity, minusTotalDexterity;
         public int flatTotalDexterity;
         public int increasedFromGearDexterity, increasedFromTreeDexterity, increasedTotalDexterity;
         public int decreasedFromGearDexterity, decreasedFromTreeDexterity, decreasedTotalDexterity;
         public int additivePercentageTotalDexterity;
         public int totalDexterity;
         //Luck
-        public int moreFromGearLuck, moreFromTreeLuck, moreTotalLuck;
-        public int lessFromGearLuck, lessFromTreeLuck, lessTotalLuck;
+        public int addFromGearLuck, addFromTreeLuck, addTotalLuck;
+        public int minusFromGearLuck, minusFromTreeLuck, minusTotalLuck;
         public int flatTotalLuck;
         public int increasedFromGearLuck, increasedFromTreeLuck, increasedTotalLuck;
         public int decreasedFromGearLuck, decreasedFromTreeLuck, decreasedTotalLuck;
         public int additivePercentageTotalLuck;
         public int totalLuck;
         //Intelligence
-        public int moreFromGearIntelligence, moreFromTreeIntelligence, moreTotalIntelligence;
-        public int lessFromGearIntelligence, lessFromTreeIntelligence, lessTotalIntelligence;
+        public int addFromGearIntelligence, addFromTreeIntelligence, addTotalIntelligence;
+        public int minusFromGearIntelligence, minusFromTreeIntelligence, minusTotalIntelligence;
         public int flatTotalIntelligence;
         public int increasedFromGearIntelligence, increasedFromTreeIntelligence, increasedTotalIntelligence;
         public int decreasedFromGearIntelligence, decreasedFromTreeIntelligence, decreasedTotalIntelligence;
         public int additivePercentageTotalIntelligence;
         public int totalIntelligence;
         //Willpower
-        public int moreFromGearWillpower, moreFromTreeWillpower, moreTotalWillpower;
-        public int lessFromGearWillpower, lessFromTreeWillpower, lessTotalWillpower;
+        public int addFromGearWillpower, addFromTreeWillpower, addTotalWillpower;
+        public int minusFromGearWillpower, minusFromTreeWillpower, minusTotalWillpower;
         public int flatTotalWillpower;
         public int increasedFromGearWillpower, increasedFromTreeWillpower, increasedTotalWillpower;
         public int decreasedFromGearWillpower, decreasedFromTreeWillpower, decreasedTotalWillpower;
@@ -82,14 +88,19 @@ namespace CharacterModule
         //Stats
 
         //Life
-        public int moreFromGearLife, moreFromTreeLife, moreTotalLife;
-        public int lessFromGearLife, lessFromTreeLife, lessTotalLife;
+        public int addFromGearLife, addFromTreeLife, addTotalLife;
+        public int minusFromGearLife, minusFromTreeLife, minusTotalLife;
         public int flatTotalLife;
         public int increasedFromGearLife, increasedFromTreeLife, increasedTotalLife;
         public int decreasedFromGearLife, decreasedFromTreeLife, decreasedTotalLife;
         public int additivePercentageTotalLife;
+        public List<ItemMod> moreFromGearLife;
+        public List<Skillnodes> moreFromTreeLife;
+        public List<ItemMod> lessFromGearLife;
+        public List<Skillnodes> lessFromTreeLife;
+        public int multiplictivePercentageTotalLife;
         public int totalLife;
-        //Life Regen
+        //Life Regen Rate
         public int moreFromGearLifeRegenRate, moreFromTreeLifeRegenRate, moreTotalLifeRegenRate;
         public int lessFromGearLifeRegenRate, lessFromTreeLifeRegenRate, lessTotalLifeRegenRate;
         public int flatTotalLifeRegen;

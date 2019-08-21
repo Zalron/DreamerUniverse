@@ -28,12 +28,10 @@ namespace CharacterModule
         public List<Skillnodes> moreFromTree;
         public List<ItemMod> lessFromGear;
         public List<Skillnodes> lessFromTree;
-        public int multiplicativePercentageTotal;
         public int total;
 
         #region Attributes
         //Attributes
-
         //Strength
         public int addFromGearStrength, addFromTreeStrength, addTotalStrength;
         public int minusFromGearStrength, minusFromTreeStrength, minusTotalStrength;

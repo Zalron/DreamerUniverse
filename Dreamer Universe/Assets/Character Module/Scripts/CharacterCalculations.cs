@@ -7,181 +7,290 @@ namespace CharacterModule
 {
     static public class CharacterCalculations
     {
-        static public int AttributeStatASIDCalculator(int numFromGear, int numFromTree)
+        static public int AttributeStatASIDTotalCalculator(int num, List<ItemMod> mods)
+        {
+            for (int i = 0; i < mods.Count; i++)
+            {
+                num += mods[i].itemModIntModifier;
+            }
+            return num;
+        }
+        static public int AttributeStatASIDGrossTotalCalculator(int numFromGear, int numFromTree)
         {
             int numTotal = 0;
             numTotal += numFromGear;
             numTotal += numFromTree;
             return numTotal;
         }
-        static public int AttributeStatASIDTotalCalculator(int numPlusTotal, int numMinusTotal)
+        static public int AttributeStatASIDNetTotalCalculator(int numPlusTotal, int numMinusTotal)
         {
             int numTotal = 0;
             numTotal += numPlusTotal;
             numTotal -= numMinusTotal;
             return numTotal;
         }
-        static public int AttributeStatMLCalculator(int numTotal,
-                                                    List<ItemMod> moreFromGear, List<Skillnodes> moreFromTree,
-                                                    List<ItemMod> lessFromGear, List<Skillnodes> lessFromTree)
+        static public int AttributeStatMCalculator(int numTotal, List<ItemMod> moreMultiplicativeMods)
+        {
+            for (int i = 0; i < moreMultiplicativeMods.Count; i++)
+            {
+                float multiplicativePercentage = moreMultiplicativeMods[i].itemModIntModifier / 100 + 1;
+                float numTotalf = numTotal;
+                numTotalf *= multiplicativePercentage;
+                Mathf.Round(numTotalf);
+                numTotal = (int)numTotalf;
+            }
+            return numTotal;
+        }
+        static public int AttributeStatLCalculator(int numTotal, List<ItemMod> lessMultiplicativeMods)
+        {
+            for (int i = 0; i < lessMultiplicativeMods.Count; i++)
+            {
+                float multiplicativePercentage = lessMultiplicativeMods[i].itemModIntModifier / 100 - 1;
+                float numTotalf = numTotal;
+                numTotalf *= multiplicativePercentage;
+                Mathf.Round(numTotalf);
+                numTotal = (int)numTotalf;
+            }
+            return numTotal;
+        }
+        static public int AttributeStatMMCalculator(int numTotal, List<ItemMod> moreMultiplicativeMods1, List<ItemMod> moreMultiplicativeMods2)
+        {
+            for (int i = 0; i < moreMultiplicativeMods1.Count; i++)
+            {
+                float multiplicativePercentage = moreMultiplicativeMods1[i].itemModIntModifier / 100 + 1;
+                float numTotalf = numTotal;
+                numTotalf *= multiplicativePercentage;
+                Mathf.Round(numTotalf);
+                numTotal = (int)numTotalf;
+            }
+            for (int i = 0; i < moreMultiplicativeMods2.Count; i++)
+            {
+                float multiplicativePercentage = moreMultiplicativeMods2[i].itemModIntModifier / 100 + 1;
+                float numTotalf = numTotal;
+                numTotalf *= multiplicativePercentage;
+                Mathf.Round(numTotalf);
+                numTotal = (int)numTotalf;
+            }
+            return numTotal;
+        }
+        static public int AttributeStatMLCalculator(int numTotal, List<ItemMod> moreMultiplicativeMods, List<ItemMod> lessMultiplicativeMods)
+        {
+            for (int i = 0; i < moreMultiplicativeMods.Count; i++)
+            {
+                float multiplicativePercentage = moreMultiplicativeMods[i].itemModIntModifier / 100 + 1;
+                float numTotalf = numTotal;
+                numTotalf *= multiplicativePercentage;
+                Mathf.Round(numTotalf);
+                numTotal = (int)numTotalf;
+            }
+            for (int i = 0; i < lessMultiplicativeMods.Count; i++)
+            {
+                float multiplicativePercentage = lessMultiplicativeMods[i].itemModIntModifier / 100 - 1;
+                float numTotalf = numTotal;
+                numTotalf *= multiplicativePercentage;
+                Mathf.Round(numTotalf);
+                numTotal = (int)numTotalf;
+            }
+            return numTotal;
+        }
+        static public int AttributeStatLLCalculator(int numTotal, List<ItemMod> lessMultiplicativeMods1, List<ItemMod> lessMultiplicativeMods2)
+        {
+            for (int i = 0; i < lessMultiplicativeMods1.Count; i++)
+            {
+                float multiplicativePercentage = lessMultiplicativeMods1[i].itemModIntModifier / 100 - 1;
+                float numTotalf = numTotal;
+                numTotalf *= multiplicativePercentage;
+                Mathf.Round(numTotalf);
+                numTotal = (int)numTotalf;
+            }
+            for (int i = 0; i < lessMultiplicativeMods2.Count; i++)
+            {
+                float multiplicativePercentage = lessMultiplicativeMods2[i].itemModIntModifier / 100 - 1;
+                float numTotalf = numTotal;
+                numTotalf *= multiplicativePercentage;
+                Mathf.Round(numTotalf);
+                numTotal = (int)numTotalf;
+            }
+            return numTotal;
+        }
+        static public int AttributeStatMMLCalculator(int numTotal, List<ItemMod> moreMultiplicativeMods1, List<ItemMod> moreMultiplicativeMods2, List<ItemMod> lessMultiplicativeMods1)
+        {
+            for (int i = 0; i < moreMultiplicativeMods1.Count; i++)
+            {
+                float multiplicativePercentage = moreMultiplicativeMods1[i].itemModIntModifier / 100 + 1;
+                float numTotalf = numTotal;
+                numTotalf *= multiplicativePercentage;
+                Mathf.Round(numTotalf);
+                numTotal = (int)numTotalf;
+            }
+            for (int i = 0; i < moreMultiplicativeMods2.Count; i++)
+            {
+                float multiplicativePercentage = moreMultiplicativeMods2[i].itemModIntModifier / 100 + 1;
+                float numTotalf = numTotal;
+                numTotalf *= multiplicativePercentage;
+                Mathf.Round(numTotalf);
+                numTotal = (int)numTotalf;
+            }
+            for (int i = 0; i < lessMultiplicativeMods1.Count; i++)
+            {
+                float multiplicativePercentage = lessMultiplicativeMods1[i].itemModIntModifier / 100 - 1;
+                float numTotalf = numTotal;
+                numTotalf *= multiplicativePercentage;
+                Mathf.Round(numTotalf);
+                numTotal = (int)numTotalf;
+            }
+            return numTotal;
+        }
+        static public int AttributeStatLLMCalculator(int numTotal, List<ItemMod> lessMultiplicativeMods1, List<ItemMod> lessMultiplicativeMods2, List<ItemMod> moreMultiplicativeMods1)
+        {
+            for (int i = 0; i < moreMultiplicativeMods1.Count; i++)
+            {
+                float multiplicativePercentage = moreMultiplicativeMods1[i].itemModIntModifier / 100 + 1;
+                float numTotalf = numTotal;
+                numTotalf *= multiplicativePercentage;
+                Mathf.Round(numTotalf);
+                numTotal = (int)numTotalf;
+            }
+            for (int i = 0; i < lessMultiplicativeMods1.Count; i++)
+            {
+                float multiplicativePercentage = lessMultiplicativeMods1[i].itemModIntModifier / 100 - 1;
+                float numTotalf = numTotal;
+                numTotalf *= multiplicativePercentage;
+                Mathf.Round(numTotalf);
+                numTotal = (int)numTotalf;
+            }
+            for (int i = 0; i < lessMultiplicativeMods2.Count; i++)
+            {
+                float multiplicativePercentage = lessMultiplicativeMods2[i].itemModIntModifier / 100 - 1;
+                float numTotalf = numTotal;
+                numTotalf *= multiplicativePercentage;
+                Mathf.Round(numTotalf);
+                numTotal = (int)numTotalf;
+            }
+            return numTotal;
+        }
+        static public int AttributeStatMMLLCalculator(int numTotal, List<ItemMod> moreMultiplicativeMods1, List<ItemMod> moreMultiplicativeMods2, List<ItemMod> lessMultiplicativeMods1, List<ItemMod> lessMultiplicativeMods2)
+        {
+            for (int i = 0; i < moreMultiplicativeMods1.Count; i++)
+            {
+                float multiplicativePercentage = moreMultiplicativeMods1[i].itemModIntModifier / 100 + 1;
+                float numTotalf = numTotal;
+                numTotalf *= multiplicativePercentage;
+                Mathf.Round(numTotalf);
+                numTotal = (int)numTotalf;
+            }
+            for (int i = 0; i < moreMultiplicativeMods2.Count; i++)
+            {
+                float multiplicativePercentage = moreMultiplicativeMods2[i].itemModIntModifier / 100 + 1;
+                float numTotalf = numTotal;
+                numTotalf *= multiplicativePercentage;
+                Mathf.Round(numTotalf);
+                numTotal = (int)numTotalf;
+            }
+            for (int i = 0; i < lessMultiplicativeMods1.Count; i++)
+            {
+                float multiplicativePercentage = lessMultiplicativeMods1[i].itemModIntModifier / 100 - 1;
+                float numTotalf = numTotal;
+                numTotalf *= multiplicativePercentage;
+                Mathf.Round(numTotalf);
+                numTotal = (int)numTotalf;
+            }
+            for (int i = 0; i < lessMultiplicativeMods2.Count; i++)
+            {
+                float multiplicativePercentage = lessMultiplicativeMods2[i].itemModIntModifier / 100 - 1;
+                float numTotalf = numTotal;
+                numTotalf *= multiplicativePercentage;
+                Mathf.Round(numTotalf);
+                numTotal = (int)numTotalf;
+            }
+            return numTotal;
+        }
+        static public int AttributeStatMLTotalCalculator(int numTotal,
+                                                         List<ItemMod> moreFromGear, List<ItemMod> moreFromTree,
+                                                         List<ItemMod> lessFromGear, List<ItemMod> lessFromTree)
         {
             if (lessFromGear == null && moreFromTree == null && lessFromTree == null)
             {
-                for (int i = 0; i < moreFromGear.Count; i++)
-                {
-                    float multiplicativePercentage = moreFromGear[i].itemModIntModifier / 100 + 1;
-                    float numTotalf = 0;
-                    numTotalf *= multiplicativePercentage;
-                    Mathf.Round(numTotalf);
-                    numTotal = (int)numTotalf;
+                numTotal = AttributeStatMCalculator(numTotal, moreFromGear);
+                return numTotal;
+            }
+            else if(moreFromGear == null && moreFromTree == null && lessFromTree == null)
+            {
+                numTotal = AttributeStatLCalculator(numTotal, lessFromGear);
+                return numTotal;
+            }
+            else if(moreFromGear == null && lessFromGear == null && lessFromTree == null)
+            {
+                numTotal = AttributeStatMCalculator(numTotal, moreFromTree);
+                return numTotal;
+            }
+            else if(moreFromGear == null && lessFromGear == null && moreFromTree == null)
+            {
+                numTotal = AttributeStatLCalculator(numTotal, lessFromTree);
+                return numTotal;
+            }
 
-                }
-                return numTotal;
-            }
-            if (moreFromGear == null && moreFromTree == null && lessFromTree == null)
-            {
-                for (int i = 0; i < lessFromGear.Count; i++)
-                {
-                    float multiplicativePercentage = moreFromGear[i].itemModIntModifier / 100 - 1;
-                    float numTotalf = 0;
-                    numTotalf *= multiplicativePercentage;
-                    Mathf.Round(numTotalf);
-                    numTotal = (int)numTotalf;
-                }
-                return numTotal;
-            }
-            if (moreFromGear == null && lessFromGear == null && lessFromTree == null)
-            {
-                for (int i = 0; i < moreFromTree.Count; i++)
-                {
-                    float multiplicativePercentage = moreFromGear[i].itemModIntModifier / 100 + 1;
-                    float numTotalf = 0;
-                    numTotalf *= multiplicativePercentage;
-                    Mathf.Round(numTotalf);
-                    numTotal = (int)numTotalf;
-                }
-                return numTotal;
-            }
-            if (moreFromGear == null && lessFromGear == null && moreFromTree == null)
-            {
-                for (int i = 0; i < lessFromTree.Count; i++)
-                {
-                    float multiplicativePercentage = moreFromGear[i].itemModIntModifier / 100 - 1;
-                    float numTotalf = 0;
-                    numTotalf *= multiplicativePercentage;
-                    Mathf.Round(numTotalf);
-                    numTotal = (int)numTotalf;
-                }
-                return numTotal;
-            }
             else if (moreFromTree == null && lessFromTree == null)
             {
-                for (int i = 0; i < moreFromGear.Count; i++)
-                {
-                    float multiplicativePercentage = moreFromGear[i].itemModIntModifier / 100 + 1;
-                    float numTotalf = 0;
-                    numTotalf *= multiplicativePercentage;
-                    Mathf.Round(numTotalf);
-                    numTotal = (int)numTotalf;
-                }
-                for (int i = 0; i < lessFromGear.Count; i++)
-                {
-                    float multiplicativePercentage = moreFromGear[i].itemModIntModifier / 100 - 1;
-                    float numTotalf = 0;
-                    numTotalf *= multiplicativePercentage;
-                    Mathf.Round(numTotalf);
-                    numTotal = (int)numTotalf;
-                }
+                numTotal = AttributeStatMLCalculator(numTotal, moreFromGear, lessFromGear);
+                return numTotal;
+            }
+            else if (moreFromGear == null && lessFromGear == null)
+            {
+                numTotal = AttributeStatMLCalculator(numTotal, moreFromTree, lessFromGear);
                 return numTotal;
             }
             else if (moreFromGear == null && lessFromTree == null)
             {
-                for (int i = 0; i < moreFromTree.Count; i++)
-                {
-                    float multiplicativePercentage = moreFromGear[i].itemModIntModifier / 100 + 1;
-                    float numTotalf = 0;
-                    numTotalf *= multiplicativePercentage;
-                    Mathf.Round(numTotalf);
-                    numTotal = (int)numTotalf;
-                }
-                for (int i = 0; i < lessFromGear.Count; i++)
-                {
-                    float multiplicativePercentage = moreFromGear[i].itemModIntModifier / 100 - 1;
-                    float numTotalf = 0;
-                    numTotalf *= multiplicativePercentage;
-                    Mathf.Round(numTotalf);
-                    numTotal = (int)numTotalf;
-                }
+                numTotal = AttributeStatMLCalculator(numTotal, moreFromTree, lessFromGear);
+                return numTotal;
+            }
+            else if (lessFromGear == null && moreFromTree == null)
+            {
+                numTotal = AttributeStatMLCalculator(numTotal, moreFromGear, lessFromTree);
+                return numTotal;
+            }
+            else if (moreFromGear == null && moreFromTree == null)
+            {
+                numTotal = AttributeStatMLCalculator(numTotal, moreFromTree, lessFromGear);
+                return numTotal;
+            }
+            else if (lessFromGear == null && lessFromTree == null)
+            {
+                numTotal = AttributeStatMLCalculator(numTotal, moreFromTree, lessFromGear);
+                return numTotal;
+            }
+
+            else if (moreFromGear == null)
+            {
+                numTotal = AttributeStatLLMCalculator(numTotal, lessFromGear, lessFromTree, moreFromTree);
+                return numTotal;
+            }
+            else if (moreFromTree == null)
+            {
+                numTotal = AttributeStatLLMCalculator(numTotal, lessFromGear, lessFromTree, moreFromGear);
+                return numTotal;
+            }
+            else if (lessFromGear == null)
+            {
+                numTotal = AttributeStatMMLCalculator(numTotal, moreFromGear, moreFromTree, lessFromGear);
                 return numTotal;
             }
             else if (lessFromTree == null)
             {
-                for(int i = 0; i < moreFromGear.Count; i++)
-                {
-                    float multiplicativePercentage = moreFromGear[i].itemModIntModifier / 100 + 1;
-                    float numTotalf = 0;
-                    numTotalf *= multiplicativePercentage;
-                    Mathf.Round(numTotalf);
-                    numTotal = (int)numTotalf;
-                }
-                for (int i = 0; i < lessFromGear.Count; i++)
-                {
-                    float multiplicativePercentage = moreFromGear[i].itemModIntModifier / 100 - 1;
-                    float numTotalf = 0;
-                    numTotalf *= multiplicativePercentage;
-                    Mathf.Round(numTotalf);
-                    numTotal = (int)numTotalf;
-                }
-                for (int i = 0; i < moreFromTree.Count; i++)
-                {
-                    float multiplicativePercentage = moreFromGear[i].itemModIntModifier / 100 + 1;
-                    float numTotalf = 0;
-                    numTotalf *= multiplicativePercentage;
-                    Mathf.Round(numTotalf);
-                    numTotal = (int)numTotalf;
-                }
+                numTotal = AttributeStatMMLCalculator(numTotal, moreFromGear, moreFromTree, lessFromTree);
                 return numTotal;
             }
+
             else
             {
-                for (int i = 0; i < moreFromGear.Count; i++)
-                {
-                    float multiplicativePercentage = moreFromGear[i].itemModIntModifier / 100 + 1;
-                    float numTotalf = 0;
-                    numTotalf *= multiplicativePercentage;
-                    Mathf.Round(numTotalf);
-                    numTotal = (int)numTotalf;
-                }
-                for (int i = 0; i < lessFromGear.Count; i++)
-                {
-                    float multiplicativePercentage = moreFromGear[i].itemModIntModifier / 100 - 1;
-                    float numTotalf = 0;
-                    numTotalf *= multiplicativePercentage;
-                    Mathf.Round(numTotalf);
-                    numTotal = (int)numTotalf;
-                }
-                for (int i = 0; i < moreFromTree.Count; i++)
-                {
-                    float multiplicativePercentage = moreFromGear[i].itemModIntModifier / 100 + 1;
-                    float numTotalf = 0;
-                    numTotalf *= multiplicativePercentage;
-                    Mathf.Round(numTotalf);
-                    numTotal = (int)numTotalf;
-                }
-                for (int i = 0; i < lessFromTree.Count; i++)
-                {
-                    float multiplicativePercentage = moreFromGear[i].itemModIntModifier / 100 - 1;
-                    float numTotalf = 0;
-                    numTotalf *= multiplicativePercentage;
-                    Mathf.Round(numTotalf);
-                    numTotal = (int)numTotalf;
-                }
+                numTotal = AttributeStatMMLLCalculator(numTotal, moreFromGear, moreFromTree, lessFromGear, lessFromTree);
                 return numTotal;
             }
         }
         static public int AttributeStatTotalCalculator(int numflatTotal, int numAdditivePercentageTotal, 
-                                                       List<ItemMod> moreFromGear, List<Skillnodes> moreFromTree, 
-                                                       List<ItemMod> lessFromGear, List<Skillnodes> lessFromTree)
+                                                       List<ItemMod> moreFromGear, List<ItemMod> moreFromTree, 
+                                                       List<ItemMod> lessFromGear, List<ItemMod> lessFromTree)
         {
             int numTotal = 0;
             numTotal += numflatTotal;
@@ -198,7 +307,7 @@ namespace CharacterModule
             }
             else
             {
-                numTotal = AttributeStatMLCalculator(numTotal, moreFromGear, moreFromTree, lessFromGear, lessFromTree);
+                numTotal += AttributeStatMLTotalCalculator(numTotal, moreFromGear, moreFromTree, lessFromGear, lessFromTree);
                 return numTotal;
             }
 

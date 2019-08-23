@@ -18,91 +18,105 @@ namespace CharacterModule
         public const int energyGainForTenEnduance = 5;
         public const int Willpower = 5;
 
+
+        public List<ItemMod> addFromGearMods, addFromTreeMods;
+        public List<ItemMod> minusFromGearMods, minusFromTreeMods;
         public int addFromGear, addFromTree, addTotal;
         public int minusFromGear, minusFromTree, minusTotal;
         public int flatTotal;
+        public List<ItemMod> increasedFromGearMods, increasedFromTreeMods;
+        public List<ItemMod> decreasedFromGearMods, decreasedFromTreeMods;
         public int increasedFromGear, increasedFromTree, increasedTotal;
         public int decreasedFromGear, decreasedFromTree, decreasedTotal;
         public int additivePercentageTotal;
-        public List<ItemMod> moreFromGear;
-        public List<Skillnodes> moreFromTree;
-        public List<ItemMod> lessFromGear;
-        public List<Skillnodes> lessFromTree;
+        public List<ItemMod> moreFromGearMods, moreFromTreeMods;
+        public List<ItemMod> lessFromGearMods, lessFromTreeMods;
         public int total;
 
         #region Attributes
         //Attributes
         //Strength
+        public List<ItemMod> addFromGearModsStrength, addFromTreeModsStrength;
+        public List<ItemMod> minusFromGearModsStrength, minusFromTreeModsStrength;
         public int addFromGearStrength, addFromTreeStrength, addTotalStrength;
         public int minusFromGearStrength, minusFromTreeStrength, minusTotalStrength;
         public int flatTotalStrength;
+        public List<ItemMod> increasedFromGearModsStrength, increasedFromTreeModsStrength;
+        public List<ItemMod> decreasedFromGearModsStrength, decreasedFromTreeModsStrength;
         public int increasedFromGearStrength, increasedFromTreeStrength, increasedTotalStrength;
         public int decreasedFromGearStrength, decreasedFromTreeStrength, decreasedTotalStrength;
-        public int additivePercentageTotalStrength;
-        public List<ItemMod> moreFromGearStrength;
-        public List<Skillnodes> moreFromTreeStrength;
-        public List<ItemMod> lessFromGearStrength;
-        public List<Skillnodes> lessFromTreeStrength;
+        public List<ItemMod> moreFromGearModsStrength, moreFromTreeModsStrength;
+        public List<ItemMod> lessFromGearModsStrength, lessFromTreeModsStrength;
         public int totalStrength;
         //Endurance
+        public List<ItemMod> addFromGearModsEndurance, addFromTreeModsEndurance;
+        public List<ItemMod> minusFromGearModsEndurance, minusFromTreeModsEndurance;
         public int addFromGearEndurance, addFromTreeEndurance, addTotalEndurance;
         public int minusFromGearEndurance, minusFromTreeEndurance, minusTotalEndurance;
         public int flatTotalEndurance;
+        public List<ItemMod> increasedFromGearModsEndurance, increasedFromTreeModsEndurance;
+        public List<ItemMod> decreasedFromGearModsEndurance, decreasedFromTreeModsEndurance;
         public int increasedFromGearEndurance, increasedFromTreeEndurance, increasedTotalEndurance;
         public int decreasedFromGearEndurance, decreasedFromTreeEndurance, decreasedTotalEndurance;
         public int additivePercentageTotalEndurance;
-        public List<ItemMod> moreFromGearEndurance;
-        public List<Skillnodes> moreFromTreeEndurance;
-        public List<ItemMod> lessFromGearEndurance;
-        public List<Skillnodes> lessFromTreeEndurance;
+        public List<ItemMod> moreFromGearModsEndurance, moreFromTreeModsEndurance;
+        public List<ItemMod> lessFromGearModsEndurance, lessFromTreeModsEndurance;
         public int totalEndurance;
         //Dexterity
+        public List<ItemMod> addFromGearModsDexterity, addFromTreeModsDexterity;
+        public List<ItemMod> minusFromGearModsDexterity, minusFromTreeModsDexterity;
         public int addFromGearDexterity, addFromTreeDexterity, addTotalDexterity;
         public int minusFromGearDexterity, minusFromTreeDexterity, minusTotalDexterity;
         public int flatTotalDexterity;
+        public List<ItemMod> increasedFromGearModsDexterity, increasedFromTreeModsDexterity;
+        public List<ItemMod> decreasedFromGearModsDexterity, decreasedFromTreeModsDexterity;
         public int increasedFromGearDexterity, increasedFromTreeDexterity, increasedTotalDexterity;
         public int decreasedFromGearDexterity, decreasedFromTreeDexterity, decreasedTotalDexterity;
         public int additivePercentageTotalDexterity;
-        public List<ItemMod> moreFromGearDexterity;
-        public List<Skillnodes> moreFromTreeDexterity;
-        public List<ItemMod> lessFromGearDexterity;
-        public List<Skillnodes> lessFromTreeDexterity;
+        public List<ItemMod> moreFromGearModsDexterity, moreFromTreeModsDexterity;
+        public List<ItemMod> lessFromGearModsDexterity, lessFromTreeModsDexterity;
         public int totalDexterity;
         //Luck
+        public List<ItemMod> addFromGearModsLuck, addFromTreeModsLuck;
+        public List<ItemMod> minusFromGearModsLuck, minusFromTreeModsLuck;
         public int addFromGearLuck, addFromTreeLuck, addTotalLuck;
         public int minusFromGearLuck, minusFromTreeLuck, minusTotalLuck;
         public int flatTotalLuck;
+        public List<ItemMod> increasedFromGearModsLuck, increasedFromTreeModsLuck;
+        public List<ItemMod> decreasedFromGearModsLuck, decreasedFromTreeModsLuck;
         public int increasedFromGearLuck, increasedFromTreeLuck, increasedTotalLuck;
         public int decreasedFromGearLuck, decreasedFromTreeLuck, decreasedTotalLuck;
         public int additivePercentageTotalLuck;
-        public List<ItemMod> moreFromGearLuck;
-        public List<Skillnodes> moreFromTreeLuck;
-        public List<ItemMod> lessFromGearLuck;
-        public List<Skillnodes> lessFromTreeLuck;
+        public List<ItemMod> moreFromGearModsLuck, moreFromTreeModsLuck;
+        public List<ItemMod> lessFromGearModsLuck, lessFromTreeModsLuck;
         public int totalLuck;
         //Intelligence
+        public List<ItemMod> addFromGearModsIntelligence, addFromTreeModsIntelligence;
+        public List<ItemMod> minusFromGearModsIntelligence, minusFromTreeModsIntelligence;
         public int addFromGearIntelligence, addFromTreeIntelligence, addTotalIntelligence;
         public int minusFromGearIntelligence, minusFromTreeIntelligence, minusTotalIntelligence;
         public int flatTotalIntelligence;
+        public List<ItemMod> increasedFromGearModsIntelligence, increasedFromTreeModsIntelligence;
+        public List<ItemMod> decreasedFromGearModsIntelligence, decreasedFromTreeModsIntelligence;
         public int increasedFromGearIntelligence, increasedFromTreeIntelligence, increasedTotalIntelligence;
         public int decreasedFromGearIntelligence, decreasedFromTreeIntelligence, decreasedTotalIntelligence;
         public int additivePercentageTotalIntelligence;
-        public List<ItemMod> moreFromGearIntelligence;
-        public List<Skillnodes> moreFromTreeIntelligence;
-        public List<ItemMod> lessFromGearIntelligence;
-        public List<Skillnodes> lessFromTreeIntelligence;
+        public List<ItemMod> moreFromGearModsIntelligence, moreFromTreeModsIntelligence;
+        public List<ItemMod> lessFromGearModsIntelligence, lessFromTreeModsIntelligence;
         public int totalIntelligence;
         //Willpower
+        public List<ItemMod> addFromGearModsWillpower, addFromTreeModsWillpower;
+        public List<ItemMod> minusFromGearModsWillpower, minusFromTreeModsWillpower;
         public int addFromGearWillpower, addFromTreeWillpower, addTotalWillpower;
         public int minusFromGearWillpower, minusFromTreeWillpower, minusTotalWillpower;
         public int flatTotalWillpower;
+        public List<ItemMod> increasedFromGearModsWillpower, increasedFromTreeModsWillpower;
+        public List<ItemMod> decreasedFromGearModsWillpower, decreasedFromTreeModsWillpower;
         public int increasedFromGearWillpower, increasedFromTreeWillpower, increasedTotalWillpower;
         public int decreasedFromGearWillpower, decreasedFromTreeWillpower, decreasedTotalWillpower;
         public int additivePercentageTotalWillpower;
-        public List<ItemMod> moreFromGearWillpower;
-        public List<Skillnodes> moreFromTreeWillpower;
-        public List<ItemMod> lessFromGearWillpower;
-        public List<Skillnodes> lessFromTreeWillpower;
+        public List<ItemMod> moreFromGearModsWillpower, moreFromTreeModsWillpower;
+        public List<ItemMod> lessFromGearModsWillpower, lessFromTreeModsWillpower;
         public int totalWillpower;
         #endregion
 
@@ -372,5 +386,40 @@ namespace CharacterModule
         public int additivePercentageTotalMagicStiffnessResistance;
         public int totalMagicStiffnessResistance;
         #endregion
+        public void TotalCharacterDetailedCalculation()
+        {
+
+        }
+        public int AttributeStatCalculation(List<ItemMod> addFromGearMods, List<ItemMod> addFromTreeMods,
+                                             List<ItemMod> minusFromGearMods, List<ItemMod> minusFromTreeMods,
+                                             int addFromGear, int addFromTree, int addTotal,
+                                             int minusFromGear, int minusFromTree, int minusTotal,
+                                             int flatTotal,
+                                             List<ItemMod> increasedFromGearMods, List<ItemMod> increasedFromTreeMods,
+                                             List<ItemMod> decreasedFromGearMods, List<ItemMod> decreasedFromTreeMods,
+                                             int increasedFromGear, int increasedFromTree, int increasedTotal,
+                                             int decreasedFromGear, int decreasedFromTree, int decreasedTotal,
+                                             int additivePercentageTotal,
+                                             List<ItemMod> moreFromGearMods, List<ItemMod> moreFromTreeMods,
+                                             List<ItemMod> lessFromGearMods, List<ItemMod> lessFromTreeMods,
+                                             int total)
+        {
+            addFromGear = CharacterCalculations.AttributeStatASIDTotalCalculator(addFromGear, addFromGearMods);
+            addFromTree = CharacterCalculations.AttributeStatASIDTotalCalculator(addFromTree, addFromTreeMods);
+            addTotal = CharacterCalculations.AttributeStatASIDGrossTotalCalculator(addFromGear, addFromTree);
+            minusFromGear = CharacterCalculations.AttributeStatASIDTotalCalculator(minusFromGear, minusFromGearMods);
+            minusFromTree = CharacterCalculations.AttributeStatASIDTotalCalculator(minusFromTree, minusFromTreeMods);
+            minusTotal = CharacterCalculations.AttributeStatASIDGrossTotalCalculator(minusFromGear, minusFromTree);
+            flatTotal = CharacterCalculations.AttributeStatASIDNetTotalCalculator(addTotal, minusTotal);
+            increasedFromGear = CharacterCalculations.AttributeStatASIDTotalCalculator(increasedFromGear, increasedFromGearMods);
+            increasedFromTree = CharacterCalculations.AttributeStatASIDTotalCalculator(increasedFromTree, increasedFromTreeMods);
+            increasedTotal = CharacterCalculations.AttributeStatASIDGrossTotalCalculator(increasedFromGear, increasedFromTree);
+            decreasedFromGear = CharacterCalculations.AttributeStatASIDTotalCalculator(decreasedFromGear, decreasedFromGearMods);
+            decreasedFromTree = CharacterCalculations.AttributeStatASIDTotalCalculator(decreasedFromTree, decreasedFromTreeMods);
+            decreasedTotal = CharacterCalculations.AttributeStatASIDGrossTotalCalculator(decreasedFromGear, decreasedFromTree);
+            additivePercentageTotal = CharacterCalculations.AttributeStatASIDNetTotalCalculator(increasedTotal, decreasedTotal);
+            total = CharacterCalculations.AttributeStatTotalCalculator(flatTotal, additivePercentageTotal, moreFromGearMods, moreFromTreeMods, lessFromGearMods, lessFromTreeMods);
+            return total;
+        }
     }
 }

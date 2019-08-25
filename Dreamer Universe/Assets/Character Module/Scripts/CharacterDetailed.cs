@@ -45,6 +45,7 @@ namespace CharacterModule
         public List<ItemMod> decreasedFromGearModsStrength, decreasedFromTreeModsStrength;
         public int increasedFromGearStrength, increasedFromTreeStrength, increasedTotalStrength;
         public int decreasedFromGearStrength, decreasedFromTreeStrength, decreasedTotalStrength;
+        public int additivePercentageTotalStrength;
         public List<ItemMod> moreFromGearModsStrength, moreFromTreeModsStrength;
         public List<ItemMod> lessFromGearModsStrength, lessFromTreeModsStrength;
         public int totalStrength;
@@ -388,38 +389,32 @@ namespace CharacterModule
         #endregion
         public void TotalCharacterDetailedCalculation()
         {
-
-        }
-        public int AttributeStatCalculation(List<ItemMod> addFromGearMods, List<ItemMod> addFromTreeMods,
-                                             List<ItemMod> minusFromGearMods, List<ItemMod> minusFromTreeMods,
-                                             int addFromGear, int addFromTree, int addTotal,
-                                             int minusFromGear, int minusFromTree, int minusTotal,
-                                             int flatTotal,
-                                             List<ItemMod> increasedFromGearMods, List<ItemMod> increasedFromTreeMods,
-                                             List<ItemMod> decreasedFromGearMods, List<ItemMod> decreasedFromTreeMods,
-                                             int increasedFromGear, int increasedFromTree, int increasedTotal,
-                                             int decreasedFromGear, int decreasedFromTree, int decreasedTotal,
-                                             int additivePercentageTotal,
-                                             List<ItemMod> moreFromGearMods, List<ItemMod> moreFromTreeMods,
-                                             List<ItemMod> lessFromGearMods, List<ItemMod> lessFromTreeMods,
-                                             int total)
-        {
-            addFromGear = CharacterCalculations.AttributeStatASIDTotalCalculator(addFromGear, addFromGearMods);
-            addFromTree = CharacterCalculations.AttributeStatASIDTotalCalculator(addFromTree, addFromTreeMods);
-            addTotal = CharacterCalculations.AttributeStatASIDGrossTotalCalculator(addFromGear, addFromTree);
-            minusFromGear = CharacterCalculations.AttributeStatASIDTotalCalculator(minusFromGear, minusFromGearMods);
-            minusFromTree = CharacterCalculations.AttributeStatASIDTotalCalculator(minusFromTree, minusFromTreeMods);
-            minusTotal = CharacterCalculations.AttributeStatASIDGrossTotalCalculator(minusFromGear, minusFromTree);
-            flatTotal = CharacterCalculations.AttributeStatASIDNetTotalCalculator(addTotal, minusTotal);
-            increasedFromGear = CharacterCalculations.AttributeStatASIDTotalCalculator(increasedFromGear, increasedFromGearMods);
-            increasedFromTree = CharacterCalculations.AttributeStatASIDTotalCalculator(increasedFromTree, increasedFromTreeMods);
-            increasedTotal = CharacterCalculations.AttributeStatASIDGrossTotalCalculator(increasedFromGear, increasedFromTree);
-            decreasedFromGear = CharacterCalculations.AttributeStatASIDTotalCalculator(decreasedFromGear, decreasedFromGearMods);
-            decreasedFromTree = CharacterCalculations.AttributeStatASIDTotalCalculator(decreasedFromTree, decreasedFromTreeMods);
-            decreasedTotal = CharacterCalculations.AttributeStatASIDGrossTotalCalculator(decreasedFromGear, decreasedFromTree);
-            additivePercentageTotal = CharacterCalculations.AttributeStatASIDNetTotalCalculator(increasedTotal, decreasedTotal);
-            total = CharacterCalculations.AttributeStatTotalCalculator(flatTotal, additivePercentageTotal, moreFromGearMods, moreFromTreeMods, lessFromGearMods, lessFromTreeMods);
-            return total;
+            totalStrength = CharacterCalculations.AttributeStatCalculation(addFromGearModsStrength, addFromTreeModsStrength,
+                                                                           minusFromGearModsStrength, minusFromTreeModsStrength,
+                                                                           addFromGearStrength, addFromTreeStrength, addTotalStrength,
+                                                                           minusFromGearStrength, minusFromTreeStrength, minusTotalStrength,
+                                                                           flatTotalStrength,
+                                                                           increasedFromGearModsStrength, increasedFromTreeModsStrength,
+                                                                           decreasedFromGearModsStrength, decreasedFromTreeModsStrength,
+                                                                           increasedFromGearStrength, increasedFromTreeStrength, increasedTotalStrength,
+                                                                           decreasedFromGearStrength, decreasedFromTreeStrength, decreasedTotalStrength,
+                                                                           additivePercentageTotalStrength,
+                                                                           moreFromGearModsStrength, moreFromTreeModsStrength,
+                                                                           lessFromGearModsStrength, lessFromTreeModsStrength,
+                                                                           totalStrength);
+            totalEndurance = CharacterCalculations.AttributeStatCalculation(addFromGearModsEndurance, addFromTreeModsEndurance,
+                                                                           minusFromGearModsEndurance, minusFromTreeModsEndurance,
+                                                                           addFromGearEndurance, addFromTreeEndurance, addTotalEndurance,
+                                                                           minusFromGearEndurance, minusFromTreeEndurance, minusTotalEndurance,
+                                                                           flatTotalEndurance,
+                                                                           increasedFromGearModsEndurance, increasedFromTreeModsEndurance,
+                                                                           decreasedFromGearModsEndurance, decreasedFromTreeModsEndurance,
+                                                                           increasedFromGearEndurance, increasedFromTreeEndurance, increasedTotalEndurance,
+                                                                           decreasedFromGearEndurance, decreasedFromTreeEndurance, decreasedTotalEndurance,
+                                                                           additivePercentageTotalEndurance,
+                                                                           moreFromGearModsEndurance, moreFromTreeModsEndurance,
+                                                                           lessFromGearModsEndurance, lessFromTreeModsEndurance,
+                                                                           totalEndurance);
         }
     }
 }

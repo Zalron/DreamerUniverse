@@ -9,15 +9,22 @@ namespace CharacterModule
     {
         static public int AttributeStatASIDTotalCalculator(int num, List<ItemMod> mods)
         {
+            if (num > 0)
+            {
+                num = 0;
+            }
             for (int i = 0; i < mods.Count; i++)
             {
                 num += mods[i].itemModIntModifier;
             }
             return num;
         }
-        static public int AttributeStatASIDGrossTotalCalculator(int numFromGear, int numFromTree)
+        static public int AttributeStatASIDGrossTotalCalculator(int numTotal, int numFromGear, int numFromTree)
         {
-            int numTotal = 0;
+            if (numTotal > 0)
+            {
+                numTotal = 0;
+            }
             numTotal += numFromGear;
             numTotal += numFromTree;
             return numTotal;
@@ -311,6 +318,37 @@ namespace CharacterModule
                 return numTotal;
             }
 
+        }
+        static public int AttributeStatCalculation(List<ItemMod> addFromGearMods, List<ItemMod> addFromTreeMods,
+                                                   List<ItemMod> minusFromGearMods, List<ItemMod> minusFromTreeMods,
+                                                   int addFromGear, int addFromTree, int addTotal,
+                                                   int minusFromGear, int minusFromTree, int minusTotal,
+                                                   int flatTotal,
+                                                   List<ItemMod> increasedFromGearMods, List<ItemMod> increasedFromTreeMods,
+                                                   List<ItemMod> decreasedFromGearMods, List<ItemMod> decreasedFromTreeMods,
+                                                   int increasedFromGear, int increasedFromTree, int increasedTotal,
+                                                   int decreasedFromGear, int decreasedFromTree, int decreasedTotal,
+                                                   int additivePercentageTotal,
+                                                   List<ItemMod> moreFromGearMods, List<ItemMod> moreFromTreeMods,
+                                                   List<ItemMod> lessFromGearMods, List<ItemMod> lessFromTreeMods,
+                                                   int total)
+        {
+            addFromGear = AttributeStatASIDTotalCalculator(addFromGear, addFromGearMods);
+            addFromTree = AttributeStatASIDTotalCalculator(addFromTree, addFromTreeMods);
+            addTotal = AttributeStatASIDGrossTotalCalculator(addTotal, addFromGear, addFromTree);
+            minusFromGear = AttributeStatASIDTotalCalculator(minusFromGear, minusFromGearMods);
+            minusFromTree = AttributeStatASIDTotalCalculator(minusFromTree, minusFromTreeMods);
+            minusTotal = AttributeStatASIDGrossTotalCalculator(minusTotal, minusFromGear, minusFromTree);
+            flatTotal = AttributeStatASIDNetTotalCalculator(addTotal, minusTotal);
+            increasedFromGear = AttributeStatASIDTotalCalculator(increasedFromGear, increasedFromGearMods);
+            increasedFromTree = AttributeStatASIDTotalCalculator(increasedFromTree, increasedFromTreeMods);
+            increasedTotal = AttributeStatASIDGrossTotalCalculator(increasedTotal, increasedFromGear, increasedFromTree);
+            decreasedFromGear = AttributeStatASIDTotalCalculator(decreasedFromGear, decreasedFromGearMods);
+            decreasedFromTree = AttributeStatASIDTotalCalculator(decreasedFromTree, decreasedFromTreeMods);
+            decreasedTotal = AttributeStatASIDGrossTotalCalculator(decreasedTotal, decreasedFromGear, decreasedFromTree);
+            additivePercentageTotal = AttributeStatASIDNetTotalCalculator(increasedTotal, decreasedTotal);
+            total = AttributeStatTotalCalculator(flatTotal, additivePercentageTotal, moreFromGearMods, moreFromTreeMods, lessFromGearMods, lessFromTreeMods);
+            return total;
         }
     }
 }

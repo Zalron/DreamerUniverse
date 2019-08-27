@@ -5,6 +5,9 @@ namespace WorldModule
 {
     public struct Block
     {
+        public static float minLightLevel = 0.15f;
+        public static float maxLightLevel = 0.8f;
+        public static float LightFalloff = 0.08f;
         public static readonly int TextureAtlasSizeInBlocks = 16;
         public static float NormalizedBlockTextureSize
         {

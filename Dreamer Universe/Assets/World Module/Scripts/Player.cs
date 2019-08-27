@@ -32,7 +32,7 @@ namespace WorldModule
         public float checkIncrement = 0.1f;
         public float reach = 8f;
 
-        public byte selectedBlockIndex = 1;
+        public Toolbar toolbar;
         private void Start()
         {
             cam = GameObject.Find("Main Camera").transform;
@@ -42,21 +42,31 @@ namespace WorldModule
         }
         public void FixedUpdate()
         {
-            CalculateVelocity();
-
-            if (jumpRequest)
+            if (!world.inUI)
             {
-                Jump();
-            }
+                CalculateVelocity();
 
-            transform.Rotate(Vector3.up * mouseHorizontal);
-            cam.Rotate(Vector3.right * -mouseVertical);
-            transform.Translate(velocity, Space.World);
+                if (jumpRequest)
+                {
+                    Jump();
+                }
+
+                transform.Rotate(Vector3.up * mouseHorizontal);
+                cam.Rotate(Vector3.right * -mouseVertical);
+                transform.Translate(velocity, Space.World);
+            }
         }
         public void Update()
         {
-            GetPlayerInputs();
-            PlaceCursorBlocks();
+            if (Input.GetButtonDown("Inventory"))
+            {
+                world.inUI = !world.inUI;
+            }
+            if (!world.inUI)
+            {
+                GetPlayerInputs();
+                PlaceCursorBlocks();
+            }
         }
         void Jump()
         {
@@ -127,7 +137,11 @@ namespace WorldModule
                 // Place block 
                 if (Input.GetMouseButtonDown(1))
                 {
-                    world.GetChunkFromVector3(PlaceHighlightBlock.position).EditBlock(PlaceHighlightBlock.position, selectedBlockIndex);
+                    if (toolbar.slots[toolbar.slotIndex].HasItem)
+                    {
+                        world.GetChunkFromVector3(PlaceHighlightBlock.position).EditBlock(PlaceHighlightBlock.position, toolbar.slots[toolbar.slotIndex].itemSlot.stack.id);
+                        toolbar.slots[toolbar.slotIndex].itemSlot.Take(1);
+                    }
                 }
             }
         }

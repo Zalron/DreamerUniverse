@@ -8,7 +8,8 @@ namespace WorldModule
     {
         public string blockName;
         public bool isSolid;
-        public bool IsTransparent;
+        public bool renderNeighbourFaces;
+        public float transparency;
         public Sprite icon;
 
         [Header("Texture Values")]

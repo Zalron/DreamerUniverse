@@ -51,6 +51,6 @@ MonoBehaviour:
     maxHeight: 110
     scale: 5
     octaves: 2
-    persistance: 0.3
+    persistance: 3
     threshold: 0.5
     offset: 4

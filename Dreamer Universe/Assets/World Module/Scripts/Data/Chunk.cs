@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
+//using System.Threading;
 using UnityEngine;
 namespace WorldModule
 {
@@ -18,10 +18,11 @@ namespace WorldModule
         List<int> transparentTriangles = new List<int>();
         Material[] materials = new Material[2];
         List<Vector2> uvs = new List<Vector2>();
+        List<Color> colours = new List<Color>();
 
         public Vector3 position;
 
-        public byte[,,] blockMap = new byte[chunkSize, chunkSize, chunkSize];
+        public BlockState [,,] blockMap = new BlockState[chunkSize, chunkSize, chunkSize];
 
         public Queue<BlockMod> modifications = new Queue<BlockMod>();
 
@@ -29,34 +30,28 @@ namespace WorldModule
 
         private bool _isActive;
         private bool IsBlockMapPopulated = false;
-        private bool threadLocked = false;
-        public Chunk(ChunkCoord _coord, World _world, bool generateOnLoad)
+        public Chunk(ChunkCoord _coord, World _world)
         {
             coord = _coord;
             world = _world;
-            IsActive = true;
-            if (generateOnLoad)
-            {
-                Init();
-            }
         }
         public void Init()
         {
             chunkObject = new GameObject();
             meshFilter = chunkObject.AddComponent<MeshFilter>();
             meshRenderer = chunkObject.AddComponent<MeshRenderer>();
-            materials[0] = world.material;
-            materials[1] = world.transparentMaterial;
-            meshRenderer.materials = materials;
+
+            //materials[0] = world.material;
+            //materials[1] = world.transparentMaterial;
+            meshRenderer.material = world.material;
 
             chunkObject.transform.SetParent(world.transform);
             chunkObject.transform.position = new Vector3(coord.x * chunkSize, coord.y * chunkSize, coord.z * chunkSize);
             chunkObject.name = "Chunk " + coord.x + "x, " + coord.y + "y, " + coord.z + "z";
             position = chunkObject.transform.position;
 
-            Thread PopulateBlockMapThread = new Thread(new ThreadStart(PopulateBlockMap));
-            PopulateBlockMapThread.Start();
-            
+            PopulateBlockMap();
+
         }
         void PopulateBlockMap()
         {
@@ -66,47 +61,112 @@ namespace WorldModule
                 {
                     for (int z = 0; z < chunkSize; z++)
                     {
-                        blockMap[x, y, z] = world.GetBlock(new Vector3(x, y, z) + position);
+                        blockMap[x, y, z] = new BlockState(world.GetBlock(new Vector3(x, y, z) + position));
                     }
                 }
             }
-            _updateChunk();
             IsBlockMapPopulated = true;
+            lock (world.ChunkUpdateThreadLock)
+            {
+                world.chunksToUpdate.Add(this);
+            }
         }
+
         public void UpdateChunk()
         {
-            Thread ChunkThread = new Thread(new ThreadStart(_updateChunk));
-            ChunkThread.Start();
-        }
-        private void _updateChunk()
-        {
-            threadLocked = true;
+
             while (modifications.Count > 0)
             {
-                BlockMod m = modifications.Dequeue();
-                Vector3 pos = m.position -= position;
-                blockMap[(int)pos.x, (int)pos.y, (int)pos.z] = m.id;
+                BlockMod b = modifications.Dequeue();
+                Vector3 pos = b.position -= position;
+                blockMap[(int)pos.x, (int)pos.y, (int)pos.z].id = b.id;
             }
             ClearMeshData();
+            CalculateLight();
             for (int x = 0; x < chunkSize; x++)
             {
                 for (int y = 0; y < chunkSize; y++)
                 {
                     for (int z = 0; z < chunkSize; z++)
                     {
-                        if (world.blockType[blockMap[x, y, z]].isSolid)
+                        if (world.blockType[blockMap[x, y, z].id].isSolid)
                         {
                             UpdateMeshData(new Vector3(x, y, z));
                         }
                     }
                 }
             }
-            lock (world.chunksToDraw)
+            world.chunksToDraw.Enqueue(this);
+
+
+        }
+        void CalculateLight()
+        {
+
+            Queue<Vector3Int> litVoxels = new Queue<Vector3Int>();
+
+            for (int x = 0; x < chunkSize; x++)
             {
-                world.chunksToDraw.Enqueue(this);
+                for (int z = 0; z < chunkSize; z++)
+                {
+
+                    float lightRay = 1f;
+
+                    for (int y = chunkSize - 1; y >= 0; y--)
+                    {
+
+                        BlockState thisVoxel = blockMap[x, y, z];
+
+                        if (thisVoxel.id > 0 && world.blockType[thisVoxel.id].transparency < lightRay)
+                        {
+                            lightRay = world.blockType[thisVoxel.id].transparency;
+                        }
+
+                        thisVoxel.globalLightPercent = lightRay;
+
+                        blockMap[x, y, z] = thisVoxel;
+
+                        if (lightRay > Block.LightFalloff)
+                        {
+                            litVoxels.Enqueue(new Vector3Int(x, y, z));
+                        }
+
+                    }
+                }
             }
 
-            threadLocked = false;
+            while (litVoxels.Count > 0)
+            {
+
+                Vector3Int v = litVoxels.Dequeue();
+
+                for (int p = 0; p < 6; p++)
+                {
+
+                    Vector3 currentVoxel = v + Block.faceChecks[p];
+                    Vector3Int neighbour = new Vector3Int((int)currentVoxel.x, (int)currentVoxel.y, (int)currentVoxel.z);
+
+                    if (IsBlockInChunk(neighbour.x, neighbour.y, neighbour.z))
+                    {
+
+                        if (blockMap[neighbour.x, neighbour.y, neighbour.z].globalLightPercent < blockMap[v.x, v.y, v.z].globalLightPercent - Block.LightFalloff)
+                        {
+
+                            blockMap[neighbour.x, neighbour.y, neighbour.z].globalLightPercent = blockMap[v.x, v.y, v.z].globalLightPercent - Block.LightFalloff;
+
+                            if (blockMap[neighbour.x, neighbour.y, neighbour.z].globalLightPercent > Block.LightFalloff)
+                            {
+                                litVoxels.Enqueue(neighbour);
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
         }
         void ClearMeshData()
         {
@@ -115,6 +175,7 @@ namespace WorldModule
             triangles.Clear();
             transparentTriangles.Clear();
             uvs.Clear();
+            colours.Clear();
         }
         public bool IsActive
         {
@@ -132,7 +193,7 @@ namespace WorldModule
         {
             get
             {
-                if (!IsBlockMapPopulated || threadLocked)
+                if (!IsBlockMapPopulated)
                 {
                     return false;
                 }
@@ -163,11 +224,12 @@ namespace WorldModule
             yCheck -= Mathf.FloorToInt(chunkObject.transform.position.y);
             zCheck -= Mathf.FloorToInt(chunkObject.transform.position.z);
 
-            blockMap[xCheck, yCheck, zCheck] = newID;
-
-            UpdateSurroundingBlocks(xCheck, yCheck, zCheck);
-
-            _updateChunk();
+            blockMap[xCheck, yCheck, zCheck].id = newID;
+            lock (world.ChunkUpdateThreadLock)
+            {
+                world.chunksToUpdate.Insert(0, this);
+                UpdateSurroundingBlocks(xCheck, yCheck, zCheck);
+            }
         }
         void UpdateSurroundingBlocks(int x, int y, int z)
         {
@@ -177,22 +239,22 @@ namespace WorldModule
                 Vector3 currentBlock = thisBlock + Block.faceChecks[p];
                 if (!IsBlockInChunk((int)currentBlock.x, (int)currentBlock.y, (int)currentBlock.z))
                 {
-                    world.GetChunkFromVector3(currentBlock + position).UpdateChunk();
+                    world.chunksToUpdate.Insert(0, world.GetChunkFromVector3(currentBlock + position));
                 }
             }
         }
-        bool CheckBlock(Vector3 pos)
+        BlockState CheckBlock(Vector3 pos)
         {
             int x = Mathf.FloorToInt(pos.x);
             int y = Mathf.FloorToInt(pos.y);
             int z = Mathf.FloorToInt(pos.z);
             if (!IsBlockInChunk(x, y, z))
             {
-                return world.CheckForTransparentBlockInChunk(pos + position);
+                return world.GetBlockState(pos + position);
             }
-            return world.blockType[blockMap[x, y, z]].IsTransparent;
+            return blockMap[x, y, z];
         }
-        public byte GetBlockFromGlobalVector3(Vector3 pos)
+        public BlockState GetBlockFromGlobalVector3(Vector3 pos)
         {
             int xCheck = Mathf.FloorToInt(pos.x);
             int yCheck = Mathf.FloorToInt(pos.y);
@@ -214,40 +276,53 @@ namespace WorldModule
             xCheck -= Mathf.FloorToInt(chunkObject.transform.position.x);
             yCheck -= Mathf.FloorToInt(chunkObject.transform.position.y);
             zCheck -= Mathf.FloorToInt(chunkObject.transform.position.z);
-            blockMap[xCheck, yCheck, zCheck] = blockID;
+            blockMap[xCheck, yCheck, zCheck].id = blockID;
             return blockID;
         }
         void UpdateMeshData(Vector3 pos)
         {
-            byte blockID = blockMap[(int)pos.x, (int)pos.y, (int)pos.z];
-            bool isTransparent = world.blockType[blockID].IsTransparent;
+            int x = Mathf.FloorToInt(pos.x);
+            int y = Mathf.FloorToInt(pos.y);
+            int z = Mathf.FloorToInt(pos.z);
+
+            byte blockID = blockMap[x, y, z].id;
+            //bool isTransparent = world.blockType[blockID].renderNeighbourFaces;
             for (int p = 0; p < 6; p++)
             {
-                if (CheckBlock(pos + Block.faceChecks[p]))
+                BlockState neighbour = CheckBlock(pos + Block.faceChecks[p]);
+                if (neighbour != null && world.blockType[neighbour.id].renderNeighbourFaces)
                 {
                     vertices.Add(pos + Block.Verts[Block.Tris[p, 0]]);
                     vertices.Add(pos + Block.Verts[Block.Tris[p, 1]]);
                     vertices.Add(pos + Block.Verts[Block.Tris[p, 2]]);
                     vertices.Add(pos + Block.Verts[Block.Tris[p, 3]]);
                     AddTexture(world.blockType[blockID].GetTextureID(p));
-                    if (!isTransparent)
-                    {
-                        triangles.Add(vertexIndex);
-                        triangles.Add(vertexIndex + 1);
-                        triangles.Add(vertexIndex + 2);
-                        triangles.Add(vertexIndex + 2);
-                        triangles.Add(vertexIndex + 1);
-                        triangles.Add(vertexIndex + 3);
-                    }
-                    else
-                    {
-                        transparentTriangles.Add(vertexIndex);
-                        transparentTriangles.Add(vertexIndex + 1);
-                        transparentTriangles.Add(vertexIndex + 2);
-                        transparentTriangles.Add(vertexIndex + 2);
-                        transparentTriangles.Add(vertexIndex + 1);
-                        transparentTriangles.Add(vertexIndex + 3);
-                    }
+
+                    float lightLevel = neighbour.globalLightPercent;
+                    
+                    colours.Add(new Color(0, 0, 0, lightLevel));
+                    colours.Add(new Color(0, 0, 0, lightLevel));
+                    colours.Add(new Color(0, 0, 0, lightLevel));
+                    colours.Add(new Color(0, 0, 0, lightLevel));
+
+                    //if (!isTransparent)
+                    //{
+                    triangles.Add(vertexIndex);
+                    triangles.Add(vertexIndex + 1);
+                    triangles.Add(vertexIndex + 2);
+                    triangles.Add(vertexIndex + 2);
+                    triangles.Add(vertexIndex + 1);
+                    triangles.Add(vertexIndex + 3);
+                    //}
+                    //else
+                    //{
+                    //    transparentTriangles.Add(vertexIndex);
+                    //    transparentTriangles.Add(vertexIndex + 1);
+                    //    transparentTriangles.Add(vertexIndex + 2);
+                    //    transparentTriangles.Add(vertexIndex + 2);
+                    //    transparentTriangles.Add(vertexIndex + 1);
+                    //    transparentTriangles.Add(vertexIndex + 3);
+                    //}
                     vertexIndex += 4;
                 }
             }
@@ -257,11 +332,16 @@ namespace WorldModule
             Mesh mesh = new Mesh();
             {
                 mesh.vertices = vertices.ToArray();
-                mesh.subMeshCount = 2;
-                mesh.SetTriangles(triangles.ToArray(), 0);
-                mesh.SetTriangles(transparentTriangles.ToArray(), 1);
+
+                //mesh.subMeshCount = 2;
+                //mesh.SetTriangles(triangles.ToArray(), 0);
+                //mesh.SetTriangles(transparentTriangles.ToArray(), 1);
+                mesh.triangles = triangles.ToArray();
                 mesh.uv = uvs.ToArray();
+                mesh.colors = colours.ToArray();
+
                 mesh.RecalculateNormals();
+
                 meshFilter.sharedMesh = mesh;
             }
         }
@@ -280,18 +360,12 @@ namespace WorldModule
             uvs.Add(new Vector2(x + Block.NormalizedBlockTextureSize, y + Block.NormalizedBlockTextureSize));
         }
     }
-    public class ChunkCoord
+    public struct ChunkCoord
     {
         public int x;
         public int y;
         public int z;
 
-        public ChunkCoord()
-        {
-            x = 0;
-            y = 0;
-            z = 0;
-        }
         public ChunkCoord(int _x, int _y, int _z)
         {
             x = _x;
@@ -310,11 +384,7 @@ namespace WorldModule
         }
         public bool Equals(ChunkCoord other)
         {
-            if (other == null)
-            {
-                return false;
-            }
-            else if (other.x == x && other.y == y && other.z == z)
+            if (other.x == x && other.y == y && other.z == z)
             {
                 return true;
             }
@@ -322,6 +392,25 @@ namespace WorldModule
             {
                 return false;
             }
+        }
+    }
+    public class BlockState
+    {
+        public byte id;
+        public float globalLightPercent;
+        public BlockState()
+        {
+
+            id = 0;
+            globalLightPercent = 0f;
+
+        }
+        public BlockState(byte _id)
+        {
+
+            id = _id;
+            globalLightPercent = 0f;
+
         }
     }
 }

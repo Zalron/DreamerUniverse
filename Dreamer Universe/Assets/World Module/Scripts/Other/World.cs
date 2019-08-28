@@ -14,9 +14,8 @@ namespace WorldModule
         public bool enableThreading;
 
         [Header("Other")]
-        [Range(0.95f, 0f)]
+        [Range(0f, 1f)]
         public float globalLightLevel;
-
         public Color Day;
         public Color Night;
 
@@ -103,11 +102,13 @@ namespace WorldModule
             if (!enableThreading)
             {
                 if (!applyingModifications)
+                {
                     ApplyModifications();
-
+                }
                 if (chunksToUpdate.Count > 0)
+                {
                     UpdateChunks();
-
+                }
             }
             if (Input.GetKeyDown(KeyCode.F3))
             {
@@ -116,7 +117,6 @@ namespace WorldModule
         }
         void GenerateWorld()
         {
-            Player.position = spawnPosition;
             for (int x = (WorldSizeInChunks / 2) - ViewDistanceInChunks; x < (WorldSizeInChunks / 2) + ViewDistanceInChunks; x++)
             {
                 for (int y = (WorldSizeInChunks / 2) - ViewDistanceInChunks; y < (WorldSizeInChunks / 2) + ViewDistanceInChunks; y++)
@@ -129,6 +129,7 @@ namespace WorldModule
                     }
                 }
             }
+            Player.position = spawnPosition;
             CheckViewDistance();
         }
         void CreateChunk()
@@ -241,7 +242,7 @@ namespace WorldModule
                     {
                         ChunkCoord Chunk = new ChunkCoord(x, y, z);
                         // If the current chunks is in the world
-                        if (IsChunkInWorld(new ChunkCoord(x,y,z)))
+                        if (IsChunkInWorld(Chunk))
                         {
                             //checks if it is active, if not, activate it.
                             if (chunks[x, y, z] == null)
@@ -334,7 +335,7 @@ namespace WorldModule
             }
             // BASIC TERRAIN PASS
             int terrainHeight = Terrian.GenerateHeight(new Vector2(pos.x, pos.z), biome.solidGroundHeight, biome.terrainHeightFromSoild, biome.terrainOffset, biome.terrainSmooth, biome.terrainOctaves, biome.terrainScale);
-            byte blockValue = 0;
+            byte blockValue;
             if (yPos == terrainHeight)
             {
                 blockValue = 3; //Grass

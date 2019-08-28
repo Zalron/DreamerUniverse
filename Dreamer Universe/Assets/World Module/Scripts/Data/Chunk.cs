@@ -329,21 +329,22 @@ namespace WorldModule
         }
         public void CreateMesh()
         {
-            Mesh mesh = new Mesh();
+            Mesh mesh = new Mesh
             {
-                mesh.vertices = vertices.ToArray();
+                vertices = vertices.ToArray(),
 
-                //mesh.subMeshCount = 2;
-                //mesh.SetTriangles(triangles.ToArray(), 0);
-                //mesh.SetTriangles(transparentTriangles.ToArray(), 1);
-                mesh.triangles = triangles.ToArray();
-                mesh.uv = uvs.ToArray();
-                mesh.colors = colours.ToArray();
+                //mesh.subMeshCount = 2,
+                //mesh.SetTriangles(triangles.ToArray(), 0),
+                //mesh.SetTriangles(transparentTriangles.ToArray(), 1),
+                triangles = triangles.ToArray(),
+                uv = uvs.ToArray(),
+                colors = colours.ToArray()
+            };
 
-                mesh.RecalculateNormals();
+            mesh.RecalculateNormals();
 
-                meshFilter.sharedMesh = mesh;
-            }
+            meshFilter.sharedMesh = mesh;
+
         }
         void AddTexture(int textureID)
         {

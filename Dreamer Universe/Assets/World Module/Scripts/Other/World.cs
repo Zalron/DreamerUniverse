@@ -125,7 +125,7 @@ namespace WorldModule
                     {
                         ChunkCoord newChunk = new ChunkCoord(x,y,z);
                         chunks[x, y, z] = new Chunk(newChunk, this);
-                        activeChunks.Add(newChunk);
+                        chunksToCreate.Add(newChunk);
                     }
                 }
             }
@@ -135,8 +135,8 @@ namespace WorldModule
         void CreateChunk()
         {
             ChunkCoord c = chunksToCreate[0];
-            chunksToCreate.RemoveAt(0);
             chunks[c.x, c.y, c.z].Init();
+            chunksToCreate.RemoveAt(0);
         }
         void UpdateChunks()
         {
@@ -192,6 +192,7 @@ namespace WorldModule
             while (modifications.Count > 0)
             {
                 Queue<BlockMod> queue = modifications.Dequeue();
+                
                 //if (queue.Count <= 0)
                 //{
                 //    Debug.Log(queue.Count);
@@ -199,10 +200,13 @@ namespace WorldModule
                 while (queue.Count > 0)
                 {
                     BlockMod b = queue.Dequeue();
+                    if (!IsBlockInWorld(b.position))
+                    {
+                        return;
+                    }
                     ChunkCoord c = GetChunkCoordFromVector3(b.position);
                     if (chunks[c.x, c.y, c.z] == null)
                     {
-                        //Debug.Log(chunks[c.x, c.y, c.z]);
                         chunks[c.x, c.y, c.z] = new Chunk(c, this);
                         chunksToCreate.Add(c);
                     }

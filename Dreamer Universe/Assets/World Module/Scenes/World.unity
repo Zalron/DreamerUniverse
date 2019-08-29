@@ -3048,7 +3048,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   world: {fileID: 2056144482}
   seed: 270946
-  enableThreading: 0
+  enableThreading: 1
   globalLightLevel: 0.394
   Day: {r: 0, g: 1, b: 0.96936965, a: 0}
   Night: {r: 0.0154688945, g: 0, b: 0.3490566, a: 0}

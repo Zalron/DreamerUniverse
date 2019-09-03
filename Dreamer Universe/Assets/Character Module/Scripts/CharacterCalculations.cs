@@ -216,7 +216,7 @@ namespace CharacterModule
                                                          List<ItemMod> moreFromGear, List<ItemMod> moreFromTree,
                                                          List<ItemMod> lessFromGear, List<ItemMod> lessFromTree)
         {
-            if (lessFromGear == null && moreFromTree == null && lessFromTree == null)
+            if (lessFromGear == null && moreFromTree == null && lessFromTree == null && moreFromGear != null)
             {
                 numTotal = AttributeStatMCalculator(numTotal, moreFromGear);
                 return numTotal;

@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockName: Leaves
   isSolid: 1
-  IsTransparent: 1
+  renderNeighbourFaces: 1
+  transparency: 0
   icon: {fileID: 0}
   backFaceTexture: 16
   frontFaceTexture: 16

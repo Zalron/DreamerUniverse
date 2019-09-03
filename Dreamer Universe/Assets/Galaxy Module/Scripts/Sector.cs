@@ -17,29 +17,33 @@ namespace GalaxyModule
         public SectorType sectorType;
         public Galaxy galaxy;
         public string sectorName;
-        public GameObject starSystemObject;
         public int numSectorStars;
         //public StarSystem[] starSystemsInSector = new StarSystem[];
+        public List<StarSystem> SectorStars = new List<StarSystem>();
         public GameObject sectorGameObject;
+        List<Vector3> StarPositionList = new List<Vector3>();
+        List<Vector3> StarSystemSizeList = new List<Vector3>();
         static public Sector sector;
         public SectorCoord sectorCoord;
         public SectorCoord trueSectorCoord;
         private bool _isActive;
         public bool threadLocked = false;
-
+        private bool IsSectorPopulated = false;
         public Sector(SectorCoord SectorCoord, SectorCoord TrueSectorCoord, Mesh sectorSphereMesh, Galaxy Galaxy)
         {
             galaxy = Galaxy;
             sectorCoord = SectorCoord;
             trueSectorCoord = TrueSectorCoord;
             sphereMesh = sectorSphereMesh;
+        }
+        public void Init()
+        {
             string sn = BuildSectorName(sectorCoord);
             sectorName = sn;
-            _isActive = true;
             sectorGameObject = new GameObject(sectorName);
             sectorGameObject.transform.SetParent(galaxy.transform);
-            sectorType = SectorTypeGeneration(sectorCoord);
-            GenerateSector(sectorType);
+            GenerateStarSystemAll(StarPositionList, StarSystemSizeList);
+            Debug.Log("I am created" + sn);
         }
         public static string BuildSectorName(SectorCoord v) // assigning a name to a Sector
         {
@@ -48,6 +52,41 @@ namespace GalaxyModule
         public static string BuildStarSystemName(Vector3 v, string sectorName) // assigning a name to a Sector
         {
             return (int)v.x + "_" + (int)v.y + "_" + (int)v.z + "_: " + sectorName;
+        }
+        
+        public void UpdateSector()
+        {
+            GenerateSectorStarPosition();
+            galaxy.sectorsToDraw.Enqueue(this);
+            Debug.Log("UpdateSector");
+        }
+        public int GenerateSectorNumStars(SectorType sectorType)
+        {
+            int _numSectorStars;
+            if (sectorType == SectorType.Core)
+            {
+                _numSectorStars = galaxy.randomNumber.Next(4500, 5000 + 1);
+                return _numSectorStars;
+            }
+            else if (sectorType == SectorType.Middle)
+            {
+                _numSectorStars = galaxy.randomNumber.Next(1000, 1500 + 1);
+                return _numSectorStars;
+            }
+            else if (sectorType == SectorType.Edge)
+            {
+                _numSectorStars = galaxy.randomNumber.Next(100, 200 + 1);
+                return _numSectorStars;
+            }
+            else if (sectorType == SectorType.Far)
+            {
+                _numSectorStars = galaxy.randomNumber.Next(10, 50 + 1);
+                return _numSectorStars;
+            }
+            else 
+            {
+                return 0;
+            }
         }
         public SectorType SectorTypeGeneration(SectorCoord sectorCoord)
         {
@@ -85,44 +124,44 @@ namespace GalaxyModule
                 sectorType = SectorType.Core;
                 return sectorType;
             }
-
         }
-        public void GenerateSector(SectorType sectorType)
+        public void GenerateSectorStarPosition()
         {
-            if (sectorType == SectorType.Core)
-            {
-                numSectorStars = Random.Range(4500, 5000 + 1);
-            }
-            else if (sectorType == SectorType.Middle)
-            {
-                numSectorStars = Random.Range(1000, 1500 + 1);
-            }
-            else if (sectorType == SectorType.Edge)
-            {
-                numSectorStars = Random.Range(100, 200 + 1);
-            }
-            else if (sectorType == SectorType.Far)
-            {
-                numSectorStars = Random.Range(10, 50 + 1);
-            }
+            sectorType = SectorTypeGeneration(sectorCoord);
+            numSectorStars = GenerateSectorNumStars(sectorType);            
             for (int i = 0; i < numSectorStars; i++)
             {
-                Vector3 StarPosition = new Vector3(Random.Range(trueSectorCoord.x, Galaxy.SectorSize + trueSectorCoord.x + 1), Random.Range(trueSectorCoord.y, Galaxy.SectorSize + trueSectorCoord.y + 1), Random.Range(trueSectorCoord.z, Galaxy.SectorSize + trueSectorCoord.z + 1));
-                float fStarSystemSize = Random.Range(1, 10);
+                Vector3 StarPosition = new Vector3(galaxy.randomNumber.Next(trueSectorCoord.x, Galaxy.SectorSize + trueSectorCoord.x + 1), galaxy.randomNumber.Next(trueSectorCoord.y, Galaxy.SectorSize + trueSectorCoord.y + 1), galaxy.randomNumber.Next(trueSectorCoord.z, Galaxy.SectorSize + trueSectorCoord.z + 1));
+                StarPositionList.Add(StarPosition);
+                float fStarSystemSize = galaxy.randomNumber.Next(1, 10);
                 Vector3 StarSystemSize = new Vector3(fStarSystemSize, fStarSystemSize, fStarSystemSize);
-                GenerateStarSystem(StarPosition, StarSystemSize, sectorName, sectorGameObject);
+                StarPositionList.Add(StarSystemSize);
+            }
+            IsSectorPopulated = true;
+            Debug.Log("Creating star positions");
+        }
+        public void GenerateStarSystemAll(List<Vector3> _StarPositionList, List<Vector3> _StarSystemSizeList)
+        {
+            for(int p = 0; p < _StarPositionList.Count; p++)
+            {
+                for(int s = 0; s < _StarSystemSizeList.Count; s++)
+                {
+                    GenerateStarSystem( _StarPositionList[p], _StarSystemSizeList[s], sectorName, sectorGameObject);
+                }
             }
         }
         public void GenerateStarSystem(Vector3 StarPosition, Vector3 StarSystemSize, string sectorName, GameObject sectorGameObject)
         {
             string ssn = BuildStarSystemName(StarPosition, sectorName);
-            starSystemObject = new GameObject(ssn);
+            GameObject starSystemObject = new GameObject(ssn);
             starSystemObject.AddComponent<MeshFilter>().mesh = sphereMesh;
             starSystemObject.AddComponent<MeshRenderer>();
             starSystemObject.transform.position = StarPosition;
             starSystemObject.transform.localScale = StarSystemSize;
             starSystemObject.transform.SetParent(sectorGameObject.transform);
-            new StarSystem(null, null, null, StarSystemType.COUNT, 0, StarPosition, ssn, sector, starSystemObject, galaxy);
+            StarSystem i = new StarSystem(null, null, null, StarSystemType.COUNT, 0, StarPosition, ssn, sector, starSystemObject, galaxy);
+            SectorStars.Add(i);
+            Debug.Log("Created StarSystems");
         }
         public bool IsActive
         {
@@ -134,6 +173,34 @@ namespace GalaxyModule
                 {
                     sectorGameObject.SetActive(value);
                     
+                }
+            }
+        }
+        public bool IsPopulated
+        {
+            get
+            {
+                if (!IsSectorPopulated)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+        public bool IsEditable
+        {
+            get
+            {
+                if (!IsSectorPopulated)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
                 }
             }
         }

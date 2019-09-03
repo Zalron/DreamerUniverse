@@ -15,6 +15,7 @@ namespace WorldModule
 
         [Header("Other")]
         [Range(0f, 1f)]
+
         public float globalLightLevel;
         public Color Day;
         public Color Night;
@@ -52,8 +53,8 @@ namespace WorldModule
         Thread ChunkUpdateThread;
         public object ChunkUpdateThreadLock = new object();
 
-        public static readonly int ViewDistanceInChunks = 3;
-        public static readonly int WorldSizeInChunks = 16;
+        public int ViewDistanceInChunks = 3;
+        public static readonly int WorldSizeInChunks = 64;
         public static int WorldSizeInBlocks
         {
             get { return WorldSizeInChunks * Chunk.chunkSize; }
@@ -146,7 +147,6 @@ namespace WorldModule
             {
                 while (!updated && index < chunksToUpdate.Count - 1)
                 {
-
                     if (chunksToUpdate[index].IsEditable)
                     {
                         chunksToUpdate[index].UpdateChunk();
@@ -244,26 +244,26 @@ namespace WorldModule
                 {
                     for (int z = coord.z - ViewDistanceInChunks; z < coord.z + ViewDistanceInChunks; z++)
                     {
-                        ChunkCoord Chunk = new ChunkCoord(x, y, z);
+                        ChunkCoord newChunkCoord = new ChunkCoord(x, y, z);
                         // If the current chunks is in the world
-                        if (IsChunkInWorld(Chunk))
+                        if (IsChunkInWorld(newChunkCoord))
                         {
                             //checks if it is active, if not, activate it.
                             if (chunks[x, y, z] == null)
                             {
-                                chunks[x, y, z] = new Chunk(Chunk, this);
-                                chunksToCreate.Add(Chunk);
+                                chunks[x, y, z] = new Chunk(newChunkCoord, this);
+                                chunksToCreate.Add(newChunkCoord);
                             }
                             else if(!chunks[x,y,z].IsActive)
                             {
                                 chunks[x, y, z].IsActive = true;
                             }
-                            activeChunks.Add(Chunk);
+                            activeChunks.Add(newChunkCoord);
                         }
                         // Check throught previously active chunks to see if this chunk is there, If it is, remove if from the list
                         for (int i = 0; i < previouslyActiveChunks.Count; i++)
                         {
-                            if (previouslyActiveChunks[i].Equals(Chunk))
+                            if (previouslyActiveChunks[i].Equals(newChunkCoord))
                             {
                                 previouslyActiveChunks.RemoveAt(i);
                             }

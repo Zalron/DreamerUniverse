@@ -71,7 +71,6 @@ namespace WorldModule
                 world.chunksToUpdate.Add(this);
             }
         }
-
         public void UpdateChunk()
         {
 
@@ -97,8 +96,6 @@ namespace WorldModule
                 }
             }
             world.chunksToDraw.Enqueue(this);
-
-
         }
         void CalculateLight()
         {

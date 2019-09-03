@@ -1,10 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 namespace GalaxyModule
 {
     public class Galaxy : MonoBehaviour
     {
+        [Header("Performance")]
+        public bool enableThreading;
         public StarType[] starTypeTable;
         public Planet[] planetTypeTable;
 
@@ -14,7 +18,10 @@ namespace GalaxyModule
         List<Sector> galaxySectors;
         public SectorCoord playerSectorCoord;
         SectorCoord playerLastSectorCoord;
+        
+        static int _seed = 5957362;
 
+        public System.Random randomNumber = new System.Random(_seed);
         public Vector3 playerSectorCoordVector;
 
         public static int SectorSize = 1000;
@@ -23,20 +30,44 @@ namespace GalaxyModule
         public static int galaxyLength = 1000; // the length of the Galaxy
         public static int galaxyWidth = 1000; // the width of the Galaxy
 
-        List<Sector> createdSectors = new List<Sector>();
-        List<SectorCoord> createdSectorCoords = new List<SectorCoord>();
-        List<Sector> activeSectors = new List<Sector>();
-        List<Sector> sectorsToCreate = new List<Sector>();
-        List<Sector> sectorsToUpdate = new List<Sector>();
+        public List<Sector> createdSectors = new List<Sector>();
+        public List<SectorCoord> activeSectors = new List<SectorCoord>();
+        public List<SectorCoord> sectorsToCreate = new List<SectorCoord>();
+        public List<Sector> sectorsToUpdate = new List<Sector>();
         public Queue<Sector> sectorsToDraw = new Queue<Sector>();
-
+        Thread sectorUpdateThread;
+        public object SectorUpdateThreadLock = new object();
         public static readonly int ViewDistanceInSectors = 1;
 
         // Start is called before the first frame update
         void Start()
         {
+            if(enableThreading)
+            {
+                sectorUpdateThread = new Thread(new ThreadStart(ThreadedUpdate));
+                sectorUpdateThread.Start();
+                //Debug.Log("Yub");
+            }
             GenerateGalaxy((int)(player.transform.position.x / SectorSize), (int)(player.transform.position.y / SectorSize), (int)(player.transform.position.z / SectorSize), ViewDistanceInSectors);
             playerLastSectorCoord = GetSectorCoordFromVector3(player.transform.position);
+        }  
+        private void OnDisable()
+        {   
+            if(enableThreading)
+            {
+                sectorUpdateThread.Abort();
+            }
+        }
+        void ThreadedUpdate()
+        {
+            while (true)
+            {
+                if (sectorsToUpdate.Count > 0)
+                {
+                    //Debug.Log("Yub");
+                    ThreadCreateSectors();
+                }
+            }
         }
         void Update()
         {
@@ -46,57 +77,97 @@ namespace GalaxyModule
             {
                 CheckViewDistance();
             }
-            if (sectorsToCreate.Count > 0)
+            if(sectorsToDraw.Count > 0)
             {
-
+                if (sectorsToDraw.Peek().IsEditable)
+                {
+                    //Debug.Log("I am creating");
+                    sectorsToDraw.Dequeue().Init();
+                }
             }
+            if(sectorsToCreate.Count > 0)
+            {
+                CreateSector();
+                //Debug.Log("CreatingSectors");
+            }
+            if(!enableThreading)
+            {
+                if (sectorsToUpdate.Count > 0)
+                {
+                    ThreadCreateSectors();
+                }
+            }
+            
         }
         void GenerateGalaxy(int x, int y, int z, int startradius)// builds Sectors around the player
         {
+
             for (int startx = x - startradius; startx <= x + startradius; startx++)
             {
                 for (int starty = y - startradius; starty <= y + startradius; starty++)
                 {
                     for (int startz = z - startradius; startz <= z + startradius; startz++)
                     {
-                        GenerateSectorAt(startx, starty, startz);
+                        SectorCoord newSectorCoord = new SectorCoord(x,y,z);
+                        GenerateSectorAt(newSectorCoord.x, newSectorCoord.y, newSectorCoord.z);
+                        sectorsToCreate.Add(newSectorCoord);
                     }
                 }
             }
+            CheckViewDistance();
         }
         void CheckViewDistance()
         {
             SectorCoord sectorCoord = GetSectorCoordFromVector3(player.transform.position);
             playerLastSectorCoord = playerSectorCoord;
-            List<Sector> previouslyActiveSector = new List<Sector>(activeSectors);
+            List<SectorCoord> previouslyActiveSectors = new List<SectorCoord>(activeSectors);
+            activeSectors.Clear();
             for (int x = sectorCoord.x - ViewDistanceInSectors; x <= sectorCoord.x + ViewDistanceInSectors; x++)
             {
                 for (int y = sectorCoord.y - ViewDistanceInSectors; y <= sectorCoord.y + ViewDistanceInSectors; y++)
                 {
                     for (int z = sectorCoord.z - ViewDistanceInSectors; z <= sectorCoord.z + ViewDistanceInSectors; z++)
                     {
-                        if (IsSectorInGalaxy(new SectorCoord(x,y,z)))
+                        SectorCoord NewSectorCoord = new SectorCoord(x,y,z);
+                        if (IsSectorInGalaxy(NewSectorCoord))
                         {
-                            GenerateSectorAt(x, y, z);
+                            //bool IsCreatedBefore = IsSectorCreatedBefore(NewSectorCoord, previouslyActiveSectors);
+                            //if ( IsCreatedBefore == true)
+                            //{
+                            //    ReturnSector(NewSectorCoord, previouslyActiveSectors);
+                            //    sectorsToCreate.Add(NewSectorCoord);
+                            //}
+                            
+                            Debug.Log("CheckViewDistance" + " " + x + " " + y + " " + z);
+                            sectorsToCreate.Add(NewSectorCoord);
                         }
-                        if (IsSectorCreatedBefore(new SectorCoord(x, y, z)))
+                        for (int i = 0; i < previouslyActiveSectors.Count; i++)
                         {
-
-                        }
-                        for (int i = 0; i < previouslyActiveSector.Count; i++)
-                        {
-                            if (previouslyActiveSector[i].Equals(new SectorCoord(x,y,z)))
+                            if (previouslyActiveSectors[i].Equals(NewSectorCoord))
                             {
-                                previouslyActiveSector.RemoveAt(i);
+                                previouslyActiveSectors.RemoveAt(i);
                             }
                         }
                     }
                 }
             }
-            foreach (Sector c in previouslyActiveSector)
+            foreach (SectorCoord c in previouslyActiveSectors)
             {
-                c.IsActive = false;
+                for (int i = 0; i < activeSectors.Count; i++)
+                {
+                    if (activeSectors[i] == c)
+                    {
+                        activeSectors.Remove(c);
+
+                    }
+                }
+                
+                //for (int i = 0; i < createdSectors.Count; i++)
+                //{
+                //    createdSectors[i].IsActive = false;
+                //}
             }
+            //Debug.Log("CheckViewDistance");
         }
         SectorCoord GetRawSectorCoordFromVector3(Vector3 pos)
         {
@@ -120,27 +191,77 @@ namespace GalaxyModule
             sectorCoordVector3convert.z = sectorCoord.z;
             return sectorCoordVector3convert;
         }
-        //void  
+        void ThreadCreateSectors()
+        {
+            bool updated = false;
+            int index = 0;
+            //Debug.Log("bla");
+            lock(SectorUpdateThreadLock)
+            {
+                //Debug.Log(sectorsToUpdate.Count);
+                while (!updated && index < sectorsToUpdate.Count - 1)
+                {
+                    //Debug.Log(sectorsToUpdate[index].IsActive);
+                    if (sectorsToUpdate[index].IsActive)
+                    {
+                        sectorsToUpdate[index].UpdateSector();
+                        activeSectors.Add(sectorsToUpdate[index].sectorCoord);
+                        sectorsToUpdate.RemoveAt(index);
+                        updated = true;
+                        //Debug.Log("bla3");
+                    }
+                    else
+                    {
+                        index++;
+                        //Debug.Log("bla4");
+                    }
+                }
+                //Debug.Log("bla1");
+            }
+            
+        }
+        void CreateSector()
+        {
+            SectorCoord s = sectorsToCreate[0];
+            GenerateSectorAt(s.x, s.y, s.z);
+            sectorsToCreate.RemoveAt(0);
+            //Debug.Log("" + s.x + "" + s.y + "" + s.z);
+        }
         void GenerateSectorAt(int x, int y, int z)// builds Sectors
         {
             Vector3 SectorPosition = new Vector3(x * SectorSize, y * SectorSize, z * SectorSize);
             SectorCoord rawSectorCoord = GetRawSectorCoordFromVector3(SectorPosition);
             SectorCoord sectorCoord = GetSectorCoordFromVector3(SectorPosition);
             Sector i = new Sector(sectorCoord, rawSectorCoord, sphereMesh, this);
-            createdSectors.Add(i);
-            activeSectors.Add(i);
-            createdSectorCoords.Add(sectorCoord);
+            {
+                i.IsActive = true;
+                sectorsToUpdate.Add(i);
+                createdSectors.Add(i);
+            }
+            //Debug.Log(" " + SectorPosition.x + " " + SectorPosition.y + " " + SectorPosition.z + " " + i.IsActive);
+            //Debug.Log(" " + sectorCoord.x + " " + sectorCoord.y + " " + sectorCoord.z + " " + i.IsActive);
         }
-        bool IsSectorCreatedBefore(SectorCoord coord)
+        Sector ReturnSector(SectorCoord coord, List<Sector> previouslyActiveSectors)
         {
-            if (createdSectorCoords.Contains(coord))
+            for(int i = 0; i < createdSectors.Count; i++)
             {
-                return true;
+                if(createdSectors[i].sectorCoord == coord && previouslyActiveSectors[i].sectorCoord == coord)
+                {
+                    return createdSectors[i];
+                }
             }
-            else
+            return null;
+        }
+        bool IsSectorCreatedBefore(SectorCoord coord, List<Sector> previouslyActiveSectors)
+        {
+            for(int i = 0; i < createdSectors.Count; i++)
             {
-                return false;
+                if(createdSectors[i].sectorCoord == coord && previouslyActiveSectors[i].sectorCoord == coord)
+                {
+                    return true;
+                }
             }
+            return false;
         }
         bool IsSectorInGalaxy(SectorCoord coord)
         {
@@ -157,7 +278,9 @@ namespace GalaxyModule
         }
         bool IsStarSystemInGalaxy(Vector3 pos)
         {
-            if (pos.x >= 0 && pos.x < galaxyLength && pos.y >= 0 && pos.y < galaxyHeight && pos.z >= 0 && pos.z < galaxyWidth)
+            if (pos.x >= 0 && pos.x < galaxyLength 
+                && pos.y >= 0 && pos.y < galaxyHeight 
+                && pos.z >= 0 && pos.z < galaxyWidth)
             {
                 return true;
             }

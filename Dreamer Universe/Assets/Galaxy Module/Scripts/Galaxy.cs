@@ -49,6 +49,7 @@ namespace GalaxyModule
                 //Debug.Log("Yub");
             }
             GenerateGalaxy((int)(player.transform.position.x / SectorSize), (int)(player.transform.position.y / SectorSize), (int)(player.transform.position.z / SectorSize), ViewDistanceInSectors);
+            player.transform.position = new Vector3(500,500,500);
             playerLastSectorCoord = GetSectorCoordFromVector3(player.transform.position);
         }  
         private void OnDisable()
@@ -101,16 +102,16 @@ namespace GalaxyModule
         }
         void GenerateGalaxy(int x, int y, int z, int startradius)// builds Sectors around the player
         {
-
             for (int startx = x - startradius; startx <= x + startradius; startx++)
             {
                 for (int starty = y - startradius; starty <= y + startradius; starty++)
                 {
                     for (int startz = z - startradius; startz <= z + startradius; startz++)
                     {
-                        SectorCoord newSectorCoord = new SectorCoord(x,y,z);
-                        GenerateSectorAt(newSectorCoord.x, newSectorCoord.y, newSectorCoord.z);
-                        sectorsToCreate.Add(newSectorCoord);
+                        SectorCoord NewSectorCoord = new SectorCoord(startx, starty, startz);
+                        sectorsToCreate.Add(NewSectorCoord);
+                        activeSectors.Add(NewSectorCoord);
+                        //Debug.Log("Generated Sector on Start" + " " + startx + " " + starty + " " + startz);
                     }
                 }
             }
@@ -137,9 +138,9 @@ namespace GalaxyModule
                             //    ReturnSector(NewSectorCoord, previouslyActiveSectors);
                             //    sectorsToCreate.Add(NewSectorCoord);
                             //}
-                            
-                            Debug.Log("CheckViewDistance" + " " + x + " " + y + " " + z);
+                            //Debug.Log("CheckViewDistance" + " " + x + " " + y + " " + z);
                             sectorsToCreate.Add(NewSectorCoord);
+                            activeSectors.Add(NewSectorCoord);
                         }
                         for (int i = 0; i < previouslyActiveSectors.Count; i++)
                         {
@@ -158,14 +159,13 @@ namespace GalaxyModule
                     if (activeSectors[i] == c)
                     {
                         activeSectors.Remove(c);
-
                     }
                 }
-                
-                //for (int i = 0; i < createdSectors.Count; i++)
-                //{
-                //    createdSectors[i].IsActive = false;
-                //}
+
+                for (int i = 0; i < createdSectors.Count; i++)
+                {
+                    createdSectors[i].IsActive = false;
+                }
             }
             //Debug.Log("CheckViewDistance");
         }

@@ -177,6 +177,7 @@ MonoBehaviour:
   sphereMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   player: {fileID: 1697370928}
   playerSectorCoordVector: {x: 0, y: 0, z: 0}
+  UpdateThreadNumber: 3
 --- !u!1 &534669902
 GameObject:
   m_ObjectHideFlags: 0

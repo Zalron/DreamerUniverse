@@ -43,7 +43,7 @@ namespace GalaxyModule
             sectorGameObject = new GameObject(sectorName);
             sectorGameObject.transform.SetParent(galaxy.transform);
             GenerateStarSystemAll(StarTransformList);
-            Debug.Log("I am created " + sn);
+            //Debug.Log("I am created " + sn);
         }
         public static string BuildSectorName(SectorCoord v) // assigning a name to a Sector
         {
@@ -58,14 +58,14 @@ namespace GalaxyModule
         {
             GenerateSectorStarPosition();
             galaxy.sectorsToDraw.Enqueue(this);
-            Debug.Log("UpdateSector");
+            //Debug.Log("UpdateSector");
         }
         public int GenerateSectorNumStars(SectorType sectorType)
         {
             int _numSectorStars;
             if (sectorType == SectorType.Core)
             {
-                _numSectorStars = galaxy.randomNumber.Next(1000, 4000 + 1);
+                _numSectorStars = galaxy.randomNumber.Next(4000, 5000 + 1);
                 return _numSectorStars;
             }
             else if (sectorType == SectorType.Middle)

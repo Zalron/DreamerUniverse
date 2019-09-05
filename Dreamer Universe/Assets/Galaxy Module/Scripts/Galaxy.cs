@@ -35,7 +35,11 @@ namespace GalaxyModule
         public List<SectorCoord> sectorsToCreate = new List<SectorCoord>();
         public List<Sector> sectorsToUpdate = new List<Sector>();
         public Queue<Sector> sectorsToDraw = new Queue<Sector>();
-        Thread sectorUpdateThread;
+        public int UpdateThreadNumber = 3;
+        Thread sectorUpdateThread1;
+        Thread sectorUpdateThread2;
+        Thread sectorUpdateThread3;
+        Thread sectorUpdateThread4;
         public object SectorUpdateThreadLock = new object();
         public static readonly int ViewDistanceInSectors = 1;
 
@@ -44,19 +48,38 @@ namespace GalaxyModule
         {
             if(enableThreading)
             {
-                sectorUpdateThread = new Thread(new ThreadStart(ThreadedUpdate));
-                sectorUpdateThread.Start();
+                //if (UpdateThreadNumber == 1)
+                //{
+                    sectorUpdateThread1 = new Thread(new ThreadStart(ThreadedUpdate));
+                    sectorUpdateThread1.Start();
+                //}
+                //if (UpdateThreadNumber == 2)
+                //{
+                //    sectorUpdateThread1 = new Thread(new ThreadStart(ThreadedUpdate));
+                //    sectorUpdateThread1.Start();
+                //    sectorUpdateThread2 = new Thread(new ThreadStart(ThreadedUpdate));
+                //    sectorUpdateThread2.Start();
+                //}
+                //if (UpdateThreadNumber == 3)
+                //{
+                //    sectorUpdateThread1 = new Thread(new ThreadStart(ThreadedUpdate));
+                //    sectorUpdateThread1.Start();
+                //    sectorUpdateThread2 = new Thread(new ThreadStart(ThreadedUpdate));
+                //    sectorUpdateThread2.Start();
+                //    sectorUpdateThread3 = new Thread(new ThreadStart(ThreadedUpdate));
+                //    sectorUpdateThread3.Start();
+                //}
                 //Debug.Log("Yub");
             }
             GenerateGalaxy((int)(player.transform.position.x / SectorSize), (int)(player.transform.position.y / SectorSize), (int)(player.transform.position.z / SectorSize), ViewDistanceInSectors);
             player.transform.position = new Vector3(500,500,500);
             playerLastSectorCoord = GetSectorCoordFromVector3(player.transform.position);
-        }  
+        }
         private void OnDisable()
         {   
             if(enableThreading)
             {
-                sectorUpdateThread.Abort();
+                sectorUpdateThread1.Abort();
             }
         }
         void ThreadedUpdate()

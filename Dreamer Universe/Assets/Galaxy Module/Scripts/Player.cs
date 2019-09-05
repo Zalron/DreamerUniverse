@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float flySpeed = 3f;
+    const float SpeedOfLight = 9.461f;
+    public float WarpSpeed = 3f;
     public float maxFlySpeed = 300f;
     public float minFlySpeed = 1f;
     private Transform cam;
@@ -25,9 +26,9 @@ public class Player : MonoBehaviour
     {
         transform.Rotate(Vector3.up * mouseHorizontal);
         cam.Rotate(Vector3.right * -mouseVertical);
-        flySpeed = Mathf.Clamp(flySpeed, minFlySpeed, maxFlySpeed);
+        WarpSpeed = Mathf.Clamp(WarpSpeed, minFlySpeed, maxFlySpeed);
         transform.Translate(velocity, Space.World);
-        velocity = ((transform.forward * vertical) + (transform.right * horizontal) + (transform.up * up)) * Time.fixedDeltaTime * flySpeed;
+        velocity = ((transform.forward * vertical) + (transform.right * horizontal) + (transform.up * up)) * Time.fixedDeltaTime * WarpSpeed * SpeedOfLight;
     }
     // Update is called once per frame
     void Update()
@@ -40,11 +41,11 @@ public class Player : MonoBehaviour
         mouseWheel = Input.GetAxis("Mouse ScrollWheel");
         if (mouseWheel < 0f)
         {
-            flySpeed -= mouseWheel * mouseScrollSpeed;
+            WarpSpeed -= mouseWheel * mouseScrollSpeed;
         }
-        if (mouseWheel > -0f)
+        else
         {
-            flySpeed += mouseWheel * mouseScrollSpeed;
+            WarpSpeed += mouseWheel * mouseScrollSpeed;
         }
     }
 }

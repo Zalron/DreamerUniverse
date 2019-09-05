@@ -48,27 +48,27 @@ namespace GalaxyModule
         {
             if(enableThreading)
             {
-                //if (UpdateThreadNumber == 1)
-                //{
+                if (UpdateThreadNumber == 1)
+                {
                     sectorUpdateThread1 = new Thread(new ThreadStart(ThreadedUpdate));
                     sectorUpdateThread1.Start();
-                //}
-                //if (UpdateThreadNumber == 2)
-                //{
-                //    sectorUpdateThread1 = new Thread(new ThreadStart(ThreadedUpdate));
-                //    sectorUpdateThread1.Start();
-                //    sectorUpdateThread2 = new Thread(new ThreadStart(ThreadedUpdate));
-                //    sectorUpdateThread2.Start();
-                //}
-                //if (UpdateThreadNumber == 3)
-                //{
-                //    sectorUpdateThread1 = new Thread(new ThreadStart(ThreadedUpdate));
-                //    sectorUpdateThread1.Start();
-                //    sectorUpdateThread2 = new Thread(new ThreadStart(ThreadedUpdate));
-                //    sectorUpdateThread2.Start();
-                //    sectorUpdateThread3 = new Thread(new ThreadStart(ThreadedUpdate));
-                //    sectorUpdateThread3.Start();
-                //}
+                }
+                if (UpdateThreadNumber == 2)
+                {
+                    sectorUpdateThread1 = new Thread(new ThreadStart(ThreadedUpdate));
+                    sectorUpdateThread1.Start();
+                    sectorUpdateThread2 = new Thread(new ThreadStart(ThreadedUpdate));
+                    sectorUpdateThread2.Start();
+                }
+                if (UpdateThreadNumber == 3)
+                {
+                    sectorUpdateThread1 = new Thread(new ThreadStart(ThreadedUpdate));
+                    sectorUpdateThread1.Start();
+                    sectorUpdateThread2 = new Thread(new ThreadStart(ThreadedUpdate));
+                    sectorUpdateThread2.Start();
+                    sectorUpdateThread3 = new Thread(new ThreadStart(ThreadedUpdate));
+                    sectorUpdateThread3.Start();
+                }
                 //Debug.Log("Yub");
             }
             GenerateGalaxy((int)(player.transform.position.x / SectorSize), (int)(player.transform.position.y / SectorSize), (int)(player.transform.position.z / SectorSize), ViewDistanceInSectors);
@@ -288,9 +288,9 @@ namespace GalaxyModule
         }
         bool IsSectorInGalaxy(SectorCoord coord)
         {
-            if (coord.x >= -galaxyLength + 1 && coord.x <= galaxyLength - 1 
-                && coord.y >= -galaxyHeight + 1 && coord.y <= galaxyHeight - 1 
-                && coord.z >= -galaxyLength + 1 && coord.z <= galaxyWidth - 1)
+            if (coord.x >= -galaxyLength && coord.x <= galaxyLength 
+                && coord.y >= -galaxyHeight && coord.y <= galaxyHeight 
+                && coord.z >= -galaxyWidth && coord.z <= galaxyWidth)
             {
                 return true;
             }

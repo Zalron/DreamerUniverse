@@ -39,13 +39,15 @@ public class Player : MonoBehaviour
         mouseHorizontal = Input.GetAxis("Mouse X");
         mouseVertical = Input.GetAxis("Mouse Y");
         mouseWheel = Input.GetAxis("Mouse ScrollWheel");
-        if (mouseWheel < 0f)
+        if (mouseWheel == 0.1f)
         {
-            WarpSpeed -= mouseWheel * mouseScrollSpeed;
+            //Debug.Log(mouseWheel);
+            WarpSpeed += mouseScrollSpeed;
         }
-        else
+        if (mouseWheel == -0.1f)
         {
-            WarpSpeed += mouseWheel * mouseScrollSpeed;
+            //Debug.Log(mouseWheel);
+            WarpSpeed -= mouseScrollSpeed;
         }
     }
 }

@@ -131,7 +131,7 @@ namespace GalaxyModule
             numSectorStars = GenerateSectorNumStars(sectorType);            
             for (int i = 0; i < numSectorStars; i++)
             {
-                float fStarSystemSize = galaxy.randomNumber.Next(1, 10);
+                float fStarSystemSize = galaxy.randomNumber.Next(1, 15);
                 SectorStarTransform StarTransform = new SectorStarTransform(new Vector3 (galaxy.randomNumber.Next(trueSectorCoord.x, Galaxy.SectorSize + trueSectorCoord.x + 1), 
                                                                                          galaxy.randomNumber.Next(trueSectorCoord.y, Galaxy.SectorSize + trueSectorCoord.y + 1), 
                                                                                          galaxy.randomNumber.Next(trueSectorCoord.z, Galaxy.SectorSize + trueSectorCoord.z + 1)),

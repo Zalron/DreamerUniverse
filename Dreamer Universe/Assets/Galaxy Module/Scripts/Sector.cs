@@ -159,7 +159,7 @@ namespace GalaxyModule
             starSystemObject.transform.position = StarTransform.StarPosition;
             starSystemObject.transform.localScale = StarTransform.StarSystemSize;
             starSystemObject.transform.SetParent(sectorGameObject.transform);
-            StarSystem i = new StarSystem(null, null, null, StarSystemType.COUNT, 0, StarTransform.StarPosition, ssn, sector, starSystemObject, galaxy);
+            StarSystem i = new StarSystem(null, null, null, StarTransform.StarPosition, ssn, sector, starSystemObject, galaxy);
             SectorStars.Add(i);
             //Debug.Log("Created StarSystems");
         }
@@ -205,15 +205,10 @@ namespace GalaxyModule
             }
         }
     }
-    public class SectorStarTransform
+    public struct SectorStarTransform
     {
         public Vector3 StarPosition;
         public Vector3 StarSystemSize;
-        public SectorStarTransform()
-        {
-            StarPosition = new Vector3(0, 0, 0);
-            StarSystemSize = new Vector3(0, 0, 0);
-        }
         public SectorStarTransform(Vector3 _StarPositionList, Vector3 _StarSystemSizeList)
         {
             StarPosition = _StarPositionList;

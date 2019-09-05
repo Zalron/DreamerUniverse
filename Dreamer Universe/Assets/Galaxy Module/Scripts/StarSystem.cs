@@ -22,17 +22,15 @@ namespace GalaxyModule
         public Sector sector;
         public GameObject starSystemsObject;
         public string starSystemName;
-        public StarSystem(StarType StarType1, StarType StarType2, StarType StarType3, StarSystemType StarSystemType, int NumPlanets, Vector3 StarPosition, string StarSystemName, Sector Sector, GameObject StarSystemsObject, Galaxy Galaxy) 
+        public StarSystem(StarType _starType1, StarType _starType2, StarType _starType3, Vector3 StarPosition, string StarSystemName, Sector Sector, GameObject StarSystemsObject, Galaxy Galaxy) 
         {
+            starType1 = _starType1;
+            starType2 = _starType2;
+            starType3 = _starType3;
             galaxy = Galaxy;
-            numPlanets = NumPlanets;
-            starType1 = StarType1;
-            starType2 = StarType2;
-            starType3 = StarType3;
             starPosition = StarPosition;
             starSystemName = StarSystemName;
             sector = Sector;
-            starSystemType = StarSystemType;
             GenerateStarSystemType();
             starSystemsObject = StarSystemsObject;
             GenerateStars(starSystemType);

@@ -11,6 +11,7 @@ namespace GalaxyModule
         public bool enableThreading;
         public StarType[] starTypeTable;
         public Planet[] planetTypeTable;
+        public SectorSO[] SectorTypeTable;
 
         public Mesh sphereMesh;
         public GameObject player;
@@ -40,6 +41,7 @@ namespace GalaxyModule
         Thread sectorUpdateThread2;
         Thread sectorUpdateThread3;
         Thread sectorUpdateThread4;
+        Thread sectorUpdateThread5;
         public object SectorUpdateThreadLock = new object();
         public static readonly int ViewDistanceInSectors = 1;
 
@@ -68,6 +70,30 @@ namespace GalaxyModule
                     sectorUpdateThread2.Start();
                     sectorUpdateThread3 = new Thread(new ThreadStart(ThreadedUpdate));
                     sectorUpdateThread3.Start();
+                }
+                if (UpdateThreadNumber == 4)
+                {
+                    sectorUpdateThread1 = new Thread(new ThreadStart(ThreadedUpdate));
+                    sectorUpdateThread1.Start();
+                    sectorUpdateThread2 = new Thread(new ThreadStart(ThreadedUpdate));
+                    sectorUpdateThread2.Start();
+                    sectorUpdateThread3 = new Thread(new ThreadStart(ThreadedUpdate));
+                    sectorUpdateThread3.Start();
+                    sectorUpdateThread4 = new Thread(new ThreadStart(ThreadedUpdate));
+                    sectorUpdateThread4.Start();
+                }
+                if (UpdateThreadNumber == 5)
+                {
+                    sectorUpdateThread1 = new Thread(new ThreadStart(ThreadedUpdate));
+                    sectorUpdateThread1.Start();
+                    sectorUpdateThread2 = new Thread(new ThreadStart(ThreadedUpdate));
+                    sectorUpdateThread2.Start();
+                    sectorUpdateThread3 = new Thread(new ThreadStart(ThreadedUpdate));
+                    sectorUpdateThread3.Start();
+                    sectorUpdateThread4 = new Thread(new ThreadStart(ThreadedUpdate));
+                    sectorUpdateThread4.Start();
+                    sectorUpdateThread5 = new Thread(new ThreadStart(ThreadedUpdate));
+                    sectorUpdateThread5.Start();
                 }
                 //Debug.Log("Yub");
             }

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1489422157e05ef4bb3633c48039d064, type: 3}
+  m_Name: Far
+  m_EditorClassIdentifier: 
+  xpositiveBoundsMin: 200
+  xpositiveBoundsMax: 500
+  xnegativeBoundsMin: 200
+  xnegativeBoundsMax: 500
+  ypositiveBoundsMin: 40
+  ypositiveBoundsMax: 50
+  ynegativeBoundsMin: 40
+  ynegativeBoundsMax: 50
+  zpositiveBoundsMin: 200
+  zpositiveBoundsMax: 500
+  znegativeBoundsMin: 200
+  znegativeBoundsMax: 500
+  SectorStarNumMin: 10
+  SectorStarNumMax: 50

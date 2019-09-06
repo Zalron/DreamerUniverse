@@ -65,22 +65,22 @@ namespace GalaxyModule
             int _numSectorStars;
             if (sectorType == SectorType.Core)
             {
-                _numSectorStars = galaxy.randomNumber.Next(4000, 5000 + 1);
+                _numSectorStars = galaxy.randomNumber.Next(galaxy.SectorTypeTable[0].SectorStarNumMin, galaxy.SectorTypeTable[0].SectorStarNumMax);
                 return _numSectorStars;
             }
             else if (sectorType == SectorType.Middle)
             {
-                _numSectorStars = galaxy.randomNumber.Next(1000, 1500 + 1);
+                _numSectorStars = galaxy.randomNumber.Next(galaxy.SectorTypeTable[1].SectorStarNumMin, galaxy.SectorTypeTable[1].SectorStarNumMax);
                 return _numSectorStars;
             }
             else if (sectorType == SectorType.Edge)
             {
-                _numSectorStars = galaxy.randomNumber.Next(100, 200 + 1);
+                _numSectorStars = galaxy.randomNumber.Next(galaxy.SectorTypeTable[2].SectorStarNumMin, galaxy.SectorTypeTable[2].SectorStarNumMax);
                 return _numSectorStars;
             }
             else if (sectorType == SectorType.Far)
             {
-                _numSectorStars = galaxy.randomNumber.Next(10, 50 + 1);
+                _numSectorStars = galaxy.randomNumber.Next(galaxy.SectorTypeTable[3].SectorStarNumMin, galaxy.SectorTypeTable[3].SectorStarNumMax);
                 return _numSectorStars;
             }
             else 
@@ -91,30 +91,30 @@ namespace GalaxyModule
         public SectorType SectorTypeGeneration(SectorCoord sectorCoord)
         {
             SectorType sectorType;
-            if (sectorCoord.x >= 0 && sectorCoord.x <= 50 || sectorCoord.x >= -0 && sectorCoord.x <= -50 ||
-                sectorCoord.y >= 0 && sectorCoord.y <= 30 || sectorCoord.y >= -0 && sectorCoord.y <= -30 ||
-                sectorCoord.z >= 0 && sectorCoord.z <= 50 || sectorCoord.z >= -0 && sectorCoord.z <= -50)
+            if (sectorCoord.x >= galaxy.SectorTypeTable[0].xpositiveBoundsMin && sectorCoord.x <= galaxy.SectorTypeTable[0].xpositiveBoundsMax || sectorCoord.x >= galaxy.SectorTypeTable[0].xnegativeBoundsMin && sectorCoord.x <= galaxy.SectorTypeTable[0].xnegativeBoundsMax ||
+                sectorCoord.y >= galaxy.SectorTypeTable[0].ypositiveBoundsMin && sectorCoord.y <= galaxy.SectorTypeTable[0].ypositiveBoundsMax || sectorCoord.y >= galaxy.SectorTypeTable[0].ynegativeBoundsMin && sectorCoord.y <= galaxy.SectorTypeTable[0].ynegativeBoundsMax ||
+                sectorCoord.z >= galaxy.SectorTypeTable[0].zpositiveBoundsMin && sectorCoord.z <= galaxy.SectorTypeTable[0].zpositiveBoundsMax || sectorCoord.z >= galaxy.SectorTypeTable[0].znegativeBoundsMin && sectorCoord.z <= galaxy.SectorTypeTable[0].znegativeBoundsMax)
             {
                 sectorType = SectorType.Core;
                 return sectorType;
             }
-            if (sectorCoord.x > 50 && sectorCoord.x <= 100 || sectorCoord.x > -50 && sectorCoord.x <= -100 ||
-                sectorCoord.y > 30 && sectorCoord.y <= 35 || sectorCoord.y > -30 && sectorCoord.y <= -35 ||
-                sectorCoord.z > 50 && sectorCoord.z <= 100 || sectorCoord.z > -50 && sectorCoord.z <= -100)
+            if (sectorCoord.x > galaxy.SectorTypeTable[1].xpositiveBoundsMin && sectorCoord.x <= galaxy.SectorTypeTable[1].xpositiveBoundsMax || sectorCoord.x > galaxy.SectorTypeTable[1].xnegativeBoundsMin && sectorCoord.x <= galaxy.SectorTypeTable[1].xnegativeBoundsMax ||
+                sectorCoord.y > galaxy.SectorTypeTable[1].ypositiveBoundsMin && sectorCoord.y <= galaxy.SectorTypeTable[1].ypositiveBoundsMax || sectorCoord.y > galaxy.SectorTypeTable[1].ynegativeBoundsMin && sectorCoord.y <= galaxy.SectorTypeTable[1].ynegativeBoundsMax ||
+                sectorCoord.z > galaxy.SectorTypeTable[1].zpositiveBoundsMin && sectorCoord.z <= galaxy.SectorTypeTable[1].zpositiveBoundsMax || sectorCoord.z > galaxy.SectorTypeTable[1].znegativeBoundsMin && sectorCoord.z <= galaxy.SectorTypeTable[1].znegativeBoundsMax)
             {
                 sectorType = SectorType.Middle;
                 return sectorType;
             }
-            if (sectorCoord.x > 100 && sectorCoord.x <= 200 || sectorCoord.x > -100 && sectorCoord.x <= -200 ||
-                sectorCoord.y > 35 && sectorCoord.y <= 40 || sectorCoord.y > -35 && sectorCoord.y <= -40 ||
-                sectorCoord.z > 100 && sectorCoord.z <= 200 || sectorCoord.z > -100 && sectorCoord.z <= -200)
+            if (sectorCoord.x > galaxy.SectorTypeTable[2].xpositiveBoundsMin && sectorCoord.x <= galaxy.SectorTypeTable[2].xpositiveBoundsMax || sectorCoord.x > galaxy.SectorTypeTable[2].xnegativeBoundsMin && sectorCoord.x <= galaxy.SectorTypeTable[2].xnegativeBoundsMax ||
+                sectorCoord.y > galaxy.SectorTypeTable[2].ypositiveBoundsMin && sectorCoord.y <= galaxy.SectorTypeTable[2].ypositiveBoundsMax || sectorCoord.y > galaxy.SectorTypeTable[2].ynegativeBoundsMin && sectorCoord.y <= galaxy.SectorTypeTable[2].ynegativeBoundsMax ||
+                sectorCoord.z > galaxy.SectorTypeTable[2].zpositiveBoundsMin && sectorCoord.z <= galaxy.SectorTypeTable[2].zpositiveBoundsMax || sectorCoord.z > galaxy.SectorTypeTable[2].znegativeBoundsMin && sectorCoord.z <= galaxy.SectorTypeTable[2].znegativeBoundsMax)
             {
                 sectorType = SectorType.Edge;
                 return sectorType;
             }
-            if (sectorCoord.x > 200 && sectorCoord.x <= 500 || sectorCoord.x > -200 && sectorCoord.x <= -500 ||
-                sectorCoord.y > 40 && sectorCoord.y <= 50 || sectorCoord.y > -40 && sectorCoord.y <= -50 ||
-                sectorCoord.z > 200 && sectorCoord.z <= 500 || sectorCoord.z > -200 && sectorCoord.z <= -500)
+            if (sectorCoord.x > galaxy.SectorTypeTable[3].xpositiveBoundsMin && sectorCoord.x <= galaxy.SectorTypeTable[3].xpositiveBoundsMax || sectorCoord.x > galaxy.SectorTypeTable[3].xnegativeBoundsMin && sectorCoord.x <= galaxy.SectorTypeTable[3].xnegativeBoundsMax ||
+                sectorCoord.y > galaxy.SectorTypeTable[3].ypositiveBoundsMin && sectorCoord.y <= galaxy.SectorTypeTable[3].ypositiveBoundsMax || sectorCoord.y > galaxy.SectorTypeTable[3].ynegativeBoundsMin && sectorCoord.y <= galaxy.SectorTypeTable[3].ynegativeBoundsMax ||
+                sectorCoord.z > galaxy.SectorTypeTable[3].zpositiveBoundsMin && sectorCoord.z <= galaxy.SectorTypeTable[3].zpositiveBoundsMax || sectorCoord.z > galaxy.SectorTypeTable[3].znegativeBoundsMin && sectorCoord.z <= galaxy.SectorTypeTable[3].znegativeBoundsMax)
             {
                 sectorType = SectorType.Far;
                 return sectorType;
@@ -131,16 +131,47 @@ namespace GalaxyModule
             numSectorStars = GenerateSectorNumStars(sectorType);            
             for (int i = 0; i < numSectorStars; i++)
             {
-                float fStarSystemSize = galaxy.randomNumber.Next(1, 15);
+                float fStarSystemSize = galaxy.randomNumber.Next(1, 10);
+                StarType starType1 = null;
+                StarType starType2 = null;
+                StarType starType3 = null;
+                StarSystemType starSystemType = (StarSystemType)galaxy.randomNumber.Next(0, (int)StarSystemType.COUNT);
+                if (starSystemType == StarSystemType.SINGULAR_STAR_SYSTEM)
+                {
+                    int starType1int = galaxy.randomNumber.Next(0, galaxy.starTypeTable.Length);
+                    starType1 = galaxy.starTypeTable[starType1int];
+                    starType2 = null;
+                    starType3 = null;
+                }
+                else if (starSystemType == StarSystemType.BINARY_STAR_SYSTEM)
+                {
+                    int starType1int = galaxy.randomNumber.Next(0, galaxy.starTypeTable.Length);
+                    starType1 = galaxy.starTypeTable[starType1int];
+                    int starType2int = galaxy.randomNumber.Next(0, galaxy.starTypeTable.Length);
+                    starType2 = galaxy.starTypeTable[starType2int];
+                    starType3 = null;
+                }
+                else if (starSystemType == StarSystemType.TRINARY_STAR_SYSTEM)
+                {
+                    int starType1int = galaxy.randomNumber.Next(0, galaxy.starTypeTable.Length);
+                    starType1 = galaxy.starTypeTable[starType1int];
+                    int starType2int = galaxy.randomNumber.Next(0, galaxy.starTypeTable.Length);
+                    starType2 = galaxy.starTypeTable[starType2int];
+                    int starType3int = galaxy.randomNumber.Next(0, galaxy.starTypeTable.Length);
+                    starType3 = galaxy.starTypeTable[starType3int];
+                }
                 SectorStarTransform StarTransform = new SectorStarTransform(new Vector3 (galaxy.randomNumber.Next(trueSectorCoord.x, Galaxy.SectorSize + trueSectorCoord.x + 1), 
                                                                                          galaxy.randomNumber.Next(trueSectorCoord.y, Galaxy.SectorSize + trueSectorCoord.y + 1), 
                                                                                          galaxy.randomNumber.Next(trueSectorCoord.z, Galaxy.SectorSize + trueSectorCoord.z + 1)),
-                                                                            new Vector3(fStarSystemSize, fStarSystemSize, fStarSystemSize));
+                                                                            new Vector3 (fStarSystemSize, fStarSystemSize, fStarSystemSize), 
+                                                                            starSystemType, starType1, starType2, starType3);
+                                                                            
                 StarTransformList.Enqueue(StarTransform);
             }
             IsSectorPopulated = true;
             //Debug.Log("Creating star positions");
         }
+       
         public void GenerateStarSystemAll(Queue<SectorStarTransform> _StarPositionList)
         {
             while(_StarPositionList.Count > 0)
@@ -159,7 +190,7 @@ namespace GalaxyModule
             starSystemObject.transform.position = StarTransform.StarPosition;
             starSystemObject.transform.localScale = StarTransform.StarSystemSize;
             starSystemObject.transform.SetParent(sectorGameObject.transform);
-            StarSystem i = new StarSystem(null, null, null, StarTransform.StarPosition, ssn, sector, starSystemObject, galaxy);
+            StarSystem i = new StarSystem(StarTransform.starType1, StarTransform.starType2, StarTransform.starType3, StarTransform.StarSystemType, StarTransform.StarPosition, ssn, sector, starSystemObject, galaxy);
             SectorStars.Add(i);
             //Debug.Log("Created StarSystems");
         }
@@ -205,14 +236,22 @@ namespace GalaxyModule
             }
         }
     }
-    public struct SectorStarTransform
+    public class SectorStarTransform
     {
         public Vector3 StarPosition;
         public Vector3 StarSystemSize;
-        public SectorStarTransform(Vector3 _StarPositionList, Vector3 _StarSystemSizeList)
+        public StarSystemType StarSystemType;
+        public StarType starType1;
+        public StarType starType2;
+        public StarType starType3;
+        public SectorStarTransform(Vector3 _StarPositionList, Vector3 _StarSystemSizeList, StarSystemType _StarSystemType, StarType _starType1, StarType _starType2, StarType _starType3)
         {
             StarPosition = _StarPositionList;
             StarSystemSize = _StarSystemSizeList;
+            StarSystemType = _StarSystemType;
+            starType1 = _starType1;
+            starType2 = _starType2;
+            starType3 = _starType3;
         }
     }
     public class SectorCoord

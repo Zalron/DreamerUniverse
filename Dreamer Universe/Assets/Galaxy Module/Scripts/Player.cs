@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public bool IsGod = false; 
     const float SpeedOfLight = 9.461f;
     public float WarpSpeed = 3f;
     public float maxFlySpeed = 300f;
@@ -26,16 +27,22 @@ public class Player : MonoBehaviour
     {
         transform.Rotate(Vector3.up * mouseHorizontal);
         cam.Rotate(Vector3.right * -mouseVertical);
-        WarpSpeed = Mathf.Clamp(WarpSpeed, minFlySpeed, maxFlySpeed);
-        transform.Translate(velocity, Space.World);
-        velocity = ((transform.forward * vertical) + (transform.right * horizontal) + (transform.up * up)) * Time.fixedDeltaTime * WarpSpeed * SpeedOfLight;
+        if (IsGod == true)
+        {
+            WarpSpeed = Mathf.Clamp(WarpSpeed, minFlySpeed, maxFlySpeed);
+            transform.Translate(velocity, Space.World);
+            velocity = ((transform.forward * vertical) + (transform.right * horizontal) + (transform.up * up)) * Time.fixedDeltaTime * WarpSpeed * SpeedOfLight;
+        }
     }
     // Update is called once per frame
     void Update()
     {
-        horizontal = Input.GetAxis("Horizontal");
-        vertical = Input.GetAxis("Vertical");
-        up = Input.GetAxis("Up");
+        if (IsGod == true)
+        {
+            horizontal = Input.GetAxis("Horizontal");
+            vertical = Input.GetAxis("Vertical");
+            up = Input.GetAxis("Up");
+        }
         mouseHorizontal = Input.GetAxis("Mouse X");
         mouseVertical = Input.GetAxis("Mouse Y");
         mouseWheel = Input.GetAxis("Mouse ScrollWheel");

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1489422157e05ef4bb3633c48039d064, type: 3}
+  m_Name: Edge
+  m_EditorClassIdentifier: 
+  xpositiveBoundsMin: 100
+  xpositiveBoundsMax: 200
+  xnegativeBoundsMin: -100
+  xnegativeBoundsMax: -200
+  ypositiveBoundsMin: 35
+  ypositiveBoundsMax: 40
+  ynegativeBoundsMin: -35
+  ynegativeBoundsMax: -40
+  zpositiveBoundsMin: 100
+  zpositiveBoundsMax: 200
+  znegativeBoundsMin: -100
+  znegativeBoundsMax: -200
+  SectorStarNumMin: 100
+  SectorStarNumMax: 200

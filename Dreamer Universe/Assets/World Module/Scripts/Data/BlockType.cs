@@ -10,6 +10,7 @@ namespace WorldModule
         public bool isSolid;
         public bool renderNeighbourFaces;
         public float transparency;
+        public int MaxAmount;
         public Sprite icon;
 
         [Header("Texture Values")]

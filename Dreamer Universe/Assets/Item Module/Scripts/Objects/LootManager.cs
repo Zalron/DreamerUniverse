@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-namespace ItemModule
+namespace ItemSubModule
 {
     public class LootManager : MonoBehaviour
     {
@@ -23,7 +23,7 @@ namespace ItemModule
         public TextMeshProUGUI LootMods5;
         public TextMeshProUGUI LootMods6;
 
-        public ItemRequirements[] itemRequirementsDropTable;
+        public ItemLevel[] itemRequirementsDropTable;
         public ItemRarities[] itemRarityDropTable;
         public ItemName[] itemNameDropTable;
         public ItemAffixs[] itemPrefixDropTable;
@@ -47,7 +47,7 @@ namespace ItemModule
             LootNames.text = i.itemCombinedNameString;
             LootRarity.text = i.itemRarity.rarityName;
             LootTypes.text = i.itemType.ItemTypeName;
-            LootRequirements.text = i.itemRequirements.ItemLevelString;
+            LootRequirements.text = i.itemLevel.ItemLevelString;
             LootStats1.text = i.itemStat1.itemStatOnItemString;
             LootStats2.text = i.itemStat2.itemStatOnItemString;
             LootStats3.text = i.itemStat3.itemStatOnItemString;

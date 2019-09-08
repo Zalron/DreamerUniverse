@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace ItemModule
+namespace ItemSubModule
 {
     public enum ItemSubType
     {
-        //one handed melee
+        //One handed melee
         WEAPON_MELEE_ONEHANDED_SWORD,
         WEAPON_MELEE_ONEHANDED_MACE,
         WEAPON_MELEE_ONEHANDED_KNIFE,
@@ -44,7 +44,7 @@ namespace ItemModule
         WEAPON_RANGED_ONEHANDED_HEAVYMACHINEGUN,
         WEAPON_RANGED_ONEHANDED_GRENADELAUNCHER,
         WEAPON_RANGED_ONEHANDED_ROCKETLAUNCHER,
-        //Armour Power Armour
+        //Armour Light Power Armour
         ARMOUR_POWERARMOUR_LIGHT_HEAD,
         ARMOUR_POWERARMOUR_LIGHT_CHEST,
         ARMOUR_POWERARMOUR_LIGHT_ARMS,
@@ -53,7 +53,7 @@ namespace ItemModule
         ARMOUR_POWERARMOUR_LIGHT_HANDS,
         ARMOUR_POWERARMOUR_LIGHT_SHOULDERS,
         ARMOUR_POWERARMOUR_LIGHT_BACKPACK,
-        //Armour Power Armour
+        //Armour Medium Power Armour
         ARMOUR_POWERARMOUR_MEDIUM_HEAD,
         ARMOUR_POWERARMOUR_MEDIUM_CHEST,
         ARMOUR_POWERARMOUR_MEDIUM_ARMS,
@@ -62,7 +62,7 @@ namespace ItemModule
         ARMOUR_POWERARMOUR_MEDIUM_HANDS,
         ARMOUR_POWERARMOUR_MEDIUM_SHOULDERS,
         ARMOUR_POWERARMOUR_MEDIUM_BACKPACK,
-        //Armour Power Armour
+        //Armour Heavy Power Armour
         ARMOUR_POWERARMOUR_HEAVY_HEAD,
         ARMOUR_POWERARMOUR_HEAVY_CHEST,
         ARMOUR_POWERARMOUR_HEAVY_ARMS,
@@ -83,6 +83,8 @@ namespace ItemModule
         //Currency
         CURRENCY_STACKABLE,
         CURRENCY_NONSTACKABLE,
+        //Materials
+        Material,
         //Equipment
         EQUIPMENT_FLASK,
         EQUIPMENT_QUIVERS,
@@ -96,7 +98,8 @@ namespace ItemModule
     public class ItemTypes : ScriptableObject
     {
         public string ItemTypeName;
-        public int itemTypeIntModifier;
+        public int itemTypeIntModifierMin;
+        public int itemTypeIntModifierMax;
         public ItemSubType itemSubType;
     }
 }

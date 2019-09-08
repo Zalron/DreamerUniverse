@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
-using ItemModule;
+using ItemSubModule;
 namespace CharacterModule
 {
     static public class CharacterCalculations
@@ -15,7 +15,7 @@ namespace CharacterModule
             }
             for (int i = 0; i < mods.Count; i++)
             {
-                num += mods[i].itemModIntModifier;
+                num += mods[i].itemModIntModifierMin;
             }
             return num;
         }
@@ -40,7 +40,7 @@ namespace CharacterModule
         {
             for (int i = 0; i < moreMultiplicativeMods.Count; i++)
             {
-                float multiplicativePercentage = moreMultiplicativeMods[i].itemModIntModifier / 100 + 1;
+                float multiplicativePercentage = moreMultiplicativeMods[i].itemModIntModifierMin / 100 + 1;
                 float numTotalf = numTotal;
                 numTotalf *= multiplicativePercentage;
                 Mathf.Round(numTotalf);
@@ -52,7 +52,7 @@ namespace CharacterModule
         {
             for (int i = 0; i < lessMultiplicativeMods.Count; i++)
             {
-                float multiplicativePercentage = lessMultiplicativeMods[i].itemModIntModifier / 100 - 1;
+                float multiplicativePercentage = lessMultiplicativeMods[i].itemModIntModifierMin / 100 - 1;
                 float numTotalf = numTotal;
                 numTotalf *= multiplicativePercentage;
                 Mathf.Round(numTotalf);
@@ -64,7 +64,7 @@ namespace CharacterModule
         {
             for (int i = 0; i < moreMultiplicativeMods1.Count; i++)
             {
-                float multiplicativePercentage = moreMultiplicativeMods1[i].itemModIntModifier / 100 + 1;
+                float multiplicativePercentage = moreMultiplicativeMods1[i].itemModIntModifierMin / 100 + 1;
                 float numTotalf = numTotal;
                 numTotalf *= multiplicativePercentage;
                 Mathf.Round(numTotalf);
@@ -72,7 +72,7 @@ namespace CharacterModule
             }
             for (int i = 0; i < moreMultiplicativeMods2.Count; i++)
             {
-                float multiplicativePercentage = moreMultiplicativeMods2[i].itemModIntModifier / 100 + 1;
+                float multiplicativePercentage = moreMultiplicativeMods2[i].itemModIntModifierMin / 100 + 1;
                 float numTotalf = numTotal;
                 numTotalf *= multiplicativePercentage;
                 Mathf.Round(numTotalf);
@@ -84,7 +84,7 @@ namespace CharacterModule
         {
             for (int i = 0; i < moreMultiplicativeMods.Count; i++)
             {
-                float multiplicativePercentage = moreMultiplicativeMods[i].itemModIntModifier / 100 + 1;
+                float multiplicativePercentage = moreMultiplicativeMods[i].itemModIntModifierMin / 100 + 1;
                 float numTotalf = numTotal;
                 numTotalf *= multiplicativePercentage;
                 Mathf.Round(numTotalf);
@@ -92,7 +92,7 @@ namespace CharacterModule
             }
             for (int i = 0; i < lessMultiplicativeMods.Count; i++)
             {
-                float multiplicativePercentage = lessMultiplicativeMods[i].itemModIntModifier / 100 - 1;
+                float multiplicativePercentage = lessMultiplicativeMods[i].itemModIntModifierMin / 100 - 1;
                 float numTotalf = numTotal;
                 numTotalf *= multiplicativePercentage;
                 Mathf.Round(numTotalf);
@@ -104,7 +104,7 @@ namespace CharacterModule
         {
             for (int i = 0; i < lessMultiplicativeMods1.Count; i++)
             {
-                float multiplicativePercentage = lessMultiplicativeMods1[i].itemModIntModifier / 100 - 1;
+                float multiplicativePercentage = lessMultiplicativeMods1[i].itemModIntModifierMin / 100 - 1;
                 float numTotalf = numTotal;
                 numTotalf *= multiplicativePercentage;
                 Mathf.Round(numTotalf);
@@ -112,7 +112,7 @@ namespace CharacterModule
             }
             for (int i = 0; i < lessMultiplicativeMods2.Count; i++)
             {
-                float multiplicativePercentage = lessMultiplicativeMods2[i].itemModIntModifier / 100 - 1;
+                float multiplicativePercentage = lessMultiplicativeMods2[i].itemModIntModifierMin / 100 - 1;
                 float numTotalf = numTotal;
                 numTotalf *= multiplicativePercentage;
                 Mathf.Round(numTotalf);
@@ -124,7 +124,7 @@ namespace CharacterModule
         {
             for (int i = 0; i < moreMultiplicativeMods1.Count; i++)
             {
-                float multiplicativePercentage = moreMultiplicativeMods1[i].itemModIntModifier / 100 + 1;
+                float multiplicativePercentage = moreMultiplicativeMods1[i].itemModIntModifierMin / 100 + 1;
                 float numTotalf = numTotal;
                 numTotalf *= multiplicativePercentage;
                 Mathf.Round(numTotalf);
@@ -132,7 +132,7 @@ namespace CharacterModule
             }
             for (int i = 0; i < moreMultiplicativeMods2.Count; i++)
             {
-                float multiplicativePercentage = moreMultiplicativeMods2[i].itemModIntModifier / 100 + 1;
+                float multiplicativePercentage = moreMultiplicativeMods2[i].itemModIntModifierMin / 100 + 1;
                 float numTotalf = numTotal;
                 numTotalf *= multiplicativePercentage;
                 Mathf.Round(numTotalf);
@@ -140,7 +140,7 @@ namespace CharacterModule
             }
             for (int i = 0; i < lessMultiplicativeMods1.Count; i++)
             {
-                float multiplicativePercentage = lessMultiplicativeMods1[i].itemModIntModifier / 100 - 1;
+                float multiplicativePercentage = lessMultiplicativeMods1[i].itemModIntModifierMin / 100 - 1;
                 float numTotalf = numTotal;
                 numTotalf *= multiplicativePercentage;
                 Mathf.Round(numTotalf);
@@ -152,7 +152,7 @@ namespace CharacterModule
         {
             for (int i = 0; i < moreMultiplicativeMods1.Count; i++)
             {
-                float multiplicativePercentage = moreMultiplicativeMods1[i].itemModIntModifier / 100 + 1;
+                float multiplicativePercentage = moreMultiplicativeMods1[i].itemModIntModifierMin / 100 + 1;
                 float numTotalf = numTotal;
                 numTotalf *= multiplicativePercentage;
                 Mathf.Round(numTotalf);
@@ -160,7 +160,7 @@ namespace CharacterModule
             }
             for (int i = 0; i < lessMultiplicativeMods1.Count; i++)
             {
-                float multiplicativePercentage = lessMultiplicativeMods1[i].itemModIntModifier / 100 - 1;
+                float multiplicativePercentage = lessMultiplicativeMods1[i].itemModIntModifierMin / 100 - 1;
                 float numTotalf = numTotal;
                 numTotalf *= multiplicativePercentage;
                 Mathf.Round(numTotalf);
@@ -168,7 +168,7 @@ namespace CharacterModule
             }
             for (int i = 0; i < lessMultiplicativeMods2.Count; i++)
             {
-                float multiplicativePercentage = lessMultiplicativeMods2[i].itemModIntModifier / 100 - 1;
+                float multiplicativePercentage = lessMultiplicativeMods2[i].itemModIntModifierMin / 100 - 1;
                 float numTotalf = numTotal;
                 numTotalf *= multiplicativePercentage;
                 Mathf.Round(numTotalf);
@@ -180,7 +180,7 @@ namespace CharacterModule
         {
             for (int i = 0; i < moreMultiplicativeMods1.Count; i++)
             {
-                float multiplicativePercentage = moreMultiplicativeMods1[i].itemModIntModifier / 100 + 1;
+                float multiplicativePercentage = moreMultiplicativeMods1[i].itemModIntModifierMin / 100 + 1;
                 float numTotalf = numTotal;
                 numTotalf *= multiplicativePercentage;
                 Mathf.Round(numTotalf);
@@ -188,7 +188,7 @@ namespace CharacterModule
             }
             for (int i = 0; i < moreMultiplicativeMods2.Count; i++)
             {
-                float multiplicativePercentage = moreMultiplicativeMods2[i].itemModIntModifier / 100 + 1;
+                float multiplicativePercentage = moreMultiplicativeMods2[i].itemModIntModifierMin / 100 + 1;
                 float numTotalf = numTotal;
                 numTotalf *= multiplicativePercentage;
                 Mathf.Round(numTotalf);
@@ -196,7 +196,7 @@ namespace CharacterModule
             }
             for (int i = 0; i < lessMultiplicativeMods1.Count; i++)
             {
-                float multiplicativePercentage = lessMultiplicativeMods1[i].itemModIntModifier / 100 - 1;
+                float multiplicativePercentage = lessMultiplicativeMods1[i].itemModIntModifierMin / 100 - 1;
                 float numTotalf = numTotal;
                 numTotalf *= multiplicativePercentage;
                 Mathf.Round(numTotalf);
@@ -204,7 +204,7 @@ namespace CharacterModule
             }
             for (int i = 0; i < lessMultiplicativeMods2.Count; i++)
             {
-                float multiplicativePercentage = lessMultiplicativeMods2[i].itemModIntModifier / 100 - 1;
+                float multiplicativePercentage = lessMultiplicativeMods2[i].itemModIntModifierMin / 100 - 1;
                 float numTotalf = numTotal;
                 numTotalf *= multiplicativePercentage;
                 Mathf.Round(numTotalf);

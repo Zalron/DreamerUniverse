@@ -7,7 +7,6 @@ namespace ItemSubModule
     [CreateAssetMenu(fileName = "Item", menuName = "Item/Item", order = 1)]
     public class Item : ScriptableObject
     {
-        #region Item Variables
         public ItemName itemName;
         public ItemTypes itemType;
         public string itemCombinedNameString;
@@ -54,7 +53,5 @@ namespace ItemSubModule
         public ItemMod itemMod8;
         public ItemMod itemMod9;
         public ItemMod itemMod10;
-
-        #endregion
     }
 }

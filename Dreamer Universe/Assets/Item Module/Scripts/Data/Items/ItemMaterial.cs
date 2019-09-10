@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace ItemSubModule
 {
-    public class ItemMaterial : MonoBehaviour
+    [CreateAssetMenu(fileName = "Item", menuName = "Item/Item Material", order = 1)]
+    public class ItemMaterial : ScriptableObject
     {
         public string itemMaterialName;
         public int ItemMaterialModifierMin;

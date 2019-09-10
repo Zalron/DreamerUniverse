@@ -7,7 +7,7 @@ namespace ItemSubModule
     public class ItemParts : MonoBehaviour
     {
         public string partName;
-        public ItemManufacturer itemManufacturerOwner;
+        public ItemTypes itemTypeForParts;
         public ItemStats itemModifing;
         public int partModifierMin;
         public int partModifierMax;

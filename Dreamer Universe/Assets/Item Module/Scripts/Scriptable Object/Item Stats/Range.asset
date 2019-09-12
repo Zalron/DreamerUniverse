@@ -10,9 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d41c4e056b94ab8418734741f081855e, type: 3}
-  m_Name: Weapon Range
+  m_Name: Range
   m_EditorClassIdentifier: 
   itemStatString: Weapon Range
-  itemStatInt: 0
-  itemStatOnItemString: 
   isPercentage: 0

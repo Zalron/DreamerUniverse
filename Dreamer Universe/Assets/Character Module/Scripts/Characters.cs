@@ -189,25 +189,25 @@ namespace CharacterModule
         public int Stiffness;
 
         //Gear
-        public Item Weapon1;
-        public Item Weapon2;
-        public Item Head;
-        public Item Chest;
-        public Item Arms;
-        public Item Belt;
-        public Item Legs;
-        public Item Hands;
-        public Item Shoulders;
-        public Item Backpack;
-        public Item Ring1;
-        public Item Ring2;
-        public Item Necklace;
-        public Item Equipment1;
-        public Item Equipment2;
-        public Item Equipment3;
-        public Item Equipment4;
-        public Item Equipment5;
-        public Item Equipment6;
+        public ItemSO Weapon1;
+        public ItemSO Weapon2;
+        public ItemSO Head;
+        public ItemSO Chest;
+        public ItemSO Arms;
+        public ItemSO Belt;
+        public ItemSO Legs;
+        public ItemSO Hands;
+        public ItemSO Shoulders;
+        public ItemSO Backpack;
+        public ItemSO Ring1;
+        public ItemSO Ring2;
+        public ItemSO Necklace;
+        public ItemSO Equipment1;
+        public ItemSO Equipment2;
+        public ItemSO Equipment3;
+        public ItemSO Equipment4;
+        public ItemSO Equipment5;
+        public ItemSO Equipment6;
 
         // Inventory
 

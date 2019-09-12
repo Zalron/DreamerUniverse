@@ -5,7 +5,7 @@ namespace ItemSubModule
 {
     public static class ItemCalculations
     {
-        public static Item ItemGenerator(Item i, ItemName[] itemNameDropTable, ItemAffixs[] itemPrefixDropTable, ItemAffixs[] itemSuffixDropTable, ItemStats[] itemStatDropTable, ItemRarities[] itemRarityDropTable, ItemLevel[] itemRequirementsDropTable)
+        public static ItemSO ItemGenerator(ItemSO i, ItemNameSO[] itemNameDropTable, ItemAffixsSO[] itemPrefixDropTable, ItemAffixsSO[] itemSuffixDropTable, ItemStatsSO[] itemStatDropTable, ItemRaritiesSO[] itemRarityDropTable, ItemLevelSO[] itemRequirementsDropTable)
         {
             if (itemNameDropTable == null || itemPrefixDropTable == null || itemSuffixDropTable == null || itemStatDropTable == null || itemRarityDropTable == null || itemRequirementsDropTable == null)
             {
@@ -19,18 +19,35 @@ namespace ItemSubModule
             int itemRarityDropTableNumber = Random.Range(0, itemRarityDropTable.Length);
             i.itemRarity = itemRarityDropTable[itemRarityDropTableNumber];
             i = RarityAffixGenerator(i, itemPrefixDropTable, itemSuffixDropTable);
-            i.itemStat1 = itemStatDropTable[0];
-            i.itemStat2 = itemStatDropTable[1];
-            i.itemStat3 = itemStatDropTable[2];
-            i.itemStat4 = itemStatDropTable[3];
-            i.itemStat5 = itemStatDropTable[4];
-            i.itemStat6 = itemStatDropTable[5];
-            i.itemStat1 = ItemModStatGenerator(i, i.itemStat1, i.itemMod1, i.itemMod2, i.itemMod3, i.itemMod4, i.itemMod5, i.itemMod6);
-            i.itemStat2 = ItemModStatGenerator(i, i.itemStat2, i.itemMod1, i.itemMod2, i.itemMod3, i.itemMod4, i.itemMod5, i.itemMod6);
-            i.itemStat3 = ItemModStatGenerator(i, i.itemStat3, i.itemMod1, i.itemMod2, i.itemMod3, i.itemMod4, i.itemMod5, i.itemMod6);
-            i.itemStat4 = ItemModStatGenerator(i, i.itemStat4, i.itemMod1, i.itemMod2, i.itemMod3, i.itemMod4, i.itemMod5, i.itemMod6);
-            i.itemStat5 = ItemModStatGenerator(i, i.itemStat5, i.itemMod1, i.itemMod2, i.itemMod3, i.itemMod4, i.itemMod5, i.itemMod6);
-            i.itemStat6 = ItemModStatGenerator(i, i.itemStat6, i.itemMod1, i.itemMod2, i.itemMod3, i.itemMod4, i.itemMod5, i.itemMod6);
+            if (i.itemType.itemSubType == ItemSubType.WEAPON_MELEE_ONEHANDED_AXE ||
+                i.itemType.itemSubType == ItemSubType.WEAPON_MELEE_ONEHANDED_CLUB ||
+                i.itemType.itemSubType == ItemSubType.WEAPON_MELEE_ONEHANDED_KNIFE ||
+                i.itemType.itemSubType == ItemSubType.WEAPON_MELEE_ONEHANDED_MACE ||
+                i.itemType.itemSubType == ItemSubType.WEAPON_MELEE_ONEHANDED_RAPIER ||
+                i.itemType.itemSubType == ItemSubType.WEAPON_MELEE_ONEHANDED_SHIELD ||
+                i.itemType.itemSubType == ItemSubType.WEAPON_MELEE_ONEHANDED_SWORD ||
+                i.itemType.itemSubType == ItemSubType.WEAPON_MELEE_ONEHANDED_WARHAMMER ||
+                i.itemType.itemSubType == ItemSubType.WEAPON_MELEE_TWOHANDED_AXE ||
+                i.itemType.itemSubType == ItemSubType.WEAPON_MELEE_TWOHANDED_CLAWS ||
+                i.itemType.itemSubType == ItemSubType.WEAPON_MELEE_TWOHANDED_CLUB ||
+                i.itemType.itemSubType == ItemSubType.WEAPON_MELEE_TWOHANDED_HALBERD||
+                i.itemType.itemSubType == ItemSubType.WEAPON_MELEE_TWOHANDED_MACE ||
+                i.itemType.itemSubType == ItemSubType.WEAPON_MELEE_TWOHANDED_SPEAR||
+                i.itemType.itemSubType == ItemSubType.WEAPON_MELEE_TWOHANDED_STAFF ||
+                i.itemType.itemSubType == ItemSubType.WEAPON_MELEE_TWOHANDED_SWORD||
+                i.itemType.itemSubType == ItemSubType.WEAPON_MELEE_TWOHANDED_WARHAMMER)
+            {
+                i.itemStat1 = itemStatDropTable[0];
+                i.itemStat2 = itemStatDropTable[1];
+                i.itemStat3 = itemStatDropTable[2];
+                i.itemStat4 = itemStatDropTable[3];
+                i.itemStat5 = itemStatDropTable[4];
+                i.itemStat6 = itemStatDropTable[5];
+                i.itemStat7 = itemStatDropTable[6];
+                i.itemStat8 = itemStatDropTable[7];
+                i.itemStat9 = itemStatDropTable[8];
+                i.itemStat10 = itemStatDropTable[9];
+            }
             if (i.itemPrefixs1 == null && i.itemSuffixs1 == null)
             {
                 i.itemCombinedNameString = ConvertString.CombineNameString("", i.itemName.ItemNameString, "");
@@ -50,86 +67,11 @@ namespace ItemSubModule
             return i;
 
         }
-        public static ItemStats ItemModStatGenerator(Item i, ItemStats itemStat, ItemMod itemMod1, ItemMod itemMod2, ItemMod itemMod3, ItemMod itemMod4, ItemMod itemMod5, ItemMod itemMod6)
+        public static ItemStatsSO ItemModStatGenerator(ItemSO i, ItemStatsSO itemStat, ItemModSO itemMod)
         {
-            if (itemMod1 == null)
-            {
-                itemStat.itemStatInt = ItemStatGenerators(i.itemName, i.itemType, i.itemRarity, i.itemLevel, null);
-                itemStat.itemStatOnItemString = ConvertString.ItemStatStringGenerator(itemStat.itemStatInt, itemStat.itemStatString);
-                return itemStat;
-            }
-            else if (itemStat.name == itemMod1.itemStatModifiying.name)
-            {
-                itemStat.itemStatInt = ItemStatGenerators(i.itemName, i.itemType, i.itemRarity, i.itemLevel, itemMod1);
-                itemStat.itemStatOnItemString = ConvertString.ItemStatStringGenerator(itemStat.itemStatInt, itemStat.itemStatString);
-                return itemStat;
-            }
-            else if (itemMod1 == null || itemMod2 == null)
-            {
-                itemStat.itemStatInt = ItemStatGenerators(i.itemName, i.itemType, i.itemRarity, i.itemLevel, null);
-                itemStat.itemStatOnItemString = ConvertString.ItemStatStringGenerator(itemStat.itemStatInt, itemStat.itemStatString);
-                return itemStat;
-            }
-            else if (itemStat.name == itemMod2.itemStatModifiying.name)
-            {
-                itemStat.itemStatInt = ItemStatGenerators(i.itemName, i.itemType, i.itemRarity, i.itemLevel, itemMod2);
-                itemStat.itemStatOnItemString = ConvertString.ItemStatStringGenerator(itemStat.itemStatInt, itemStat.itemStatString);
-                return itemStat;
-            }
-            else if (itemMod1 == null || itemMod2 == null || itemMod3 == null)
-            {
-                itemStat.itemStatInt = ItemStatGenerators(i.itemName, i.itemType, i.itemRarity, i.itemLevel, null);
-                itemStat.itemStatOnItemString = ConvertString.ItemStatStringGenerator(itemStat.itemStatInt, itemStat.itemStatString);
-                return itemStat;
-            }
-            else if (itemStat.name == itemMod3.itemStatModifiying.name)
-            {
-                itemStat.itemStatInt = ItemStatGenerators(i.itemName, i.itemType, i.itemRarity, i.itemLevel, itemMod3);
-                itemStat.itemStatOnItemString = ConvertString.ItemStatStringGenerator(itemStat.itemStatInt, itemStat.itemStatString);
-                return itemStat;
-            }
-            else if (itemMod1 == null || itemMod2 == null || itemMod3 == null || itemMod4 == null)
-            {
-                itemStat.itemStatInt = ItemStatGenerators(i.itemName, i.itemType, i.itemRarity, i.itemLevel, null);
-                itemStat.itemStatOnItemString = ConvertString.ItemStatStringGenerator(itemStat.itemStatInt, itemStat.itemStatString);
-                return itemStat;
-            }
-            else if (itemStat.name == itemMod4.itemStatModifiying.name)
-            {
-                itemStat.itemStatInt = ItemStatGenerators(i.itemName, i.itemType, i.itemRarity, i.itemLevel, itemMod4);
-                itemStat.itemStatOnItemString = ConvertString.ItemStatStringGenerator(itemStat.itemStatInt, itemStat.itemStatString);
-                return itemStat;
-            }
-            else if (itemMod1 == null || itemMod2 == null || itemMod3 == null || itemMod4 == null || itemMod5 == null)
-            {
-                itemStat.itemStatInt = ItemStatGenerators(i.itemName, i.itemType, i.itemRarity, i.itemLevel, null);
-                itemStat.itemStatOnItemString = ConvertString.ItemStatStringGenerator(itemStat.itemStatInt, itemStat.itemStatString);
-                return itemStat;
-            }
-            else if (itemStat.name == itemMod5.itemStatModifiying.name)
-            {
-                itemStat.itemStatInt = ItemStatGenerators(i.itemName, i.itemType, i.itemRarity, i.itemLevel, itemMod5);
-                itemStat.itemStatOnItemString = ConvertString.ItemStatStringGenerator(itemStat.itemStatInt, itemStat.itemStatString);
-                return itemStat;
-            }
-            else if (itemMod1 == null || itemMod2 == null || itemMod3 == null || itemMod4 == null || itemMod5 == null || itemMod6 == null)
-            {
-                itemStat.itemStatInt = ItemStatGenerators(i.itemName, i.itemType, i.itemRarity, i.itemLevel, null);
-                itemStat.itemStatOnItemString = ConvertString.ItemStatStringGenerator(itemStat.itemStatInt, itemStat.itemStatString);
-                return itemStat;
-            }
-            else if (itemStat.name == itemMod6.itemStatModifiying.name)
-            {
-                itemStat.itemStatInt = ItemStatGenerators(i.itemName, i.itemType, i.itemRarity, i.itemLevel, itemMod6);
-                itemStat.itemStatOnItemString = ConvertString.ItemStatStringGenerator(itemStat.itemStatInt, itemStat.itemStatString);
-                return itemStat;
-            }
-            else
-            {
-                return itemStat;
-            }
+            return itemStat;
         }
-        public static int ItemStatGenerators(ItemName itemName, ItemTypes itemType, ItemRarities itemRarities, ItemLevel itemLevel, ItemMod itemMod)
+        public static int ItemStatGenerators(ItemNameSO itemName, ItemTypesSO itemType, ItemRaritiesSO itemRarities, ItemLevelSO itemLevel, ItemModSO itemMod)
         {
             int ItemStatInt = 0;
             int ItemNameIntModifierSolved = Random.Range(itemName.itemNameIntModifierMin, itemName.itemNameIntModifierMax);
@@ -151,12 +93,12 @@ namespace ItemSubModule
             }
             return ItemStatInt;
         }
-        public static ItemMod SetItemMods(Item i, ItemMod itemMod)
+        public static ItemModSO SetItemMods(ItemSO i, ItemModSO itemMod)
         {
             itemMod.itemModOnItemString = ConvertString.ItemModStringGenerator(itemMod.itemModIntModifierMin, itemMod.itemModDescriptionString);
             return itemMod;
         }
-        public static Item RarityAffixGenerator(Item i, ItemAffixs[] itemPrefixDropTable, ItemAffixs[] itemSuffixDropTable)
+        public static ItemSO RarityAffixGenerator(ItemSO i, ItemAffixsSO[] itemPrefixDropTable, ItemAffixsSO[] itemSuffixDropTable)
         {
             int itemAffixSort;
             int itemPrefixDropTableNumber1;

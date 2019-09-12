@@ -18,8 +18,8 @@ namespace ItemSubModule
         FireRate,
         MagazineSize,
     }
-    [CreateAssetMenu(fileName = "Item", menuName = "Item/Item Stats", order = 1)]
-    public class ItemStats : ScriptableObject
+    [CreateAssetMenu(fileName = "ItemSO", menuName = "ItemSO/ItemSO Stats", order = 1)]
+    public class ItemStatsSO : ScriptableObject
     {
         public string itemStatString;
         public bool isPercentage;

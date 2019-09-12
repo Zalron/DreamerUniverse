@@ -7,7 +7,7 @@ namespace CharacterModule
 {
     static public class CharacterCalculations
     {
-        static public int AttributeStatASIDTotalCalculator(int num, List<ItemMod> mods)
+        static public int AttributeStatASIDTotalCalculator(int num, List<ItemModSO> mods)
         {
             if (num > 0)
             {
@@ -36,7 +36,7 @@ namespace CharacterModule
             numTotal -= numMinusTotal;
             return numTotal;
         }
-        static public int AttributeStatMCalculator(int numTotal, List<ItemMod> moreMultiplicativeMods)
+        static public int AttributeStatMCalculator(int numTotal, List<ItemModSO> moreMultiplicativeMods)
         {
             for (int i = 0; i < moreMultiplicativeMods.Count; i++)
             {
@@ -48,7 +48,7 @@ namespace CharacterModule
             }
             return numTotal;
         }
-        static public int AttributeStatLCalculator(int numTotal, List<ItemMod> lessMultiplicativeMods)
+        static public int AttributeStatLCalculator(int numTotal, List<ItemModSO> lessMultiplicativeMods)
         {
             for (int i = 0; i < lessMultiplicativeMods.Count; i++)
             {
@@ -60,7 +60,7 @@ namespace CharacterModule
             }
             return numTotal;
         }
-        static public int AttributeStatMMCalculator(int numTotal, List<ItemMod> moreMultiplicativeMods1, List<ItemMod> moreMultiplicativeMods2)
+        static public int AttributeStatMMCalculator(int numTotal, List<ItemModSO> moreMultiplicativeMods1, List<ItemModSO> moreMultiplicativeMods2)
         {
             for (int i = 0; i < moreMultiplicativeMods1.Count; i++)
             {
@@ -80,7 +80,7 @@ namespace CharacterModule
             }
             return numTotal;
         }
-        static public int AttributeStatMLCalculator(int numTotal, List<ItemMod> moreMultiplicativeMods, List<ItemMod> lessMultiplicativeMods)
+        static public int AttributeStatMLCalculator(int numTotal, List<ItemModSO> moreMultiplicativeMods, List<ItemModSO> lessMultiplicativeMods)
         {
             for (int i = 0; i < moreMultiplicativeMods.Count; i++)
             {
@@ -100,7 +100,7 @@ namespace CharacterModule
             }
             return numTotal;
         }
-        static public int AttributeStatLLCalculator(int numTotal, List<ItemMod> lessMultiplicativeMods1, List<ItemMod> lessMultiplicativeMods2)
+        static public int AttributeStatLLCalculator(int numTotal, List<ItemModSO> lessMultiplicativeMods1, List<ItemModSO> lessMultiplicativeMods2)
         {
             for (int i = 0; i < lessMultiplicativeMods1.Count; i++)
             {
@@ -120,7 +120,7 @@ namespace CharacterModule
             }
             return numTotal;
         }
-        static public int AttributeStatMMLCalculator(int numTotal, List<ItemMod> moreMultiplicativeMods1, List<ItemMod> moreMultiplicativeMods2, List<ItemMod> lessMultiplicativeMods1)
+        static public int AttributeStatMMLCalculator(int numTotal, List<ItemModSO> moreMultiplicativeMods1, List<ItemModSO> moreMultiplicativeMods2, List<ItemModSO> lessMultiplicativeMods1)
         {
             for (int i = 0; i < moreMultiplicativeMods1.Count; i++)
             {
@@ -148,7 +148,7 @@ namespace CharacterModule
             }
             return numTotal;
         }
-        static public int AttributeStatLLMCalculator(int numTotal, List<ItemMod> lessMultiplicativeMods1, List<ItemMod> lessMultiplicativeMods2, List<ItemMod> moreMultiplicativeMods1)
+        static public int AttributeStatLLMCalculator(int numTotal, List<ItemModSO> lessMultiplicativeMods1, List<ItemModSO> lessMultiplicativeMods2, List<ItemModSO> moreMultiplicativeMods1)
         {
             for (int i = 0; i < moreMultiplicativeMods1.Count; i++)
             {
@@ -176,7 +176,7 @@ namespace CharacterModule
             }
             return numTotal;
         }
-        static public int AttributeStatMMLLCalculator(int numTotal, List<ItemMod> moreMultiplicativeMods1, List<ItemMod> moreMultiplicativeMods2, List<ItemMod> lessMultiplicativeMods1, List<ItemMod> lessMultiplicativeMods2)
+        static public int AttributeStatMMLLCalculator(int numTotal, List<ItemModSO> moreMultiplicativeMods1, List<ItemModSO> moreMultiplicativeMods2, List<ItemModSO> lessMultiplicativeMods1, List<ItemModSO> lessMultiplicativeMods2)
         {
             for (int i = 0; i < moreMultiplicativeMods1.Count; i++)
             {
@@ -213,8 +213,8 @@ namespace CharacterModule
             return numTotal;
         }
         static public int AttributeStatMLTotalCalculator(int numTotal,
-                                                         List<ItemMod> moreFromGear, List<ItemMod> moreFromTree,
-                                                         List<ItemMod> lessFromGear, List<ItemMod> lessFromTree)
+                                                         List<ItemModSO> moreFromGear, List<ItemModSO> moreFromTree,
+                                                         List<ItemModSO> lessFromGear, List<ItemModSO> lessFromTree)
         {
             if (lessFromGear == null && moreFromTree == null && lessFromTree == null && moreFromGear != null)
             {
@@ -296,8 +296,8 @@ namespace CharacterModule
             }
         }
         static public int AttributeStatTotalCalculator(int numflatTotal, int numAdditivePercentageTotal, 
-                                                       List<ItemMod> moreFromGear, List<ItemMod> moreFromTree, 
-                                                       List<ItemMod> lessFromGear, List<ItemMod> lessFromTree)
+                                                       List<ItemModSO> moreFromGear, List<ItemModSO> moreFromTree, 
+                                                       List<ItemModSO> lessFromGear, List<ItemModSO> lessFromTree)
         {
             int numTotal = 0;
             numTotal += numflatTotal;
@@ -319,18 +319,18 @@ namespace CharacterModule
             }
 
         }
-        static public int AttributeStatCalculation(List<ItemMod> addFromGearMods, List<ItemMod> addFromTreeMods,
-                                                   List<ItemMod> minusFromGearMods, List<ItemMod> minusFromTreeMods,
+        static public int AttributeStatCalculation(List<ItemModSO> addFromGearMods, List<ItemModSO> addFromTreeMods,
+                                                   List<ItemModSO> minusFromGearMods, List<ItemModSO> minusFromTreeMods,
                                                    int addFromGear, int addFromTree, int addTotal,
                                                    int minusFromGear, int minusFromTree, int minusTotal,
                                                    int flatTotal,
-                                                   List<ItemMod> increasedFromGearMods, List<ItemMod> increasedFromTreeMods,
-                                                   List<ItemMod> decreasedFromGearMods, List<ItemMod> decreasedFromTreeMods,
+                                                   List<ItemModSO> increasedFromGearMods, List<ItemModSO> increasedFromTreeMods,
+                                                   List<ItemModSO> decreasedFromGearMods, List<ItemModSO> decreasedFromTreeMods,
                                                    int increasedFromGear, int increasedFromTree, int increasedTotal,
                                                    int decreasedFromGear, int decreasedFromTree, int decreasedTotal,
                                                    int additivePercentageTotal,
-                                                   List<ItemMod> moreFromGearMods, List<ItemMod> moreFromTreeMods,
-                                                   List<ItemMod> lessFromGearMods, List<ItemMod> lessFromTreeMods,
+                                                   List<ItemModSO> moreFromGearMods, List<ItemModSO> moreFromTreeMods,
+                                                   List<ItemModSO> lessFromGearMods, List<ItemModSO> lessFromTreeMods,
                                                    int total)
         {
             addFromGear = AttributeStatASIDTotalCalculator(addFromGear, addFromGearMods);

@@ -2,9 +2,9 @@ using UnityEngine;
 namespace PlayerModule { }
 namespace ItemSubModule
 {
-    [CreateAssetMenu(fileName = "Item", menuName = "Item/Item Requirements", order = 1)]
+    [CreateAssetMenu(fileName = "ItemSO", menuName = "ItemSO/ItemSO Requirements", order = 1)]
 
-    public class ItemLevel: ScriptableObject
+    public class ItemLevelSO: ScriptableObject
     {
         public string ItemLevelString;
         public int ItemLevelint;

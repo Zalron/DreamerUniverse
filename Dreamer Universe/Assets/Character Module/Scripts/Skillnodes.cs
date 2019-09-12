@@ -13,7 +13,7 @@ namespace CharacterModule
     public class Skillnodes : ScriptableObject
     {
         public SkillNodeType skillnodeType;
-        public List<ItemMod> skillnodeMods;
+        public List<ItemModSO> skillnodeMods;
 
     }
 }

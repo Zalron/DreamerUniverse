@@ -4,13 +4,13 @@ using UnityEngine;
 namespace ItemSubModule
 {
    
-    [CreateAssetMenu(fileName = "Item", menuName = "Item/Item Name", order = 1)]
-    public class ItemName : ScriptableObject
+    [CreateAssetMenu(fileName = "ItemSO", menuName = "ItemSO/ItemSO Name", order = 1)]
+    public class ItemNameSO : ScriptableObject
     {
         public string ItemNameString;
-        public ItemStats itemStatModified;
+        public ItemStatsSO itemStatModified;
         public int itemNameIntModifierMin;
         public int itemNameIntModifierMax;
-        public ItemTypes itemType;
+        public ItemTypesSO itemType;
     }
 }

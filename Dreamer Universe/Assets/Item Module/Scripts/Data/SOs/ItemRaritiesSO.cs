@@ -4,8 +4,8 @@ using UnityEngine;
 namespace ItemSubModule
 {
 
-    [CreateAssetMenu(fileName = "Item", menuName = "Item/Item Rarity", order = 1)]
-    public class ItemRarities : ScriptableObject
+    [CreateAssetMenu(fileName = "ItemSO", menuName = "ItemSO/ItemSO Rarity", order = 1)]
+    public class ItemRaritiesSO : ScriptableObject
     {
         public string rarityName;
         public Color rarityColor;

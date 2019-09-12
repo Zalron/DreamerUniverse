@@ -94,8 +94,8 @@ namespace ItemSubModule
         //Spells
         SPELLS,
     }
-    [CreateAssetMenu(fileName = "Item", menuName = "Item/Item Types", order = 1)]
-    public class ItemTypes : ScriptableObject
+    [CreateAssetMenu(fileName = "ItemSO", menuName = "ItemSO/ItemSO Types", order = 1)]
+    public class ItemTypesSO : ScriptableObject
     {
         public string ItemTypeName;
         public int itemTypeIntModifierMin;

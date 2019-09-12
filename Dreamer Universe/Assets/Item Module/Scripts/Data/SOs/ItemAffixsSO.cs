@@ -8,11 +8,11 @@ namespace ItemSubModule
         Preffix,
         Suffix
     }
-    [CreateAssetMenu(fileName = "Item", menuName = "Item/Item Affixs", order = 1)]
-    public class ItemAffixs : ScriptableObject
+    [CreateAssetMenu(fileName = "ItemSO", menuName = "ItemSO/ItemSO Affixs", order = 1)]
+    public class ItemAffixsSO : ScriptableObject
     {
         public ItemAffix itemAffixType;
-        public ItemMod itemMod;
+        public ItemModSO itemMod;
         public string itemAffixString;
         public bool isSpecialModifier;
     }

@@ -942,7 +942,7 @@ namespace ItemSubModule
         //}
         //public void ItemGenerator()
         //{
-        //    itemName = ItemName.GenerateItemName();
+        //    itemName = ItemNameSO.GenerateItemName();
         //    itemType = ItemTypes.ItemTypeGenerator(itemName);
         //    itemRarity = ItemRarities.RarityGenerator();
         //    switch (itemRarity)
@@ -953,46 +953,46 @@ namespace ItemSubModule
         //            itemCombinedNameString = itemNameString;
         //            break;
         //        case ItemRarity.UNCOMMON:
-        //            itemPrefixs1 = ItemAffixs.GeneratePrefixs();
+        //            itemPrefixs1 = ItemAffixsSO.GeneratePrefixs();
         //            itemPrefix1String = ConvertString.ConvertStringPrefixs(itemPrefixs1);
         //            break;
         //        case ItemRarity.RARE:
-        //            itemPrefixs1 = ItemAffixs.GeneratePrefixs();
-        //            itemSuffixs1 = ItemAffixs.GenerateSuffixs();
+        //            itemPrefixs1 = ItemAffixsSO.GeneratePrefixs();
+        //            itemSuffixs1 = ItemAffixsSO.GenerateSuffixs();
         //            itemPrefix1String = ConvertString.ConvertStringPrefixs(itemPrefixs1);
         //            itemSuffix1String = ConvertString.ConvertStringSuffixs(itemSuffixs1);
         //            break;
         //        case ItemRarity.UNQIUE:
-        //            itemPrefixs1 = ItemAffixs.GeneratePrefixs();
-        //            itemSuffixs1 = ItemAffixs.GenerateSuffixs();
-        //            itemPrefixs2 = ItemAffixs.GeneratePrefixs();
+        //            itemPrefixs1 = ItemAffixsSO.GeneratePrefixs();
+        //            itemSuffixs1 = ItemAffixsSO.GenerateSuffixs();
+        //            itemPrefixs2 = ItemAffixsSO.GeneratePrefixs();
         //            itemPrefix1String = ConvertString.ConvertStringPrefixs(itemPrefixs1);
         //            itemSuffix1String = ConvertString.ConvertStringSuffixs(itemSuffixs1);
         //            break;
         //        case ItemRarity.MASTERWORK:
-        //            itemPrefixs1 = ItemAffixs.GeneratePrefixs();
-        //            itemSuffixs1 = ItemAffixs.GenerateSuffixs();
-        //            itemPrefixs2 = ItemAffixs.GeneratePrefixs();
-        //            itemSuffixs2 = ItemAffixs.GenerateSuffixs();
+        //            itemPrefixs1 = ItemAffixsSO.GeneratePrefixs();
+        //            itemSuffixs1 = ItemAffixsSO.GenerateSuffixs();
+        //            itemPrefixs2 = ItemAffixsSO.GeneratePrefixs();
+        //            itemSuffixs2 = ItemAffixsSO.GenerateSuffixs();
         //            itemPrefix1String = ConvertString.ConvertStringPrefixs(itemPrefixs1);
         //            itemSuffix1String = ConvertString.ConvertStringSuffixs(itemSuffixs1);
         //            break;
         //        case ItemRarity.EXOTIC:
-        //            itemPrefixs1 = ItemAffixs.GeneratePrefixs();
-        //            itemSuffixs1 = ItemAffixs.GenerateSuffixs();
-        //            itemPrefixs2 = ItemAffixs.GeneratePrefixs();
-        //            itemSuffixs2 = ItemAffixs.GenerateSuffixs();
-        //            itemPrefixs3 = ItemAffixs.GeneratePrefixs();
+        //            itemPrefixs1 = ItemAffixsSO.GeneratePrefixs();
+        //            itemSuffixs1 = ItemAffixsSO.GenerateSuffixs();
+        //            itemPrefixs2 = ItemAffixsSO.GeneratePrefixs();
+        //            itemSuffixs2 = ItemAffixsSO.GenerateSuffixs();
+        //            itemPrefixs3 = ItemAffixsSO.GeneratePrefixs();
         //            itemPrefix1String = ConvertString.ConvertStringPrefixs(itemPrefixs1);
         //            itemSuffix1String = ConvertString.ConvertStringSuffixs(itemSuffixs1);
         //            break;
         //        case ItemRarity.LEGENDARY:
-        //            itemPrefixs1 = ItemAffixs.GeneratePrefixs();
-        //            itemSuffixs1 = ItemAffixs.GenerateSuffixs();
-        //            itemPrefixs2 = ItemAffixs.GeneratePrefixs();
-        //            itemSuffixs2 = ItemAffixs.GenerateSuffixs();
-        //            itemPrefixs3 = ItemAffixs.GeneratePrefixs();
-        //            itemSuffixs3 = ItemAffixs.GenerateSuffixs();
+        //            itemPrefixs1 = ItemAffixsSO.GeneratePrefixs();
+        //            itemSuffixs1 = ItemAffixsSO.GenerateSuffixs();
+        //            itemPrefixs2 = ItemAffixsSO.GeneratePrefixs();
+        //            itemSuffixs2 = ItemAffixsSO.GenerateSuffixs();
+        //            itemPrefixs3 = ItemAffixsSO.GeneratePrefixs();
+        //            itemSuffixs3 = ItemAffixsSO.GenerateSuffixs();
         //            itemPrefix1String = ConvertString.ConvertStringPrefixs(itemPrefixs1);
         //            itemSuffix1String = ConvertString.ConvertStringSuffixs(itemSuffixs1);
         //            break;
@@ -1057,6 +1057,85 @@ namespace ItemSubModule
         //    Lvl_90 = 90, Lvl_91 = 91, Lvl_92 = 92, Lvl_93 = 93, Lvl_94 = 94, Lvl_95 = 95, Lvl_96 = 96, Lvl_97 = 97, Lvl_98 = 98, Lvl_99 = 99,
         //    Lvl_100 = 100,
         //    COUNTEND,
+        //}
+        //public static ItemStatsSO ItemModStatGenerator(ItemSO i, ItemStatsSO itemStat, ItemModSO itemMod1, ItemModSO itemMod2, ItemModSO itemMod3, ItemModSO itemMod4, ItemModSO itemMod5, ItemModSO itemMod6)
+        //{
+        //if (itemMod1 == null)
+        //{
+        //    itemStat.itemStatInt = ItemStatGenerators(i.itemName, i.itemType, i.itemRarity, i.itemLevel, null);
+        //    itemStat.itemStatOnItemString = ConvertString.ItemStatStringGenerator(itemStat.itemStatInt, itemStat.itemStatString);
+        //    return itemStat;
+        //}
+        //else if (itemStat.name == itemMod1.itemStatModifiying.name)
+        //{
+        //    itemStat.itemStatInt = ItemStatGenerators(i.itemName, i.itemType, i.itemRarity, i.itemLevel, itemMod1);
+        //    itemStat.itemStatOnItemString = ConvertString.ItemStatStringGenerator(itemStat.itemStatInt, itemStat.itemStatString);
+        //    return itemStat;
+        //}
+        //else if (itemMod1 == null || itemMod2 == null)
+        //{
+        //    itemStat.itemStatInt = ItemStatGenerators(i.itemName, i.itemType, i.itemRarity, i.itemLevel, null);
+        //    itemStat.itemStatOnItemString = ConvertString.ItemStatStringGenerator(itemStat.itemStatInt, itemStat.itemStatString);
+        //    return itemStat;
+        //}
+        //else if (itemStat.name == itemMod2.itemStatModifiying.name)
+        //{
+        //    itemStat.itemStatInt = ItemStatGenerators(i.itemName, i.itemType, i.itemRarity, i.itemLevel, itemMod2);
+        //    itemStat.itemStatOnItemString = ConvertString.ItemStatStringGenerator(itemStat.itemStatInt, itemStat.itemStatString);
+        //    return itemStat;
+        //}
+        //else if (itemMod1 == null || itemMod2 == null || itemMod3 == null)
+        //{
+        //    itemStat.itemStatInt = ItemStatGenerators(i.itemName, i.itemType, i.itemRarity, i.itemLevel, null);
+        //    itemStat.itemStatOnItemString = ConvertString.ItemStatStringGenerator(itemStat.itemStatInt, itemStat.itemStatString);
+        //    return itemStat;
+        //}
+        //else if (itemStat.name == itemMod3.itemStatModifiying.name)
+        //{
+        //    itemStat.itemStatInt = ItemStatGenerators(i.itemName, i.itemType, i.itemRarity, i.itemLevel, itemMod3);
+        //    itemStat.itemStatOnItemString = ConvertString.ItemStatStringGenerator(itemStat.itemStatInt, itemStat.itemStatString);
+        //    return itemStat;
+        //}
+        //else if (itemMod1 == null || itemMod2 == null || itemMod3 == null || itemMod4 == null)
+        //{
+        //    itemStat.itemStatInt = ItemStatGenerators(i.itemName, i.itemType, i.itemRarity, i.itemLevel, null);
+        //    itemStat.itemStatOnItemString = ConvertString.ItemStatStringGenerator(itemStat.itemStatInt, itemStat.itemStatString);
+        //    return itemStat;
+        //}
+        //else if (itemStat.name == itemMod4.itemStatModifiying.name)
+        //{
+        //    itemStat.itemStatInt = ItemStatGenerators(i.itemName, i.itemType, i.itemRarity, i.itemLevel, itemMod4);
+        //    itemStat.itemStatOnItemString = ConvertString.ItemStatStringGenerator(itemStat.itemStatInt, itemStat.itemStatString);
+        //    return itemStat;
+        //}
+        //else if (itemMod1 == null || itemMod2 == null || itemMod3 == null || itemMod4 == null || itemMod5 == null)
+        //{
+        //    itemStat.itemStatInt = ItemStatGenerators(i.itemName, i.itemType, i.itemRarity, i.itemLevel, null);
+        //    itemStat.itemStatOnItemString = ConvertString.ItemStatStringGenerator(itemStat.itemStatInt, itemStat.itemStatString);
+        //    return itemStat;
+        //}
+        //else if (itemStat.name == itemMod5.itemStatModifiying.name)
+        //{
+        //    itemStat.itemStatInt = ItemStatGenerators(i.itemName, i.itemType, i.itemRarity, i.itemLevel, itemMod5);
+        //    itemStat.itemStatOnItemString = ConvertString.ItemStatStringGenerator(itemStat.itemStatInt, itemStat.itemStatString);
+        //    return itemStat;
+        //}
+        //else if (itemMod1 == null || itemMod2 == null || itemMod3 == null || itemMod4 == null || itemMod5 == null || itemMod6 == null)
+        //{
+        //    itemStat.itemStatInt = ItemStatGenerators(i.itemName, i.itemType, i.itemRarity, i.itemLevel, null);
+        //    itemStat.itemStatOnItemString = ConvertString.ItemStatStringGenerator(itemStat.itemStatInt, itemStat.itemStatString);
+        //    return itemStat;
+        //}
+        //else if (itemStat.name == itemMod6.itemStatModifiying.name)
+        //{
+        //    itemStat.itemStatInt = ItemStatGenerators(i.itemName, i.itemType, i.itemRarity, i.itemLevel, itemMod6);
+        //    itemStat.itemStatOnItemString = ConvertString.ItemStatStringGenerator(itemStat.itemStatInt, itemStat.itemStatString);
+        //    return itemStat;
+        //}
+        //else
+        //{
+        //    return itemStat;
+        //}
         //}
         //public static string RequirementsStringConvertor(ItemRequirement requirements)
         //{
@@ -1368,11 +1447,11 @@ namespace ItemSubModule
         //            return ItemRequirementsString;
         //    }
         //}
-        //#region Item Constructor
-        //public Item(ItemName itemName, ItemRarities itemRarity, ItemRequirements itemRequirements, ItemTypes itemType,
+        //#region ItemSO Constructor
+        //public ItemSO(ItemNameSO itemName, ItemRarities itemRarity, ItemRequirements itemRequirements, ItemTypes itemType,
         //            ItemStats itemStat1, ItemStats itemStat2, ItemStats itemStat3, ItemStats itemStat4, ItemStats itemStat5, ItemStats itemStat6,
-        //            ItemMod itemMod1, ItemMod itemMod2, ItemMod itemMod3, ItemMod itemMod4, ItemMod itemMod5, ItemMod itemMod6,
-        //            ItemAffixs itemPrefixs1, ItemAffixs itemPrefixs2, ItemAffixs itemPrefixs3, ItemAffixs itemSuffixs1, ItemAffixs itemSuffixs2, ItemAffixs itemSuffixs3)
+        //            ItemModSO itemMod1, ItemModSO itemMod2, ItemModSO itemMod3, ItemModSO itemMod4, ItemModSO itemMod5, ItemModSO itemMod6,
+        //            ItemAffixsSO itemPrefixs1, ItemAffixsSO itemPrefixs2, ItemAffixsSO itemPrefixs3, ItemAffixsSO itemSuffixs1, ItemAffixsSO itemSuffixs2, ItemAffixsSO itemSuffixs3)
         //{
         //    this.itemName = itemName;
         //    this.itemRarity = itemRarity;

@@ -84,7 +84,7 @@ namespace ItemSubModule
         CURRENCY_STACKABLE,
         CURRENCY_NONSTACKABLE,
         //Materials
-        Material,
+        MATERIAL,
         //Equipment
         EQUIPMENT_FLASK,
         EQUIPMENT_QUIVERS,

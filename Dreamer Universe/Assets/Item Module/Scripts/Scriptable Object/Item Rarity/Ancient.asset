@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Ancient
   m_EditorClassIdentifier: 
   rarityName: Ancient
-  rarityIntModifier: 6
-  rarityIntAffixsAllowed: 6
+  rarityColor: {r: 0, g: 0, b: 0, a: 0}
+  itemRarityIntModifierMin: 0
+  itemRarityIntModifierMax: 0
+  rarityIntAffixsAllowed: 7

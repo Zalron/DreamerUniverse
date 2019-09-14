@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 983ff7ebaf5216c43ab56669284b7148, type: 3}
-  m_Name: Exotic
+  m_Name: Mythic
   m_EditorClassIdentifier: 
-  rarityName: Exotic
+  rarityName: Mythic
   rarityColor: {r: 0, g: 0, b: 0, a: 0}
   itemRarityIntModifierMin: 0
   itemRarityIntModifierMax: 0
-  rarityIntAffixsAllowed: 6
+  rarityIntAffixsAllowed: 5

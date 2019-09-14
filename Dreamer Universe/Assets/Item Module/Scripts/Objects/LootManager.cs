@@ -10,6 +10,9 @@ namespace ItemSubModule
         public TextMeshProUGUI LootRarity;
         public TextMeshProUGUI LootTypes;
         public TextMeshProUGUI LootRequirements;
+        public TextMeshProUGUI LootQuality;
+        public TextMeshProUGUI LootMaterial;
+        public TextMeshProUGUI LootManufacturer;
         public TextMeshProUGUI LootStats1;
         public TextMeshProUGUI LootStats2;
         public TextMeshProUGUI LootStats3;
@@ -30,6 +33,16 @@ namespace ItemSubModule
         public TextMeshProUGUI LootMods8;
         public TextMeshProUGUI LootMods9;
         public TextMeshProUGUI LootMods10;
+        public TextMeshProUGUI LootParts1;
+        public TextMeshProUGUI LootParts2;
+        public TextMeshProUGUI LootParts3;
+        public TextMeshProUGUI LootParts4;
+        public TextMeshProUGUI LootParts5;
+        public TextMeshProUGUI LootParts6;
+        public TextMeshProUGUI LootParts7;
+        public TextMeshProUGUI LootParts8;
+        public TextMeshProUGUI LootParts9;
+        public TextMeshProUGUI LootParts10;
 
         public ItemLevelSO[] itemRequirementsDropTable;
         public ItemRaritiesSO[] itemRarityDropTable;

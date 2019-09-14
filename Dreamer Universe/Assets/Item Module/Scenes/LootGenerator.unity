@@ -6389,26 +6389,39 @@ MonoBehaviour:
   LootRarity: {fileID: 244586304}
   LootTypes: {fileID: 1220230864}
   LootRequirements: {fileID: 684756919}
+  LootQuality: {fileID: 119791682}
+  LootMaterial: {fileID: 670228701}
+  LootManufacturer: {fileID: 1898401538}
   LootStats1: {fileID: 665073676}
   LootStats2: {fileID: 1815360509}
   LootStats3: {fileID: 1115900555}
   LootStats4: {fileID: 641326463}
   LootStats5: {fileID: 990111006}
   LootStats6: {fileID: 174765946}
-  LootStats7: {fileID: 0}
-  LootStats8: {fileID: 0}
-  LootStats9: {fileID: 0}
-  LootStats10: {fileID: 0}
+  LootStats7: {fileID: 835904709}
+  LootStats8: {fileID: 872694944}
+  LootStats9: {fileID: 1478408948}
+  LootStats10: {fileID: 747223095}
   LootMods1: {fileID: 1809402378}
   LootMods2: {fileID: 2142821717}
   LootMods3: {fileID: 911388255}
   LootMods4: {fileID: 19539918}
   LootMods5: {fileID: 641574422}
   LootMods6: {fileID: 1943002958}
-  LootMods7: {fileID: 0}
-  LootMods8: {fileID: 0}
-  LootMods9: {fileID: 0}
-  LootMods10: {fileID: 0}
+  LootMods7: {fileID: 641574422}
+  LootMods8: {fileID: 1239167390}
+  LootMods9: {fileID: 1834754002}
+  LootMods10: {fileID: 2058868088}
+  LootParts1: {fileID: 849367284}
+  LootParts2: {fileID: 647260158}
+  LootParts3: {fileID: 520155741}
+  LootParts4: {fileID: 969182449}
+  LootParts5: {fileID: 633753647}
+  LootParts6: {fileID: 1843616694}
+  LootParts7: {fileID: 1907918831}
+  LootParts8: {fileID: 667058840}
+  LootParts9: {fileID: 270040350}
+  LootParts10: {fileID: 668298621}
   itemRequirementsDropTable:
   - {fileID: 11400000, guid: 5f9af0e4608402b48a576ef9edb9b75b, type: 2}
   - {fileID: 11400000, guid: fb9ceecf80424b9439b6994ab919984d, type: 2}
@@ -6425,9 +6438,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 39982fa4945de164d90c3e2d48f497d8, type: 2}
   - {fileID: 11400000, guid: 880b113b3fbb834499e6a4505204a2e7, type: 2}
   - {fileID: 11400000, guid: 94c54a574c0943f4392cf0eb315e7fab, type: 2}
+  - {fileID: 11400000, guid: 63358009a03622d498282788782cfbaa, type: 2}
+  - {fileID: 11400000, guid: aa38b9339ff7273488a85a7e0c6940a6, type: 2}
   - {fileID: 11400000, guid: addc985b9a0d0894f8f2bc51b3b880cd, type: 2}
-  - {fileID: 11400000, guid: c49f2e2d74a78da4eac0a42c7f11c108, type: 2}
   - {fileID: 11400000, guid: b745c09ad9d506e4880a03def99ed18d, type: 2}
+  - {fileID: 11400000, guid: c49f2e2d74a78da4eac0a42c7f11c108, type: 2}
+  - {fileID: 11400000, guid: be17b6ac427912f40ab743c61378db2c, type: 2}
+  - {fileID: 11400000, guid: 86723864f55686f4f909b588e706ce82, type: 2}
+  - {fileID: 11400000, guid: 2860479b43f750d4f9661b3dae2ac924, type: 2}
   itemNameDropTable:
   - {fileID: 11400000, guid: 0506fcd91331c754ebd35701ff9fb767, type: 2}
   - {fileID: 11400000, guid: 17b233b99800cae4d9cd1306cb08c0d9, type: 2}
@@ -6445,13 +6463,18 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fd1c191fef446e348a0236cc0989dcc7, type: 2}
   - {fileID: 11400000, guid: 1b69d30528c87ef49bf01a31a5a4652c, type: 2}
   itemStatDropTable:
-  - {fileID: 11400000, guid: 1051df46d4f62764492fc6cfe4823702, type: 2}
   - {fileID: 11400000, guid: 9cdd4347d4af7fa4fba558df9c7aa765, type: 2}
-  - {fileID: 11400000, guid: 65606989f90fe0a4383934e018a335fb, type: 2}
   - {fileID: 11400000, guid: 8de5f7659cb432d4da4d6c9ad1268d3b, type: 2}
+  - {fileID: 11400000, guid: 65606989f90fe0a4383934e018a335fb, type: 2}
+  - {fileID: 11400000, guid: c5c3bb931593b4d45a2d29a5a44feaf9, type: 2}
   - {fileID: 11400000, guid: 934d40c0989844d4ca87639b6c73b9cd, type: 2}
   - {fileID: 11400000, guid: 867c440932aec154d9f92642273c4545, type: 2}
+  - {fileID: 11400000, guid: a3ab8abce05693b45a17c339da211eb5, type: 2}
+  - {fileID: 11400000, guid: 0bb977c06ba841344b6fd9ce93ccecbd, type: 2}
+  - {fileID: 11400000, guid: 1051df46d4f62764492fc6cfe4823702, type: 2}
+  - {fileID: 11400000, guid: 1abf353f332c9bb42a08d7490c7510e7, type: 2}
   items:
+  - {fileID: 0}
   - {fileID: 0}
   item: {fileID: 11400000, guid: 3a57bf0202036864c8a8b276c2ccee78, type: 2}
 --- !u!1 &2058868086

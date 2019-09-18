@@ -4,85 +4,22 @@ using UnityEngine;
 using ItemSubModule;
 namespace CharacterModule
 {
-    public class CharacterDetailed
+    public enum CharacterNumberTypes
     {
-            
-
-        #region Attributes
         //Attributes
-        //Strength
-
-        //Endurance
-
-        //Dexterity
-
-        //Luck
-
-        //Intelligence
-
-        //Willpower
-
-        #endregion
-
-        #region Stats
+        Strength,
+        Endurance,
+        Dexterity,
+        Luck,
+        Intelligence,
+        Willpower,
         //Stats
-        #endregion
-
-        #region DamageSources
-        //Damage Sources
-
-        //Physical Damage
-
-        //One Handed Melee
-
-        //Two Handed Melee
-
-        //One Handed Range
-
-        //Two Handed Range
-
-        //Magic Damage
-
-        //Cast Speed
-
-        //Attack Speed
-
-        //Knockback
-
-        //Critical Chance
-
-        //Damage Of Time
-
-        //Area Of Effect
-
-        //Stength Charges
-
-        //Dexterity Charges
-
-        //Intellagence Charges
-
-        //Luck Charges
-
-        //Enduance Charges
-
-        //Willpower Charges
-
-        #endregion
-
-        #region Resistances
-        //Magic Resistances
-
-        //Magic Radiation Resistance
-
-        //Magic Insanity Resistance
-
-        //Magic Stiffness Resistance
-
-        #endregion
-       
+        //Damage Stats
+        //
     }
     public class CharacterNumbers
     {
+        CharacterNumberTypes characterNumberTypes;
         public List<ItemModSO> addFromGearMods, addFromTreeMods;
         public List<ItemModSO> minusFromGearMods, minusFromTreeMods;
         public int addFromGear, addFromTree, addTotal;

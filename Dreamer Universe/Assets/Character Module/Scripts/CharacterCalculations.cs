@@ -7,6 +7,12 @@ namespace CharacterModule
 {
     static public class CharacterCalculations
     {
+        static public List<ItemModSO> ModAssigner(CharacterNumberTypes characterNumberTypes)
+        {
+            List<ItemModSO> itemMods = new List<ItemModSO>();
+            //itemMods.Add();
+            return itemMods;
+        }
         static public int AttributeStatASIDTotalCalculator(int num, List<ItemModSO> mods)
         {
             if (mods == null)
@@ -220,22 +226,22 @@ namespace CharacterModule
                                                          List<ItemModSO> moreFromGear, List<ItemModSO> moreFromTree,
                                                          List<ItemModSO> lessFromGear, List<ItemModSO> lessFromTree)
         {
-            if (lessFromGear == null && moreFromTree == null && lessFromTree == null && moreFromGear != null)
+            if (moreFromGear != null && moreFromTree == null && lessFromGear == null && lessFromTree == null)
             {
                 numTotal = AttributeStatMCalculator(numTotal, moreFromGear);
                 return numTotal;
             }
-            else if(moreFromGear == null && moreFromTree == null && lessFromTree == null)
-            {
-                numTotal = AttributeStatLCalculator(numTotal, lessFromGear);
-                return numTotal;
-            }
-            else if(moreFromGear == null && lessFromGear == null && lessFromTree == null)
+            else if(moreFromGear == null && moreFromTree != null && lessFromGear == null && lessFromTree == null)
             {
                 numTotal = AttributeStatMCalculator(numTotal, moreFromTree);
                 return numTotal;
             }
-            else if(moreFromGear == null && lessFromGear == null && moreFromTree == null)
+            else if (moreFromGear == null && moreFromTree == null && lessFromGear != null && lessFromTree == null)
+            {
+                numTotal = AttributeStatLCalculator(numTotal, lessFromGear);
+                return numTotal;
+            }
+            else if(moreFromGear == null && moreFromTree == null && lessFromGear == null && lessFromTree != null)
             {
                 numTotal = AttributeStatLCalculator(numTotal, lessFromTree);
                 return numTotal;

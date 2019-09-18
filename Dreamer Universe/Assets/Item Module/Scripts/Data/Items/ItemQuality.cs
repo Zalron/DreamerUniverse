@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class ItemQuality
+namespace ItemSubModule
 {
-    int QualityModifier;
-    public ItemQuality(int _QualityModifier)
+    public class ItemQuality
     {
-        QualityModifier = _QualityModifier;
+        int QualityPercent;
+        int QualityModifier;
+        public ItemQuality(int _QualityModifier, int _QualityPercent)
+        {
+            QualityModifier = _QualityModifier;
+            QualityPercent = _QualityPercent;
+        }
     }
 }

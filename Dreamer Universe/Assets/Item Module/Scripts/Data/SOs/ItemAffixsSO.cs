@@ -12,7 +12,7 @@ namespace ItemSubModule
     public class ItemAffixsSO : ScriptableObject
     {
         public ItemAffix itemAffixType;
-        public ItemModSO itemMod;
+        public ItemModSO itemAffixMod;
         public string itemAffixString;
         public bool isSpecialModifier;
     }

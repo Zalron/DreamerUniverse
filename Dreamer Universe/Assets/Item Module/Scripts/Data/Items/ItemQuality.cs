@@ -5,9 +5,9 @@ namespace ItemSubModule
 {
     public class ItemQuality
     {
-        int QualityPercent;
-        int QualityModifier;
-        public ItemQuality(int _QualityModifier, int _QualityPercent)
+        public string QualityPercent;
+        public int QualityModifier;
+        public ItemQuality(int _QualityModifier, string _QualityPercent)
         {
             QualityModifier = _QualityModifier;
             QualityPercent = _QualityPercent;

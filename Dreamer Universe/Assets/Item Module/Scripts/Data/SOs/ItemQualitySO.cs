@@ -10,9 +10,21 @@ namespace ItemSubModule
     }
     public class ItemQualitySO : MonoBehaviour
     {
+        public string itemQualityPercent;
+        public ItemQualityType itemQuality;
+        public int itemQualityPercentIntMin;
+        public int itemQualityPercentIntMax;
+    }
+    public class ItemQuality
+    {
         public string ItemQualityPercent;
-        public ItemQualityType ItemQuality;
-        public int ItemQualityPercentIntMin;
-        public int ItemQualityPercentIntMax;
+        public ItemQualityType ItemQualityType;
+        public int ItemQualityPercentInt;
+        public ItemQuality(string _itemQualityPercent, int _itemQualityPercentInt, ItemQualityType _itemQualityType)
+        {
+            ItemQualityPercent = _itemQualityPercent;
+            ItemQualityPercentInt = _itemQualityPercentInt;
+            ItemQualityType = _itemQualityType;
+        }
     }
 }

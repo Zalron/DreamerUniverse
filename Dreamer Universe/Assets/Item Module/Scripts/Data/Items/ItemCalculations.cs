@@ -48,24 +48,7 @@ namespace ItemSubModule
                 i.itemStat9 = itemStatDropTable[8];
                 i.itemStat10 = itemStatDropTable[9];
             }
-            if (i.itemPrefixs1 == null && i.itemSuffixs1 == null)
-            {
-                i.itemCombinedNameString = ConvertString.CombineNameString("", i.itemName.ItemNameString, "");
-            }
-            else if (i.itemSuffixs1 == null)
-            {
-                i.itemCombinedNameString = ConvertString.CombineNameString(i.itemPrefixs1.itemAffixString, i.itemName.ItemNameString, "");
-            }
-            else if (i.itemPrefixs1 == null)
-            {
-                i.itemCombinedNameString = ConvertString.CombineNameString("", i.itemName.ItemNameString, i.itemSuffixs1.itemAffixString);
-            }
-            else
-            {
-                i.itemCombinedNameString = ConvertString.CombineNameString(i.itemPrefixs1.itemAffixString, i.itemName.ItemNameString, i.itemSuffixs1.itemAffixString);
-            }
             return i;
-
         }
         public static ItemStatsSO ItemModStatGenerator(ItemSO i, ItemStatsSO itemStat, ItemModSO itemMod)
         {

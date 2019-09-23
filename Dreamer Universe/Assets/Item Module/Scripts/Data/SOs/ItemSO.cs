@@ -9,10 +9,9 @@ namespace ItemSubModule
     {
         public ItemNameSO itemName;
         public ItemTypesSO itemType;
-        public string itemCombinedNameString;
         public ItemRaritiesSO itemRarity;
         public ItemLevelSO itemLevel;
-        //public Item
+        public ItemMaterialSO itemMaterial;
         public ItemManufacturerSO itemManufacturer;
         public ItemStatsSO itemStat1;
         public ItemStatsSO itemStat2;

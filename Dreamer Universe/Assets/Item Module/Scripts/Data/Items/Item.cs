@@ -4,52 +4,67 @@ using UnityEngine;
 namespace ItemSubModule {
     public class Item
     {
-        ItemName ItemName;
-        ItemType ItemType;
-        ItemLevel ItemLevel;
-        ItemMaterial ItemMaterial;
-        ItemScore ItemScore;
-        ItemQuality ItemQuality;
-        ItemAffixs ItemPrefix1;
-        ItemAffixs ItemPrefix2;
-        ItemAffixs ItemPrefix3;
-        ItemAffixs ItemPrefix4;
-        ItemAffixs ItemPrefix5;
-        ItemAffixs ItemSuffix1;
-        ItemAffixs ItemSuffix2;
-        ItemAffixs ItemSuffix3;
-        ItemAffixs ItemSuffix4;
-        ItemAffixs ItemSuffix5;
-        ItemStats itemStat1;
-        ItemStats itemStat2;
-        ItemStats itemStat3;
-        ItemStats itemStat4;
-        ItemStats itemStat5;
-        ItemStats itemStat6;
-        ItemStats itemStat7;
-        ItemStats itemStat8;
-        ItemStats itemStat9;
-        ItemStats itemStat10;
-        ItemPart ItemPart1;
-        ItemPart ItemPart2;
-        ItemPart ItemPart3;
-        ItemPart ItemPart4;
-        ItemPart ItemPart5;
-        ItemPart ItemPart6;
-        ItemPart ItemPart7;
-        ItemPart ItemPart8;
-        ItemPart ItemPart9;
-        ItemPart ItemPart10;
-        ItemMods itemMod1;
-        ItemMods itemMod2;
-        ItemMods itemMod3;
-        ItemMods itemMod4;
-        ItemMods itemMod5;
-        ItemMods itemMod6;
-        ItemMods itemMod7;
-        ItemMods itemMod8;
-        ItemMods itemMod9;
-        ItemMods itemMod10;
+        public ItemName ItemName;
+        public ItemType ItemType;
+        public ItemLevel ItemLevel;
+        public ItemMaterial ItemMaterial;
+        public ItemManufacturer ItemManufacturer;
+        public ItemRarities ItemRaritiy;
+        public ItemScore ItemScore;
+        public ItemQuality ItemQuality;
+        public ItemAffixs ItemPrefix1;
+        public ItemAffixs ItemPrefix2;
+        public ItemAffixs ItemPrefix3;
+        public ItemAffixs ItemPrefix4;
+        public ItemAffixs ItemPrefix5;
+        public ItemAffixs ItemSuffix1;
+        public ItemAffixs ItemSuffix2;
+        public ItemAffixs ItemSuffix3;
+        public ItemAffixs ItemSuffix4;
+        public ItemAffixs ItemSuffix5;
+        public ItemStats itemStat1;
+        public ItemStats itemStat2;
+        public ItemStats itemStat3;
+        public ItemStats itemStat4;
+        public ItemStats itemStat5;
+        public ItemStats itemStat6;
+        public ItemStats itemStat7;
+        public ItemStats itemStat8;
+        public ItemStats itemStat9;
+        public ItemStats itemStat10;
+        public ItemPart ItemPart1;
+        public ItemPart ItemPart2;
+        public ItemPart ItemPart3;
+        public ItemPart ItemPart4;
+        public ItemPart ItemPart5;
+        public ItemPart ItemPart6;
+        public ItemPart ItemPart7;
+        public ItemPart ItemPart8;
+        public ItemPart ItemPart9;
+        public ItemPart ItemPart10;
+        public ItemMods itemMod1;
+        public ItemMods itemMod2;
+        public ItemMods itemMod3;
+        public ItemMods itemMod4;
+        public ItemMods itemMod5;
+        public ItemMods itemMod6;
+        public ItemMods itemMod7;
+        public ItemMods itemMod8;
+        public ItemMods itemMod9;
+        public ItemMods itemMod10;
+        public Item(ItemName _itemName, ItemType _itemType, ItemRarities _itemRaritiy)
+        {
+            ItemName = _itemName;
+            ItemType = _itemType;
+            ItemRaritiy = _itemRaritiy;
+        }
+        public Item(ItemName _itemName, ItemType _itemType, ItemMaterial _itemMaterial, ItemManufacturer ItemManufacturer, ItemRarities _itemRaritiy, ItemQuality ItemQuality
+                    )
+        {
+            ItemName = _itemName;
+            ItemType = _itemType;
+            ItemRaritiy = _itemRaritiy;
+        }
     }
     public class ItemPart
     {
@@ -57,11 +72,16 @@ namespace ItemSubModule {
         public ItemType ItemTypeForPart;
         public ItemStats ItemStatModifiying;
         public int ItemModifiyingInt;
+        public ItemPart(string _itemPartName, ItemStats _ItemStatModifiying, int _itemModifiyingInt)
+        {
+
+        }
     }
     public class ItemName
     {
         public string itemName;
         public string itemCombinedName;
+        public int ItemNameInt;
     }
     public class ItemType
     {
@@ -77,11 +97,11 @@ namespace ItemSubModule {
     public class ItemMaterial
     {
         public string ItemMaterialName;
-        public string ItemMaterialInt;
+        public int ItemMaterialInt;
     }
     public class ItemStats
     {
-        public string ItemStatString;
+        public int ItemStatInt;
         public string OnItemStatString;
         ItemStatType ItemStatType;
     }
@@ -107,11 +127,20 @@ namespace ItemSubModule {
     public class ItemManufacturer
     {
         public string ManufacturerName;
-        public List<ItemType> itemManufacturerParts = new List<ItemType>();
     }
     public class ItemScore
     {
         public int ItemScoreInt;
         public string ItemScoreString;
+    }
+    public class ItemRequirement
+    {
+        public string ItemRequirementString;
+        public int ItemStrength;
+        public int ItemDexterity;
+        public int ItemIntelligence;
+        public int ItemLuck;
+        public int ItemEndurance;
+        public int ItemWillpower;
     }
 }

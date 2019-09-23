@@ -11,7 +11,7 @@ namespace ItemSubModule
         public int itemModIntModifierMin;
         public int itemModIntModifierMax;
         public ItemStatsSO itemStatModifiying;
-        
+        public int itemModScore;
     }
     
 }

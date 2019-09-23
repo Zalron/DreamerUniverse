@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading;
+using System.IO;
 namespace WorldModule
 {
     public class World : MonoBehaviour
     {
-        public World world;
-        [Header("World Generation Values")]
-        public int seed;
+        public WorldSettings worldSettings;
 
-        [Header("Performance")]
-        public bool enableThreading;
+        public World world;
+        
+
+        
 
         [Header("Other")]
         [Range(0f, 1f)]
@@ -50,10 +51,17 @@ namespace WorldModule
         public GameObject creativeInventoryWindow;
         public GameObject cursorSlot;
 
-        Thread ChunkUpdateThread;
+        
+        Thread ChunkUpdateThread1;
+        Thread ChunkUpdateThread2;
+        Thread ChunkUpdateThread3;
+        Thread ChunkUpdateThread4;
+        Thread ChunkUpdateThread5;
+        Thread ChunkUpdateThread6;
+        Thread ChunkUpdateThread7;
         public object ChunkUpdateThreadLock = new object();
 
-        public int ViewDistanceInChunks = 3;
+        
         public static readonly int WorldSizeInChunks = 64;
         public static int WorldSizeInBlocks
         {
@@ -61,15 +69,71 @@ namespace WorldModule
         }
         public void Start()
         {
-            Random.InitState(seed);
+            if (worldSettings.SaveOrLoad == true)
+            {
+                string jsonExport = JsonUtility.ToJson(worldSettings);
+                Debug.Log(jsonExport);
+                File.WriteAllText(Application.dataPath + "/WorldSettings.cfg", jsonExport);
+            }
+            else if(worldSettings.SaveOrLoad == false)
+            {
+                string jsonImport = File.ReadAllText(Application.dataPath + "/WorldSettings.cfg");
+                Debug.Log(jsonImport);
+                worldSettings = JsonUtility.FromJson<WorldSettings>(jsonImport);
+            }
+
+            Random.InitState(worldSettings.seed);
 
             Shader.SetGlobalFloat("minGlobalLightLevel", Block.minLightLevel);
             Shader.SetGlobalFloat("maxGlobalLightLevel", Block.maxLightLevel);
 
-            if (enableThreading)
+            if (worldSettings.enableThreading)
             {
-                ChunkUpdateThread = new Thread(new ThreadStart(ThreadedUpdate));
-                ChunkUpdateThread.Start();
+                if (worldSettings.UpdateThreadNumber == 1)
+                {
+                    ChunkUpdateThread1 = new Thread(new ThreadStart(ThreadedUpdate));
+                    ChunkUpdateThread1.Start();
+                }
+                if (worldSettings.UpdateThreadNumber == 2)
+                {
+                    ChunkUpdateThread1 = new Thread(new ThreadStart(ThreadedUpdate));
+                    ChunkUpdateThread1.Start();
+                    ChunkUpdateThread2 = new Thread(new ThreadStart(ThreadedUpdate));
+                    ChunkUpdateThread2.Start();
+                }
+                if (worldSettings.UpdateThreadNumber == 3)
+                {
+                    ChunkUpdateThread1 = new Thread(new ThreadStart(ThreadedUpdate));
+                    ChunkUpdateThread1.Start();
+                    ChunkUpdateThread2 = new Thread(new ThreadStart(ThreadedUpdate));
+                    ChunkUpdateThread2.Start();
+                    ChunkUpdateThread3 = new Thread(new ThreadStart(ThreadedUpdate));
+                    ChunkUpdateThread3.Start();
+                }
+                if (worldSettings.UpdateThreadNumber == 4)
+                {
+                    ChunkUpdateThread1 = new Thread(new ThreadStart(ThreadedUpdate));
+                    ChunkUpdateThread1.Start();
+                    ChunkUpdateThread2 = new Thread(new ThreadStart(ThreadedUpdate));
+                    ChunkUpdateThread2.Start();
+                    ChunkUpdateThread3 = new Thread(new ThreadStart(ThreadedUpdate));
+                    ChunkUpdateThread3.Start();
+                    ChunkUpdateThread4 = new Thread(new ThreadStart(ThreadedUpdate));
+                    ChunkUpdateThread4.Start();
+                }
+                if (worldSettings.UpdateThreadNumber == 5)
+                {
+                    ChunkUpdateThread1 = new Thread(new ThreadStart(ThreadedUpdate));
+                    ChunkUpdateThread1.Start();
+                    ChunkUpdateThread2 = new Thread(new ThreadStart(ThreadedUpdate));
+                    ChunkUpdateThread2.Start();
+                    ChunkUpdateThread3 = new Thread(new ThreadStart(ThreadedUpdate));
+                    ChunkUpdateThread3.Start();
+                    ChunkUpdateThread4 = new Thread(new ThreadStart(ThreadedUpdate));
+                    ChunkUpdateThread4.Start();
+                    ChunkUpdateThread5 = new Thread(new ThreadStart(ThreadedUpdate));
+                    ChunkUpdateThread5.Start();
+                }
             }
             
             spawnPosition = new Vector3((WorldSizeInChunks * Chunk.chunkSize) / 2f, biome.solidGroundHeight + 20, (WorldSizeInChunks * Chunk.chunkSize) / 2f);
@@ -100,7 +164,7 @@ namespace WorldModule
                     chunksToDraw.Dequeue().CreateMesh();
                 }
             }
-            if (!enableThreading)
+            if (!worldSettings.enableThreading)
             {
                 if (!applyingModifications)
                 {
@@ -118,11 +182,11 @@ namespace WorldModule
         }
         void GenerateWorld()
         {
-            for (int x = (WorldSizeInChunks / 2) - ViewDistanceInChunks; x < (WorldSizeInChunks / 2) + ViewDistanceInChunks; x++)
+            for (int x = (WorldSizeInChunks / 2) - worldSettings.ViewDistanceInChunks; x < (WorldSizeInChunks / 2) + worldSettings.ViewDistanceInChunks; x++)
             {
-                for (int y = (WorldSizeInChunks / 2) - ViewDistanceInChunks; y < (WorldSizeInChunks / 2) + ViewDistanceInChunks; y++)
+                for (int y = (WorldSizeInChunks / 2) - worldSettings.ViewDistanceInChunks; y < (WorldSizeInChunks / 2) + worldSettings.ViewDistanceInChunks; y++)
                 {
-                    for (int z = (WorldSizeInChunks / 2) - ViewDistanceInChunks; z < (WorldSizeInChunks / 2) + ViewDistanceInChunks; z++)
+                    for (int z = (WorldSizeInChunks / 2) - worldSettings.ViewDistanceInChunks; z < (WorldSizeInChunks / 2) + worldSettings.ViewDistanceInChunks; z++)
                     {
                         ChunkCoord newChunk = new ChunkCoord(x,y,z);
                         chunks[x, y, z] = new Chunk(newChunk, this);
@@ -177,9 +241,9 @@ namespace WorldModule
         }
         private void OnDisable()
         {
-            if (enableThreading)
+            if (worldSettings.enableThreading)
             {
-                ChunkUpdateThread.Abort();
+                ChunkUpdateThread1.Abort();
             }
         }
         void ApplyModifications()
@@ -238,11 +302,11 @@ namespace WorldModule
             activeChunks.Clear();
 
             // Loops through all chunks currently within view distance of the player
-            for (int x = coord.x - ViewDistanceInChunks; x < coord.x + ViewDistanceInChunks; x++)
+            for (int x = coord.x - worldSettings.ViewDistanceInChunks; x < coord.x + worldSettings.ViewDistanceInChunks; x++)
             {
-                for (int y = coord.y - ViewDistanceInChunks; y < coord.y + ViewDistanceInChunks; y++)
+                for (int y = coord.y - worldSettings.ViewDistanceInChunks; y < coord.y + worldSettings.ViewDistanceInChunks; y++)
                 {
-                    for (int z = coord.z - ViewDistanceInChunks; z < coord.z + ViewDistanceInChunks; z++)
+                    for (int z = coord.z - worldSettings.ViewDistanceInChunks; z < coord.z + worldSettings.ViewDistanceInChunks; z++)
                     {
                         ChunkCoord newChunkCoord = new ChunkCoord(x, y, z);
                         // If the current chunks is in the world
@@ -419,5 +483,21 @@ namespace WorldModule
             id = _id;
         }
 
+    }
+    [System.Serializable]
+    public class WorldSettings
+    {
+        [Header("Save or Load (on is save off is load)")]
+        public bool SaveOrLoad = false;
+        [Header("Game Data")]
+        public string GameVersion;
+        [Header("World Generation Values")]
+        public int seed;
+        [Header("Performance")]
+        public bool enableThreading;
+        public int ViewDistanceInChunks = 3;
+        public int UpdateThreadNumber = 3;
+        [Range(0.1f,10)]
+        public float mouseSensitivity;
     }
 }

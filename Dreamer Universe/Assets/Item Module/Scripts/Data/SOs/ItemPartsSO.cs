@@ -4,7 +4,7 @@ using UnityEngine;
 namespace ItemSubModule
 {
     [CreateAssetMenu(fileName = "ItemSO", menuName = "ItemSO/ItemSO Parts", order = 1)]
-    public class ItemPartsSO : MonoBehaviour
+    public class ItemPartsSO : ScriptableObject
     {
         public string partName;
         public ItemTypesSO itemTypeForParts;

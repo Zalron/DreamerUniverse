@@ -12,6 +12,6 @@ namespace ItemSubModule
     {
         public string manufacturerName;
         public List<ItemPartsSO> itemManufacturerParts = new List<ItemPartsSO>();
-        public List<>
+        //public List<>
     }
 }

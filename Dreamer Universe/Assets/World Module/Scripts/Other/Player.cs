@@ -51,8 +51,8 @@ namespace WorldModule
                     Jump();
                 }
 
-                transform.Rotate(Vector3.up * mouseHorizontal);
-                cam.Rotate(Vector3.right * -mouseVertical);
+                transform.Rotate(Vector3.up * mouseHorizontal * world.worldSettings.mouseSensitivity);
+                cam.Rotate(Vector3.right * -mouseVertical * world.worldSettings.mouseSensitivity);
                 transform.Translate(velocity, Space.World);
             }
         }

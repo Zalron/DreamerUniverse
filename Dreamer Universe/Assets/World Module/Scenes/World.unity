@@ -3046,9 +3046,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 735b2fba93897d84dba1be09638af336, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  worldSettings:
+    SaveOrLoad: 0
+    GameVersion: 0.1
+    seed: 0
+    enableThreading: 0
+    ViewDistanceInChunks: 5
+    UpdateThreadNumber: 3
+    mouseSensitivity: 2
   world: {fileID: 2056144482}
-  seed: 270946
-  enableThreading: 1
   globalLightLevel: 0.394
   Day: {r: 0, g: 1, b: 0.96936965, a: 0}
   Night: {r: 0.0154688945, g: 0, b: 0.3490566, a: 0}
@@ -3073,7 +3079,6 @@ MonoBehaviour:
   debugScreen: {fileID: 468200423}
   creativeInventoryWindow: {fileID: 65162289}
   cursorSlot: {fileID: 1821616002}
-  ViewDistanceInChunks: 5
 --- !u!4 &2056144483
 Transform:
   m_ObjectHideFlags: 0

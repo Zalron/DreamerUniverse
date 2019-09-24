@@ -11,7 +11,6 @@ namespace ItemSubModule
     public class ItemManufacturerSO : ScriptableObject
     {
         public string manufacturerName;
-        public List<ItemPartsSO> itemManufacturerParts = new List<ItemPartsSO>();
-        //public List<>
+        public List<ItemNameSO> itemNames = new List<ItemNameSO>();
     }
 }

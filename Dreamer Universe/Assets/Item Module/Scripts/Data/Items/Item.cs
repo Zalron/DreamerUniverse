@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace ItemSubModule {
+namespace ItemSubModule 
+{
     public class Item
     {
         public ItemName ItemName;
@@ -22,16 +23,16 @@ namespace ItemSubModule {
         public ItemAffixs ItemSuffix3;
         public ItemAffixs ItemSuffix4;
         public ItemAffixs ItemSuffix5;
-        public ItemStats itemStat1;
-        public ItemStats itemStat2;
-        public ItemStats itemStat3;
-        public ItemStats itemStat4;
-        public ItemStats itemStat5;
-        public ItemStats itemStat6;
-        public ItemStats itemStat7;
-        public ItemStats itemStat8;
-        public ItemStats itemStat9;
-        public ItemStats itemStat10;
+        public ItemStats ItemStat1;
+        public ItemStats ItemStat2;
+        public ItemStats ItemStat3;
+        public ItemStats ItemStat4;
+        public ItemStats ItemStat5;
+        public ItemStats ItemStat6;
+        public ItemStats ItemStat7;
+        public ItemStats ItemStat8;
+        public ItemStats ItemStat9;
+        public ItemStats ItemStat10;
         public ItemPart ItemPart1;
         public ItemPart ItemPart2;
         public ItemPart ItemPart3;
@@ -42,28 +43,27 @@ namespace ItemSubModule {
         public ItemPart ItemPart8;
         public ItemPart ItemPart9;
         public ItemPart ItemPart10;
-        public ItemMods itemMod1;
-        public ItemMods itemMod2;
-        public ItemMods itemMod3;
-        public ItemMods itemMod4;
-        public ItemMods itemMod5;
-        public ItemMods itemMod6;
-        public ItemMods itemMod7;
-        public ItemMods itemMod8;
-        public ItemMods itemMod9;
-        public ItemMods itemMod10;
-        public Item(ItemName _itemName, ItemType _itemType, ItemRarities _itemRaritiy)
+        public ItemMods ItemMod1;
+        public ItemMods ItemMod2;
+        public ItemMods ItemMod3;
+        public ItemMods ItemMod4;
+        public ItemMods ItemMod5;
+        public ItemMods ItemMod6;
+        public ItemMods ItemMod7;
+        public ItemMods ItemMod8;
+        public ItemMods ItemMod9;
+        public ItemMods ItemMod10;
+        public Item(ItemName itemName, ItemType itemType, ItemRarities itemRaritiy)
         {
-            ItemName = _itemName;
-            ItemType = _itemType;
-            ItemRaritiy = _itemRaritiy;
+            ItemName = itemName;
+            ItemType = itemType;
+            ItemRaritiy = itemRaritiy;
         }
-        public Item(ItemName _itemName, ItemType _itemType, ItemMaterial _itemMaterial, ItemManufacturer ItemManufacturer, ItemRarities _itemRaritiy, ItemQuality ItemQuality
-                    )
+        public Item(ItemName itemName, ItemType itemType, ItemMaterial itemMaterial, ItemManufacturer itemManufacturer, ItemRarities itemRaritiy, ItemQuality itemQuality)
         {
-            ItemName = _itemName;
-            ItemType = _itemType;
-            ItemRaritiy = _itemRaritiy;
+            ItemName = itemName;
+            ItemType = itemType;
+            ItemRaritiy = itemRaritiy;
         }
     }
     public class ItemPart
@@ -72,9 +72,11 @@ namespace ItemSubModule {
         public ItemType ItemTypeForPart;
         public ItemStats ItemStatModifiying;
         public int ItemModifiyingInt;
-        public ItemPart(string _itemPartName, ItemStats _ItemStatModifiying, int _itemModifiyingInt)
+        public ItemPart(string itemPartName, ItemStats itemStatModifiying, int itemModifiyingInt)
         {
-
+            ItemPartName = itemPartName;
+            ItemStatModifiying = itemStatModifiying;
+            
         }
     }
     public class ItemName
@@ -103,7 +105,7 @@ namespace ItemSubModule {
     {
         public int ItemStatInt;
         public string OnItemStatString;
-        ItemStatType ItemStatType;
+        public ItemStatType ItemStatType;
     }
     public class ItemAffixs
     {

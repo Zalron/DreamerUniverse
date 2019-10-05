@@ -90,7 +90,7 @@ namespace CharacterModule
             }
             return numTotal;
         }
-        static public int AttributeStatMLCalculator(int numTotal, List<ItemModSO> moreMultiplicativeMods, List<ItemModSO> lessMultiplicativeMods)
+        public static int AttributeStatMLCalculator(int numTotal, List<ItemModSO> moreMultiplicativeMods, List<ItemModSO> lessMultiplicativeMods)
         {
             for (int i = 0; i < moreMultiplicativeMods.Count; i++)
             {
@@ -110,7 +110,7 @@ namespace CharacterModule
             }
             return numTotal;
         }
-        static public int AttributeStatLLCalculator(int numTotal, List<ItemModSO> lessMultiplicativeMods1, List<ItemModSO> lessMultiplicativeMods2)
+        public static int AttributeStatLLCalculator(int numTotal, List<ItemModSO> lessMultiplicativeMods1, List<ItemModSO> lessMultiplicativeMods2)
         {
             for (int i = 0; i < lessMultiplicativeMods1.Count; i++)
             {
@@ -269,7 +269,7 @@ namespace CharacterModule
             }
             else if (moreFromGear == null && moreFromTree == null)
             {
-                numTotal = AttributeStatMLCalculator(numTotal, moreFromTree, lessFromGear);
+                numTotal = AttributeStatMLCalculator(numTotal, lessFromTree, lessFromGear);
                 return numTotal;
             }
             else if (lessFromGear == null && lessFromTree == null)
@@ -332,8 +332,8 @@ namespace CharacterModule
         static public CharacterNumbers AttributeStatCalculation(CharacterNumbers characterNumbers)
         {
             characterNumbers.addFromGear = AttributeStatASIDTotalCalculator(characterNumbers.addFromGear, characterNumbers.addFromGearMods);
-            characterNumbers.addFromTree = AttributeStatASIDTotalCalculator(characterNumbers.addFromTree, characterNumbers.addFromTreeMods);
-            characterNumbers.addTotal = AttributeStatASIDGrossTotalCalculator(characterNumbers.addTotal, characterNumbers.addFromGear, characterNumbers.addFromTree);
+            characterNumbers.AddFromTree = AttributeStatASIDTotalCalculator(characterNumbers.AddFromTree, characterNumbers.addFromTreeMods);
+            characterNumbers.addTotal = AttributeStatASIDGrossTotalCalculator(characterNumbers.addTotal, characterNumbers.addFromGear, characterNumbers.AddFromTree);
             characterNumbers.minusFromGear = AttributeStatASIDTotalCalculator(characterNumbers.minusFromGear, characterNumbers.minusFromGearMods);
             characterNumbers.minusFromTree = AttributeStatASIDTotalCalculator(characterNumbers.minusFromTree, characterNumbers.minusFromTreeMods);
             characterNumbers.minusTotal = AttributeStatASIDGrossTotalCalculator(characterNumbers.minusTotal, characterNumbers.minusFromGear, characterNumbers.minusFromTree);

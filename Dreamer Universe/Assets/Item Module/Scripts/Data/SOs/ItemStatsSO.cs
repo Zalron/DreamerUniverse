@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace ItemSubModule
 {
-    enum ItemStatType
+    public enum ItemStatType
     {
         CriticalChance,
         MagicalDamage,

@@ -19,10 +19,10 @@ namespace CharacterModule
     }
     public class CharacterNumbers
     {
-        CharacterNumberTypes characterNumberTypes;
+        public CharacterNumberTypes CharacterNumberTypes;
         public List<ItemModSO> addFromGearMods, addFromTreeMods;
         public List<ItemModSO> minusFromGearMods, minusFromTreeMods;
-        public int addFromGear, addFromTree, addTotal;
+        public int addFromGear, AddFromTree, addTotal;
         public int minusFromGear, minusFromTree, minusTotal;
         public int flatTotal;
         public List<ItemModSO> increasedFromGearMods, increasedFromTreeMods;
@@ -49,7 +49,7 @@ namespace CharacterModule
         {
             addFromGearMods = _addFromGearMods; addFromTreeMods = _addFromTreeMods;
             minusFromGearMods = _minusFromGearMods; minusFromTreeMods = _minusFromTreeMods;
-            addFromGear = _addFromGear; addFromTree = _addFromTree; addTotal = _addTotal;
+            addFromGear = _addFromGear; AddFromTree = _addFromTree; addTotal = _addTotal;
             minusFromGear = _minusFromGear; minusFromTree = _minusFromTree; minusTotal = _minusTotal;
             flatTotal = _flatTotal;
             increasedFromGearMods = _increasedFromGearMods; increasedFromTreeMods = _increasedFromTreeMods;

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Threading;
 using System.IO;
+using System.Linq;
+
 namespace WorldModule
 {
     public class World : MonoBehaviour
@@ -10,9 +12,6 @@ namespace WorldModule
         public WorldSettings worldSettings;
 
         public World world;
-        
-
-        
 
         [Header("Other")]
         [Range(0f, 1f)]
@@ -30,8 +29,9 @@ namespace WorldModule
         public BlockType[] blockType;
         public Biomes biome;
 
-        Chunk[,,] chunks = new Chunk[WorldSizeInChunks, WorldSizeInChunks, WorldSizeInChunks];
+        //Chunk[,,] chunks = new Chunk[WorldSizeInChunks, WorldSizeInChunks, WorldSizeInChunks];
 
+        List<Chunk> createdChunks = new List<Chunk>();
         List<ChunkCoord> activeChunks = new List<ChunkCoord>();
         public ChunkCoord playerChunkCoord;
         ChunkCoord playerLastChunkCoord;
@@ -61,8 +61,8 @@ namespace WorldModule
         Thread ChunkUpdateThread7;
         public object ChunkUpdateThreadLock = new object();
 
-        
-        public static readonly int WorldSizeInChunks = 64;
+
+        public static readonly int WorldSizeInChunks = 6200;
         public static int WorldSizeInBlocks
         {
             get { return WorldSizeInChunks * Chunk.chunkSize; }
@@ -135,19 +135,25 @@ namespace WorldModule
                     ChunkUpdateThread5.Start();
                 }
             }
-            
-            spawnPosition = new Vector3((WorldSizeInChunks * Chunk.chunkSize) / 2f, biome.solidGroundHeight + 20, (WorldSizeInChunks * Chunk.chunkSize) / 2f);
+
+            SetGlobalLightValue();
+            spawnPosition = new Vector3(0, 0, 0);
             GenerateWorld();
             playerLastChunkCoord = GetChunkCoordFromVector3(Player.position);
 
 
         }
+
+        public void SetGlobalLightValue()
+        {
+            Shader.SetGlobalFloat("GlobalLightLevel", globalLightLevel);
+            Camera.main.backgroundColor = Color.Lerp(Day, Night, globalLightLevel);
+        }
+
         public void Update()
         {
             playerChunkCoord = GetChunkCoordFromVector3(Player.position);
 
-            Shader.SetGlobalFloat("GlobalLightLevel", globalLightLevel);
-            Camera.main.backgroundColor = Color.Lerp(Day, Night, globalLightLevel);
 
             if (!playerChunkCoord.Equals(playerLastChunkCoord))
             {
@@ -182,14 +188,14 @@ namespace WorldModule
         }
         void GenerateWorld()
         {
-            for (int x = (WorldSizeInChunks / 2) - worldSettings.ViewDistanceInChunks; x < (WorldSizeInChunks / 2) + worldSettings.ViewDistanceInChunks; x++)
+            for (int x = -worldSettings.ViewDistanceInChunks; x <= worldSettings.ViewDistanceInChunks; x++)
             {
-                for (int y = (WorldSizeInChunks / 2) - worldSettings.ViewDistanceInChunks; y < (WorldSizeInChunks / 2) + worldSettings.ViewDistanceInChunks; y++)
+                for (int y = -worldSettings.ViewDistanceInChunks; y <= worldSettings.ViewDistanceInChunks; y++)
                 {
-                    for (int z = (WorldSizeInChunks / 2) - worldSettings.ViewDistanceInChunks; z < (WorldSizeInChunks / 2) + worldSettings.ViewDistanceInChunks; z++)
+                    for (int z = -worldSettings.ViewDistanceInChunks; z <= worldSettings.ViewDistanceInChunks; z++)
                     {
+                        Debug.Log("First Generated Chunk " + x + " " + y + " " + z);
                         ChunkCoord newChunk = new ChunkCoord(x,y,z);
-                        chunks[x, y, z] = new Chunk(newChunk, this);
                         chunksToCreate.Add(newChunk);
                     }
                 }
@@ -200,7 +206,12 @@ namespace WorldModule
         void CreateChunk()
         {
             ChunkCoord c = chunksToCreate[0];
-            chunks[c.x, c.y, c.z].Init();
+            Debug.Log("raw chunk coords " + c.x + " " + c.y + " " + c.z);
+            Chunk NewChunk = new Chunk(c, this);
+            createdChunks.Add(NewChunk);
+            ListChunkFinder(c.x,c.y,c.z).Init();
+            Debug.Log("created chunk coords " + c.x + " " + c.y + " " + c.z);
+            chunksToUpdate.Add(NewChunk);
             chunksToCreate.RemoveAt(0);
         }
         void UpdateChunks()
@@ -214,7 +225,10 @@ namespace WorldModule
                     if (chunksToUpdate[index].IsEditable)
                     {
                         chunksToUpdate[index].UpdateChunk();
-                        activeChunks.Add(chunksToUpdate[index].coord);
+                        if (!activeChunks.Contains(chunksToUpdate[index].coord))
+                        {
+                            activeChunks.Add(chunksToUpdate[index].coord);
+                        }
                         chunksToUpdate.RemoveAt(index);
                         updated = true;
                     }
@@ -269,12 +283,12 @@ namespace WorldModule
                         return;
                     }
                     ChunkCoord c = GetChunkCoordFromVector3(b.position);
-                    if (chunks[c.x, c.y, c.z] == null)
+                    Chunk modificationChunk = ListChunkFinder(c.x, c.y, c.z);
+                    if (modificationChunk == null)
                     {
-                        chunks[c.x, c.y, c.z] = new Chunk(c, this);
                         chunksToCreate.Add(c);
                     }
-                    chunks[c.x, c.y, c.z].modifications.Enqueue(b);
+                    modificationChunk.modifications.Enqueue(b);
                 }
             }
             applyingModifications = false;
@@ -291,7 +305,35 @@ namespace WorldModule
             int x = Mathf.FloorToInt(pos.x / Chunk.chunkSize);
             int y = Mathf.FloorToInt(pos.y / Chunk.chunkSize);
             int z = Mathf.FloorToInt(pos.z / Chunk.chunkSize);
-            return chunks[x, y, z];
+            return ListChunkFinder(x,y,z);
+        }
+        public Chunk ListChunkFinder(int x, int y, int z)
+        {
+            ChunkCoord chunkCoord = new ChunkCoord(x, y, z);
+            Chunk foundChunk = null;
+//            for (int i = 0; i < createdChunks.Count; i++)
+//            {
+//
+//            }
+
+            var Index = createdChunks.FindIndex(xc => xc.coord.x == chunkCoord.x);
+            foreach (Chunk chunk in createdChunks) 
+            { 
+                if (chunk.coord.x == chunkCoord.x && chunk.coord.y == chunkCoord.y && chunk.coord.z == chunkCoord.z)
+                {
+                    foundChunk = chunk;
+                    //Debug.Log(chunk.coord.x + " " + chunk.coord.z + " " + chunk.coord.z);
+                }
+                //else if(createdChunks[chunkindex].coord.x != chunkCoord.x && createdChunks[chunkindex].coord.y != chunkCoord.y && createdChunks[chunkindex].coord.z != chunkCoord.z)
+                //{
+                //    Debug.Log("Iterating");
+                //}
+            }
+//            if (foundChunk == null) 
+//            {
+//                Debug.Log("Can't Find The Chunk");
+//            }
+            return foundChunk;
         }
         void CheckViewDistance()
         {
@@ -302,25 +344,26 @@ namespace WorldModule
             activeChunks.Clear();
 
             // Loops through all chunks currently within view distance of the player
-            for (int x = coord.x - worldSettings.ViewDistanceInChunks; x < coord.x + worldSettings.ViewDistanceInChunks; x++)
+            for (int x = coord.x - worldSettings.ViewDistanceInChunks; x <= coord.x + worldSettings.ViewDistanceInChunks; x++)
             {
-                for (int y = coord.y - worldSettings.ViewDistanceInChunks; y < coord.y + worldSettings.ViewDistanceInChunks; y++)
+                for (int y = coord.y - worldSettings.ViewDistanceInChunks; y <= coord.y + worldSettings.ViewDistanceInChunks; y++)
                 {
-                    for (int z = coord.z - worldSettings.ViewDistanceInChunks; z < coord.z + worldSettings.ViewDistanceInChunks; z++)
+                    for (int z = coord.z - worldSettings.ViewDistanceInChunks; z <= coord.z + worldSettings.ViewDistanceInChunks; z++)
                     {
                         ChunkCoord newChunkCoord = new ChunkCoord(x, y, z);
+                        Chunk checkChunk = ListChunkFinder(newChunkCoord.x, newChunkCoord.y, newChunkCoord.z);
+                        Debug.Log("updated chunk finder " + x + " " + y + " " + z);
                         // If the current chunks is in the world
                         if (IsChunkInWorld(newChunkCoord))
                         {
                             //checks if it is active, if not, activate it.
-                            if (chunks[x, y, z] == null)
+                            if (checkChunk == null)
                             {
-                                chunks[x, y, z] = new Chunk(newChunkCoord, this);
                                 chunksToCreate.Add(newChunkCoord);
                             }
-                            else if(!chunks[x,y,z].IsActive)
+                            else if(!checkChunk.IsActive)
                             {
-                                chunks[x, y, z].IsActive = true;
+                                checkChunk.IsActive = true;
                             }
                             activeChunks.Add(newChunkCoord);
                         }
@@ -337,35 +380,35 @@ namespace WorldModule
             }
             foreach (ChunkCoord c in previouslyActiveChunks)
             {
-                chunks[c.x, c.y, c.z].IsActive = false;
+                ListChunkFinder(c.x, c.y, c.z).IsActive = false;
             } 
         }
         
         public bool CheckForSolidBlockInChunk(Vector3 pos)
         {
             ChunkCoord thisChunk = new ChunkCoord(pos);
-
+            Chunk blockChunk = ListChunkFinder(thisChunk.x, thisChunk.y, thisChunk.z);
             if (!IsChunkInWorld(thisChunk))
             {
                 return false;
             }
-            if (chunks[thisChunk.x, thisChunk.y, thisChunk.z] != null && chunks[thisChunk.x, thisChunk.y, thisChunk.z].IsEditable)
+            if (blockChunk != null && blockChunk.IsEditable)
             {
-                return blockType[chunks[thisChunk.x, thisChunk.y, thisChunk.z].GetBlockFromGlobalVector3(pos).id].isSolid;
+                return blockType[blockChunk.GetBlockFromGlobalVector3(pos).id].isSolid;
             }
             return blockType[GetBlock(pos)].isSolid;
         }
         public BlockState GetBlockState(Vector3 pos)
         {
             ChunkCoord thisChunk = new ChunkCoord(pos);
-
+            Chunk blockChunk = ListChunkFinder(thisChunk.x, thisChunk.y, thisChunk.z);
             if (!IsChunkInWorld(thisChunk))
             {
                 return null;
             }
-            if (chunks[thisChunk.x, thisChunk.y, thisChunk.z] != null && chunks[thisChunk.x, thisChunk.y, thisChunk.z].IsEditable)
+            if (blockChunk != null && blockChunk.IsEditable)
             {
-                return chunks[thisChunk.x, thisChunk.y, thisChunk.z].GetBlockFromGlobalVector3(pos);
+                return blockChunk.GetBlockFromGlobalVector3(pos);
             }
             return new BlockState (GetBlock(pos));
         }
@@ -452,7 +495,7 @@ namespace WorldModule
         }
         bool IsChunkInWorld(ChunkCoord coord)
         {
-            if (coord.x > 0 && coord.x < WorldSizeInChunks - 1 && coord.y > 0 && coord.y < WorldSizeInChunks - 1 && coord.z > 0 && coord.z < WorldSizeInChunks - 1)
+            if (coord.x >= -WorldSizeInChunks && coord.x <= WorldSizeInChunks && coord.y >= -WorldSizeInChunks && coord.y <= WorldSizeInChunks && coord.z >= -WorldSizeInChunks && coord.z <= WorldSizeInChunks)
             {
                 return true;
             }
@@ -463,7 +506,7 @@ namespace WorldModule
         }
         bool IsBlockInWorld(Vector3 pos)
         {
-            if (pos.x >= 0 && pos.x < WorldSizeInBlocks && pos.y >= 0 && pos.y < WorldSizeInBlocks && pos.z >= 0 && pos.z < WorldSizeInBlocks)
+            if (pos.x >= -WorldSizeInBlocks && pos.x <= WorldSizeInBlocks && pos.y >= -WorldSizeInBlocks && pos.y <= WorldSizeInBlocks && pos.z >= -WorldSizeInBlocks && pos.z <= WorldSizeInBlocks)
             {
                 return true;
             }

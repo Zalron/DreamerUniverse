@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+//using System.Drawing;
+//using System.Numerics;
 //using System.Threading;
 using UnityEngine;
 namespace WorldModule
@@ -19,6 +21,7 @@ namespace WorldModule
         Material[] materials = new Material[2];
         List<Vector2> uvs = new List<Vector2>();
         List<Color> colours = new List<Color>();
+        List<Vector3> normals = new List<Vector3>();
 
         public Vector3 position;
 
@@ -41,9 +44,9 @@ namespace WorldModule
             meshFilter = chunkObject.AddComponent<MeshFilter>();
             meshRenderer = chunkObject.AddComponent<MeshRenderer>();
 
-            //materials[0] = world.material;
-            //materials[1] = world.transparentMaterial;
-            meshRenderer.material = world.material;
+            materials[0] = world.material;
+            materials[1] = world.transparentMaterial;
+            meshRenderer.materials = materials;
 
             chunkObject.transform.SetParent(world.transform);
             chunkObject.transform.position = new Vector3(coord.x * chunkSize, coord.y * chunkSize, coord.z * chunkSize);
@@ -171,6 +174,7 @@ namespace WorldModule
             vertices.Clear();
             triangles.Clear();
             transparentTriangles.Clear();
+            normals.Clear();
             uvs.Clear();
             colours.Clear();
         }
@@ -295,6 +299,11 @@ namespace WorldModule
                     vertices.Add(pos + Block.Verts[Block.Tris[p, 3]]);
                     AddTexture(world.blockType[blockID].GetTextureID(p));
 
+                    for (int i= 0; i < 4; i++) 
+                    {
+                        normals.Add(Block.faceChecks[p]);
+                    }
+
                     float lightLevel = neighbour.globalLightPercent;
                     
                     colours.Add(new Color(0, 0, 0, lightLevel));
@@ -302,24 +311,24 @@ namespace WorldModule
                     colours.Add(new Color(0, 0, 0, lightLevel));
                     colours.Add(new Color(0, 0, 0, lightLevel));
 
-                    //if (!isTransparent)
-                    //{
-                    triangles.Add(vertexIndex);
-                    triangles.Add(vertexIndex + 1);
-                    triangles.Add(vertexIndex + 2);
-                    triangles.Add(vertexIndex + 2);
-                    triangles.Add(vertexIndex + 1);
-                    triangles.Add(vertexIndex + 3);
-                    //}
-                    //else
-                    //{
-                    //    transparentTriangles.Add(vertexIndex);
-                    //    transparentTriangles.Add(vertexIndex + 1);
-                    //    transparentTriangles.Add(vertexIndex + 2);
-                    //    transparentTriangles.Add(vertexIndex + 2);
-                    //    transparentTriangles.Add(vertexIndex + 1);
-                    //    transparentTriangles.Add(vertexIndex + 3);
-                    //}
+                    if (! world.blockType[neighbour.id].renderNeighbourFaces)
+                    {
+                        triangles.Add(vertexIndex);
+                        triangles.Add(vertexIndex + 1);
+                        triangles.Add(vertexIndex + 2);
+                        triangles.Add(vertexIndex + 2);
+                        triangles.Add(vertexIndex + 1);
+                        triangles.Add(vertexIndex + 3);
+                    }
+                    else
+                    {
+                        transparentTriangles.Add(vertexIndex);
+                        transparentTriangles.Add(vertexIndex + 1);
+                        transparentTriangles.Add(vertexIndex + 2);
+                        transparentTriangles.Add(vertexIndex + 2);
+                        transparentTriangles.Add(vertexIndex + 1);
+                        transparentTriangles.Add(vertexIndex + 3);
+                    }
                     vertexIndex += 4;
                 }
             }
@@ -329,19 +338,16 @@ namespace WorldModule
             Mesh mesh = new Mesh
             {
                 vertices = vertices.ToArray(),
-
-                //mesh.subMeshCount = 2,
-                //mesh.SetTriangles(triangles.ToArray(), 0),
-                //mesh.SetTriangles(transparentTriangles.ToArray(), 1),
-                triangles = triangles.ToArray(),
+                subMeshCount = 2,
+                //triangles = triangles.ToArray(),
                 uv = uvs.ToArray(),
-                colors = colours.ToArray()
+                colors = colours.ToArray(),
+                normals = normals.ToArray()
             };
-
+            mesh.SetTriangles(triangles.ToArray(), 0);
+            mesh.SetTriangles(transparentTriangles.ToArray(), 1);
             mesh.RecalculateNormals();
-
             meshFilter.sharedMesh = mesh;
-
         }
         void AddTexture(int textureID)
         {

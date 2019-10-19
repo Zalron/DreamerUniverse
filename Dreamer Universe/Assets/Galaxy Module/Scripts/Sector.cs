@@ -140,8 +140,6 @@ namespace GalaxyModule
                 {
                     int starType1int = galaxy.randomNumber.Next(0, galaxy.starTypeTable.Length);
                     starType1 = galaxy.starTypeTable[starType1int];
-                    starType2 = null;
-                    starType3 = null;
                 }
                 else if (starSystemType == StarSystemType.BINARY_STAR_SYSTEM)
                 {
@@ -149,7 +147,6 @@ namespace GalaxyModule
                     starType1 = galaxy.starTypeTable[starType1int];
                     int starType2int = galaxy.randomNumber.Next(0, galaxy.starTypeTable.Length);
                     starType2 = galaxy.starTypeTable[starType2int];
-                    starType3 = null;
                 }
                 else if (starSystemType == StarSystemType.TRINARY_STAR_SYSTEM)
                 {

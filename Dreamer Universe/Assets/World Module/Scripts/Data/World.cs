@@ -137,7 +137,7 @@ namespace WorldModule
             }
 
             SetGlobalLightValue();
-            spawnPosition = new Vector3(0, 0, 0);
+            spawnPosition = new Vector3(0, biome.terrainHeightFromSoild + 10, 0);
             GenerateWorld();
             playerLastChunkCoord = GetChunkCoordFromVector3(Player.position);
 

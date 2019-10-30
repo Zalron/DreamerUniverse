@@ -38,6 +38,7 @@ namespace WorldModule
         public int minHeight;
         public int maxHeight;
         public float scale;
+        public float smooth;
         public float octaves;
         public float persistance;
         public float threshold;

@@ -8,7 +8,7 @@ namespace WorldModule
     {
         public static float TreeGeneration(Vector2 position, float offset, float scale)
         {
-            return Noise.Generate((position.x + 0.1f)/ Chunk.chunkSize * scale + offset, (position.y + 0.1f) / Chunk.chunkSize * scale + offset);
+            return Mathf.PerlinNoise((position.x + 0.1f)/ Chunk.chunkSize * scale + offset, (position.y + 0.1f) / Chunk.chunkSize * scale + offset);
         }
         public static int GenerateHeight(Vector2 pos, int terrianGround, int terrianHeight, float offset, float smooth, int octaves, float scale) // generates the stone height map using fractal brownian motion
         {
@@ -27,7 +27,7 @@ namespace WorldModule
             float maxValue = 0;
             for (int i = 0; i < octaves; i++)
             {
-                total += Noise.Generate((x + offset) * frequency, (z + offset) * frequency) * amplitude;
+                total += Mathf.PerlinNoise((x + offset) * frequency, (z + offset) * frequency) * amplitude;
                 maxValue += amplitude;
                 amplitude *= pers;
                 frequency *= 2;

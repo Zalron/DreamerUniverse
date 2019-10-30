@@ -29,9 +29,9 @@ namespace WorldModule
         public BlockType[] blockType;
         public Biomes biome;
 
-        //Chunk[,,] chunks = new Chunk[WorldSizeInChunks, WorldSizeInChunks, WorldSizeInChunks];
-
-        List<Chunk> createdChunks = new List<Chunk>();
+        
+        Dictionary<ChunkCoord, Chunk> createdChunks = new Dictionary<ChunkCoord, Chunk>();
+        //List<Chunk> createdChunks = new List<Chunk>();
         List<ChunkCoord> activeChunks = new List<ChunkCoord>();
         public ChunkCoord playerChunkCoord;
         ChunkCoord playerLastChunkCoord;
@@ -51,7 +51,6 @@ namespace WorldModule
         public GameObject creativeInventoryWindow;
         public GameObject cursorSlot;
 
-        
         Thread ChunkUpdateThread1;
         Thread ChunkUpdateThread2;
         Thread ChunkUpdateThread3;
@@ -137,7 +136,7 @@ namespace WorldModule
             }
 
             SetGlobalLightValue();
-            spawnPosition = new Vector3(0, biome.terrainHeightFromSoild + 10, 0);
+            spawnPosition = new Vector3(0, biome.terrainHeightFromSoild + 3, 0);
             GenerateWorld();
             playerLastChunkCoord = GetChunkCoordFromVector3(Player.position);
 
@@ -190,11 +189,11 @@ namespace WorldModule
         {
             for (int x = -worldSettings.ViewDistanceInChunks; x <= worldSettings.ViewDistanceInChunks; x++)
             {
-                for (int y = -worldSettings.ViewDistanceInChunks; y <= worldSettings.ViewDistanceInChunks; y++)
+                for (int y = -worldSettings.ViewDistanceInChunks + ((int)spawnPosition.y/Chunk.chunkSize); y <= worldSettings.ViewDistanceInChunks + ((int)spawnPosition.y/Chunk.chunkSize); y++)
                 {
                     for (int z = -worldSettings.ViewDistanceInChunks; z <= worldSettings.ViewDistanceInChunks; z++)
                     {
-                        Debug.Log("First Generated Chunk " + x + " " + y + " " + z);
+                        //Debug.Log("First Generated Chunk " + x + " " + y + " " + z);
                         ChunkCoord newChunk = new ChunkCoord(x,y,z);
                         chunksToCreate.Add(newChunk);
                     }
@@ -206,13 +205,20 @@ namespace WorldModule
         void CreateChunk()
         {
             ChunkCoord c = chunksToCreate[0];
-            Debug.Log("raw chunk coords " + c.x + " " + c.y + " " + c.z);
-            Chunk NewChunk = new Chunk(c, this);
-            createdChunks.Add(NewChunk);
-            ListChunkFinder(c.x,c.y,c.z).Init();
-            Debug.Log("created chunk coords " + c.x + " " + c.y + " " + c.z);
-            chunksToUpdate.Add(NewChunk);
-            chunksToCreate.RemoveAt(0);
+            //Debug.Log("raw chunk coords " + c.x + " " + c.y + " " + c.z);
+            Chunk newChunk = new Chunk(c, this);
+            if (DictionaryChunkFinder(c.x, c.y, c.z) == newChunk)
+            {
+                Debug.Log("Rejected chunk coords " + c.x + " " + c.y + " " + c.z);
+            }
+            if(DictionaryChunkFinder(c.x, c.y, c.z) == null)
+            {
+                Debug.Log("created chunk coords " + c.x + " " + c.y + " " + c.z);
+                createdChunks.Add(c, newChunk);
+                DictionaryChunkFinder(c.x,c.y,c.z).Init();
+                chunksToUpdate.Add(newChunk);
+                chunksToCreate.RemoveAt(0);
+            }
         }
         void UpdateChunks()
         {
@@ -283,11 +289,12 @@ namespace WorldModule
                         return;
                     }
                     ChunkCoord c = GetChunkCoordFromVector3(b.position);
-                    Chunk modificationChunk = ListChunkFinder(c.x, c.y, c.z);
+                    Chunk modificationChunk = DictionaryChunkFinder(c.x, c.y, c.z);
                     if (modificationChunk == null)
                     {
                         chunksToCreate.Add(c);
                     }
+                    //UnityEngine.Debug.Log( "BlockState "+ " x " + b.position.x + " y " + b.position.y + " z " + b.position.z);
                     modificationChunk.modifications.Enqueue(b);
                 }
             }
@@ -305,35 +312,18 @@ namespace WorldModule
             int x = Mathf.FloorToInt(pos.x / Chunk.chunkSize);
             int y = Mathf.FloorToInt(pos.y / Chunk.chunkSize);
             int z = Mathf.FloorToInt(pos.z / Chunk.chunkSize);
-            return ListChunkFinder(x,y,z);
+            return DictionaryChunkFinder(x,y,z);
         }
-        public Chunk ListChunkFinder(int x, int y, int z)
+        public Chunk DictionaryChunkFinder(int x, int y, int z)
         {
             ChunkCoord chunkCoord = new ChunkCoord(x, y, z);
-            Chunk foundChunk = null;
-//            for (int i = 0; i < createdChunks.Count; i++)
-//            {
-//
-//            }
-
-            var Index = createdChunks.FindIndex(xc => xc.coord.x == chunkCoord.x);
-            foreach (Chunk chunk in createdChunks) 
-            { 
-                if (chunk.coord.x == chunkCoord.x && chunk.coord.y == chunkCoord.y && chunk.coord.z == chunkCoord.z)
-                {
-                    foundChunk = chunk;
-                    //Debug.Log(chunk.coord.x + " " + chunk.coord.z + " " + chunk.coord.z);
-                }
-                //else if(createdChunks[chunkindex].coord.x != chunkCoord.x && createdChunks[chunkindex].coord.y != chunkCoord.y && createdChunks[chunkindex].coord.z != chunkCoord.z)
-                //{
-                //    Debug.Log("Iterating");
-                //}
+            Chunk foundChunk;
+            if (createdChunks.TryGetValue(chunkCoord, out foundChunk))
+            {
+                return foundChunk;
             }
-//            if (foundChunk == null) 
-//            {
-//                Debug.Log("Can't Find The Chunk");
-//            }
-            return foundChunk;
+            return null;
+
         }
         void CheckViewDistance()
         {
@@ -342,7 +332,7 @@ namespace WorldModule
 
             List<ChunkCoord> previouslyActiveChunks = new List<ChunkCoord>(activeChunks);
             activeChunks.Clear();
-
+            
             // Loops through all chunks currently within view distance of the player
             for (int x = coord.x - worldSettings.ViewDistanceInChunks; x <= coord.x + worldSettings.ViewDistanceInChunks; x++)
             {
@@ -351,7 +341,7 @@ namespace WorldModule
                     for (int z = coord.z - worldSettings.ViewDistanceInChunks; z <= coord.z + worldSettings.ViewDistanceInChunks; z++)
                     {
                         ChunkCoord newChunkCoord = new ChunkCoord(x, y, z);
-                        Chunk checkChunk = ListChunkFinder(newChunkCoord.x, newChunkCoord.y, newChunkCoord.z);
+                        Chunk checkChunk = DictionaryChunkFinder(newChunkCoord.x, newChunkCoord.y, newChunkCoord.z);
                         Debug.Log("updated chunk finder " + x + " " + y + " " + z);
                         // If the current chunks is in the world
                         if (IsChunkInWorld(newChunkCoord))
@@ -359,6 +349,7 @@ namespace WorldModule
                             //checks if it is active, if not, activate it.
                             if (checkChunk == null)
                             {
+                                //Debug.Log("New chunk finder " + x + " " + y + " " + z);
                                 chunksToCreate.Add(newChunkCoord);
                             }
                             else if(!checkChunk.IsActive)
@@ -380,14 +371,18 @@ namespace WorldModule
             }
             foreach (ChunkCoord c in previouslyActiveChunks)
             {
-                ListChunkFinder(c.x, c.y, c.z).IsActive = false;
+                //Debug.Log("updated chunk finder previously Active Chunks " + c.x + " " + c.y + " " + c.z);
+                if (DictionaryChunkFinder(c.x, c.y, c.z) != null)
+                {
+                    DictionaryChunkFinder(c.x, c.y, c.z).IsActive = false;
+                }
             } 
         }
         
         public bool CheckForSolidBlockInChunk(Vector3 pos)
         {
             ChunkCoord thisChunk = new ChunkCoord(pos);
-            Chunk blockChunk = ListChunkFinder(thisChunk.x, thisChunk.y, thisChunk.z);
+            Chunk blockChunk = DictionaryChunkFinder(thisChunk.x, thisChunk.y, thisChunk.z);
             if (!IsChunkInWorld(thisChunk))
             {
                 return false;
@@ -401,7 +396,7 @@ namespace WorldModule
         public BlockState GetBlockState(Vector3 pos)
         {
             ChunkCoord thisChunk = new ChunkCoord(pos);
-            Chunk blockChunk = ListChunkFinder(thisChunk.x, thisChunk.y, thisChunk.z);
+            Chunk blockChunk = DictionaryChunkFinder(thisChunk.x, thisChunk.y, thisChunk.z);
             if (!IsChunkInWorld(thisChunk))
             {
                 return null;
@@ -440,7 +435,7 @@ namespace WorldModule
             {
                 return 0;
             }
-            if (yPos <= 3)
+            if (yPos == 0)
             {
                 return 1;
             }
@@ -471,7 +466,7 @@ namespace WorldModule
                 {
                     if (yPos > lode.minHeight && yPos < lode.maxHeight)
                     {
-                        if (Terrian.FBM3D(pos.x, pos.y, pos.z, lode.offset, lode.octaves, (int)lode.persistance, lode.scale, lode.threshold))
+                        if (Terrian.FBM3D(pos.x, pos.y, pos.z, lode.offset, lode.smooth, (int)lode.octaves, lode.persistance, lode.threshold))
                         {
                             blockValue = lode.BlockID;
                         }
@@ -480,7 +475,7 @@ namespace WorldModule
             }
             
 
-            // TREE TERRAIN PASS
+            //TREE TERRAIN PASS
             if (yPos == terrainHeight)
             {
                 if (Terrian.TreeGeneration(new Vector2(pos.x,pos.z), 0, biome.treeZoneScale) > biome.treeZoneThreshold) 

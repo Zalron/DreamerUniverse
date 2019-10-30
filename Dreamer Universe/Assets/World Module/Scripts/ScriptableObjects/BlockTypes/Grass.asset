@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockName: Grass
   isSolid: 1
-  renderNeighbourFaces: 1
+  renderNeighbourFaces: 0
   transparency: 0.5
+  MaxAmount: 0
   icon: {fileID: -6448832585698385253, guid: 304de88c450e5e44196e8c074b37ba39, type: 3}
   backFaceTexture: 2
   frontFaceTexture: 2

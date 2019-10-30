@@ -4,10 +4,12 @@ using System.Collections.Generic;
 //using System.Numerics;
 //using System.Threading;
 using UnityEngine;
+
 namespace WorldModule
 {
     public class Chunk
     {
+        int airBlockState;
         public ChunkCoord coord;
         GameObject chunkObject;
         public MeshRenderer meshRenderer;
@@ -56,7 +58,7 @@ namespace WorldModule
             PopulateBlockMap();
 
         }
-        void PopulateBlockMap()
+        private void PopulateBlockMap()
         {
             for (int x = 0; x < chunkSize; x++)
             {
@@ -64,7 +66,9 @@ namespace WorldModule
                 {
                     for (int z = 0; z < chunkSize; z++)
                     {
-                        blockMap[x, y, z] = new BlockState(world.GetBlock(new Vector3(x, y, z) + position));
+                        BlockState bs = new BlockState(world.GetBlock(new Vector3(x, y, z) + position));
+                        blockMap[x, y, z] = bs;
+                        //UnityEngine.Debug.Log("|BlockMap " + " x " + x + " y " + y + " z " + z + "| BlockState: " + bs.id + "| Chunk position: " + " x " + coord.x + " y " + coord.y + " z " + coord.z);
                     }
                 }
             }
@@ -81,6 +85,7 @@ namespace WorldModule
             {
                 BlockMod b = modifications.Dequeue();
                 Vector3 pos = b.position -= position;
+                
                 blockMap[(int)pos.x, (int)pos.y, (int)pos.z].id = b.id;
             }
             ClearMeshData();
@@ -100,7 +105,7 @@ namespace WorldModule
             }
             world.chunksToDraw.Enqueue(this);
         }
-        void CalculateLight()
+        private void CalculateLight()
         {
 
             Queue<Vector3Int> litVoxels = new Queue<Vector3Int>();
@@ -168,7 +173,7 @@ namespace WorldModule
             }
 
         }
-        void ClearMeshData()
+        private void ClearMeshData()
         {
             vertexIndex = 0;
             vertices.Clear();
@@ -180,7 +185,10 @@ namespace WorldModule
         }
         public bool IsActive
         {
-            get { return _isActive; }
+            get
+            {
+                return _isActive;
+            }
             set
             {
                 _isActive = value;
@@ -204,7 +212,7 @@ namespace WorldModule
                 }
             }
         }
-        bool IsBlockInChunk(int x, int y, int z)
+        static bool IsBlockInChunk(int x, int y, int z)
         {
             if (x < 0 || x > chunkSize - 1 || y < 0 || y > chunkSize - 1 || z < 0 || z > chunkSize - 1)
             {
@@ -251,12 +259,49 @@ namespace WorldModule
             int z = Mathf.FloorToInt(pos.z);
             if (!IsBlockInChunk(x, y, z))
             {
+                //UnityEngine.Debug.Log( "BlockState "+ " x " + pos.x + " y " + pos.y + " z " + pos.z);
                 return world.GetBlockState(pos + position);
             }
             return blockMap[x, y, z];
         }
+
         public BlockState GetBlockFromGlobalVector3(Vector3 pos)
         {
+            int xCheck = Mathf.FloorToInt(pos.x);
+            int yCheck = Mathf.FloorToInt(pos.y);
+            int zCheck = Mathf.FloorToInt(pos.z);
+            xCheck -= Mathf.FloorToInt(position.x);
+            yCheck -= Mathf.FloorToInt(position.y);
+            zCheck -= Mathf.FloorToInt(position.z);
+            if (xCheck <= -1 || xCheck > chunkSize - 1) // checking for solid neighbour in other chunks
+            {
+                xCheck = ConvertBlockIndexToLocal(xCheck);
+            }
+            if (yCheck <= -1 || yCheck > chunkSize - 1)
+            {
+                yCheck = ConvertBlockIndexToLocal(yCheck);
+            }
+            if (zCheck <= -1 || zCheck > chunkSize - 1)
+            {
+                zCheck = ConvertBlockIndexToLocal(zCheck);
+            }
+            return blockMap[xCheck, yCheck, zCheck];
+        }
+        static int ConvertBlockIndexToLocal(int i) // converts the block index from other chunk into a index for this chunk
+        {
+            if (i <= -1)
+            {
+                i = i + chunkSize - 1;
+            }
+            else if (i > chunkSize - 1)
+            {
+                i = i - chunkSize - 1;
+            }
+            return i;
+        }
+        public byte GetBlockId(Vector3 pos)
+        {
+            byte blockID = 0;
             int xCheck = Mathf.FloorToInt(pos.x);
             int yCheck = Mathf.FloorToInt(pos.y);
             int zCheck = Mathf.FloorToInt(pos.z);
@@ -264,23 +309,22 @@ namespace WorldModule
             xCheck -= Mathf.FloorToInt(position.x);
             yCheck -= Mathf.FloorToInt(position.y);
             zCheck -= Mathf.FloorToInt(position.z);
-
-            return blockMap[xCheck, yCheck, zCheck];
-        }
-        public byte GetBlockID(Vector3 pos)
-        {
-            byte blockID = 0;
-            int xCheck = Mathf.FloorToInt(pos.x);
-            int yCheck = Mathf.FloorToInt(pos.y);
-            int zCheck = Mathf.FloorToInt(pos.z);
-
-            xCheck -= Mathf.FloorToInt(chunkObject.transform.position.x);
-            yCheck -= Mathf.FloorToInt(chunkObject.transform.position.y);
-            zCheck -= Mathf.FloorToInt(chunkObject.transform.position.z);
+            if (xCheck >= 0 || xCheck < chunkSize ) // checking for solid neighbour in other chunks
+            {
+                xCheck = ConvertBlockIndexToLocal(xCheck);
+            }
+            if (yCheck >= 0 || yCheck < chunkSize)
+            {
+                yCheck = ConvertBlockIndexToLocal(yCheck);
+            }
+            if (zCheck >= 0 || zCheck < chunkSize)
+            {
+                zCheck = ConvertBlockIndexToLocal(zCheck);
+            }
             blockMap[xCheck, yCheck, zCheck].id = blockID;
             return blockID;
         }
-        void UpdateMeshData(Vector3 pos)
+        private void UpdateMeshData(Vector3 pos)
         {
             int x = Mathf.FloorToInt(pos.x);
             int y = Mathf.FloorToInt(pos.y);
@@ -291,19 +335,21 @@ namespace WorldModule
             for (int p = 0; p < 6; p++)
             {
                 BlockState neighbour = CheckBlock(pos + Block.faceChecks[p]);
+                
                 if (neighbour != null && world.blockType[neighbour.id].renderNeighbourFaces)
                 {
                     vertices.Add(pos + Block.Verts[Block.Tris[p, 0]]);
                     vertices.Add(pos + Block.Verts[Block.Tris[p, 1]]);
                     vertices.Add(pos + Block.Verts[Block.Tris[p, 2]]);
                     vertices.Add(pos + Block.Verts[Block.Tris[p, 3]]);
-                    AddTexture(world.blockType[blockID].GetTextureID(p));
-
+                    
                     for (int i= 0; i < 4; i++) 
                     {
                         normals.Add(Block.faceChecks[p]);
                     }
 
+                    AddTexture(world.blockType[blockID].GetTextureID(p));
+                    
                     float lightLevel = neighbour.globalLightPercent;
                     
                     colours.Add(new Color(0, 0, 0, lightLevel));
@@ -346,8 +392,7 @@ namespace WorldModule
             };
             mesh.SetTriangles(triangles.ToArray(), 0);
             mesh.SetTriangles(transparentTriangles.ToArray(), 1);
-            mesh.RecalculateNormals();
-            meshFilter.sharedMesh = mesh;
+            meshFilter.mesh = mesh;
         }
         void AddTexture(int textureID)
         {

@@ -214,7 +214,7 @@ namespace WorldModule
         }
         static bool IsBlockInChunk(int x, int y, int z)
         {
-            if (x < 0 || x > chunkSize - 1 || y < 0 || y > chunkSize - 1 || z < 0 || z > chunkSize - 1)
+            if (x < 0 || x >= chunkSize || y < 0 || y >= chunkSize || z < 0 || z >= chunkSize)
             {
                 return false;
             }
@@ -232,7 +232,18 @@ namespace WorldModule
             xCheck -= Mathf.FloorToInt(chunkObject.transform.position.x);
             yCheck -= Mathf.FloorToInt(chunkObject.transform.position.y);
             zCheck -= Mathf.FloorToInt(chunkObject.transform.position.z);
-
+            if (xCheck <= -1 || xCheck >= chunkSize) // checking for solid neighbour in other chunks
+            {
+                xCheck = ConvertBlockIndexToLocal(xCheck);
+            }
+            if (yCheck <= -1 || yCheck >= chunkSize)
+            {
+                yCheck = ConvertBlockIndexToLocal(yCheck);
+            }
+            if (zCheck <= -1 || zCheck >= chunkSize)
+            {
+                zCheck = ConvertBlockIndexToLocal(zCheck);
+            }
             blockMap[xCheck, yCheck, zCheck].id = newID;
             lock (world.ChunkUpdateThreadLock)
             {
@@ -273,15 +284,15 @@ namespace WorldModule
             xCheck -= Mathf.FloorToInt(position.x);
             yCheck -= Mathf.FloorToInt(position.y);
             zCheck -= Mathf.FloorToInt(position.z);
-            if (xCheck <= -1 || xCheck > chunkSize - 1) // checking for solid neighbour in other chunks
+            if (xCheck <= -1 || xCheck >= chunkSize) // checking for solid neighbour in other chunks
             {
                 xCheck = ConvertBlockIndexToLocal(xCheck);
             }
-            if (yCheck <= -1 || yCheck > chunkSize - 1)
+            if (yCheck <= -1 || yCheck >= chunkSize)
             {
                 yCheck = ConvertBlockIndexToLocal(yCheck);
             }
-            if (zCheck <= -1 || zCheck > chunkSize - 1)
+            if (zCheck <= -1 || zCheck >= chunkSize)
             {
                 zCheck = ConvertBlockIndexToLocal(zCheck);
             }
@@ -289,11 +300,11 @@ namespace WorldModule
         }
         static int ConvertBlockIndexToLocal(int i) // converts the block index from other chunk into a index for this chunk
         {
-            if (i <= -1)
+            if (i < 0)
             {
                 i = i + chunkSize - 1;
             }
-            else if (i > chunkSize - 1)
+            else if (i >= chunkSize)
             {
                 i = i - chunkSize - 1;
             }

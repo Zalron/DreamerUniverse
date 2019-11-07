@@ -9,24 +9,28 @@ namespace WorldModule
     {
         public string biomeName;
         [Header("Terrian Height")]
-        public int solidGroundHeight;
-        public int terrainHeightFromSoild;
+        public int terrainHeight;
+        
+        public byte surfaceBlock;
+        public byte subSurfaceBlock;
         [Header("Terrian Settings")]
         public float terrainOffset;
         public int terrainOctaves;
         public float terrainSmooth;
         public float terrainScale;
         public float terrainPersistance;
-        [Header("Trees")]
-        public float treeZoneScale = 1.3f;
-        [Range(0.1f,1f)]
-        public float treeZoneThreshold = 0.6f;
-        public float treePlacementScale = 15f;
+        [Header("Major Flora")]
+        public int majorFloraIndex;
+        public float majorFloraZoneScale = 1.3f;
         [Range(0.1f, 1f)]
-        public float treeZonePlacementThreshold = 0.6f;
+        public float majorFloraZoneThreshold = 0.6f;
+        public float majorFloraPlacementScale = 15f;
+        [Range(0.1f, 1f)]
+        public float majorFloraPlacementThreshold = 0.8f;
+        public bool placeMajorFlora = true;
 
-        public int maxTreeHeight = 12;
-        public int minTreeHeight = 4;
+        public int maxMajorFloraHeight = 12;
+        public int minMajorFloraHeight = 4;
         [Header("Blocks")]
         public Lode[] lodes;
     }

@@ -27,7 +27,8 @@ namespace WorldModule
         public Material transparentMaterial;
 
         public BlockType[] blockType;
-        public Biomes biome;
+        public Biomes[] biomes;
+        public int solidGroundHeight;
 
         
         Dictionary<ChunkCoord, Chunk> createdChunks = new Dictionary<ChunkCoord, Chunk>();
@@ -136,7 +137,7 @@ namespace WorldModule
             }
 
             SetGlobalLightValue();
-            spawnPosition = new Vector3(0, biome.terrainHeightFromSoild + 3, 0);
+            spawnPosition = new Vector3(0,  solidGroundHeight + 50, 0);
             GenerateWorld();
             playerLastChunkCoord = GetChunkCoordFromVector3(Player.position);
 
@@ -435,12 +436,52 @@ namespace WorldModule
             {
                 return 0;
             }
-            if (yPos == 0)
+//            if (yPos == -200)
+//            {
+//                return 1;
+//            }
+            
+            // BIOME SELECTION PASS
+
+            
+            float sumOfHeights = 0f;
+            int count = 0;
+            float strongestWeight = 0f;
+            int strongestBiomeIndex = 0;
+
+            for (int i = 0; i < biomes.Length; i++)
             {
-                return 1;
+
+                float weight = Terrian.GenerateHeight(new Vector2(pos.x, pos.z), solidGroundHeight, biomes[i].terrainHeight,
+                   biomes[i].terrainOffset, biomes[i].terrainSmooth, biomes[i].terrainOctaves, biomes[i].terrainScale);
+
+                // Keep track of which weight is strongest.
+                if (weight > strongestWeight)
+                {
+                    strongestWeight = weight;
+                    strongestBiomeIndex = i;
+                }
+
+                // Get the height of the terrain (for the current biome) and multiply it by its weight.
+                float height = biomes[i].terrainHeight * Terrian.GenerateHeight(new Vector2(pos.x, pos.z), solidGroundHeight, biomes[i].terrainHeight,
+                                                                                biomes[i].terrainOffset, biomes[i].terrainSmooth, biomes[i].terrainOctaves, biomes[i].terrainScale) * weight;
+
+                // If the height value is greater 0 add it to the sum of heights.
+                if (height > 0)
+                {
+                    sumOfHeights += height;
+                    count++;
+                }
+
+                // Set biome to the one with the strongest weight.
+                
             }
+            Biomes biome = biomes[strongestBiomeIndex];
+
+            // Get the average of the heights.
+            sumOfHeights /= count;
             // BASIC TERRAIN PASS
-            int terrainHeight = Terrian.GenerateHeight(new Vector2(pos.x, pos.z), biome.solidGroundHeight, biome.terrainHeightFromSoild, biome.terrainOffset, biome.terrainSmooth, biome.terrainOctaves, biome.terrainScale);
+            int terrainHeight = Mathf.FloorToInt(sumOfHeights + solidGroundHeight);
             byte blockValue;
             if (yPos == terrainHeight)
             {
@@ -476,13 +517,13 @@ namespace WorldModule
             
 
             //TREE TERRAIN PASS
-            if (yPos == terrainHeight)
+            if (yPos == terrainHeight && biome.placeMajorFlora)
             {
-                if (Terrian.TreeGeneration(new Vector2(pos.x,pos.z), 0, biome.treeZoneScale) > biome.treeZoneThreshold) 
+                if (Terrian.TreeGeneration(new Vector2(pos.x,pos.z), 0, biome.majorFloraZoneScale) > biome.majorFloraZoneThreshold) 
                 {
-                    if (Terrian.TreeGeneration(new Vector2(pos.x, pos.z), 0, biome.treePlacementScale) > biome.treeZonePlacementThreshold)
+                    if (Terrian.TreeGeneration(new Vector2(pos.x, pos.z), 0, biome.majorFloraPlacementScale) > biome.majorFloraPlacementThreshold)
                     {
-                        modifications.Enqueue(Structure.MakeTree(pos, biome.minTreeHeight, biome.maxTreeHeight));
+                        modifications.Enqueue(Structure.GenerateMajorFlora(biome.majorFloraIndex, pos, biome.minMajorFloraHeight, biome.maxMajorFloraHeight));
                     }
                 }
             }

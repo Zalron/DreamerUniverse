@@ -3035,7 +3035,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 56dab0edf9fdfe74eb3de1ea71f30851, type: 2}
   - {fileID: 11400000, guid: 55fb4eea6b79bbe40abed08944036c81, type: 2}
   - {fileID: 11400000, guid: 6e00c6feaed31c04380c9fa70f8313c1, type: 2}
-  biome: {fileID: 11400000, guid: 0f4c49eb38f8df74197a591348bb9348, type: 2}
+  biomes:
+  - {fileID: 11400000, guid: 0f4c49eb38f8df74197a591348bb9348, type: 2}
+  solidGroundHeight: 0
   debugScreen: {fileID: 468200423}
   creativeInventoryWindow: {fileID: 65162289}
   cursorSlot: {fileID: 1821616002}

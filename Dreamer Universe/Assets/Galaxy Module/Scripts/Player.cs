@@ -2,59 +2,70 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+namespace GalaxyModule
 {
-    public bool IsGod = false; 
-    const float SpeedOfLight = 9.461f;
-    public float WarpSpeed = 3f;
-    public float maxFlySpeed = 300f;
-    public float minFlySpeed = 1f;
-    private Transform cam;
-    private Vector3 velocity;
-    private float horizontal;
-    private float vertical;
-    private float up;
-    private float mouseHorizontal;
-    private float mouseVertical;
-    private float mouseWheel;
-    public float mouseScrollSpeed;
-    // Start is called before the first frame update
-    void Start()
+    public class Player : MonoBehaviour
     {
-        cam = GameObject.Find("Main Camera").transform;
-    }
-    public void FixedUpdate()
-    {
-        transform.Rotate(Vector3.up * mouseHorizontal);
-        cam.Rotate(Vector3.right * -mouseVertical);
-        if (IsGod == true)
+        public GameObject UI;
+        public bool IsGod = false;
+        const float SpeedOfLight = 9.461f;
+        public float WarpSpeed = 3f;
+        public float maxFlySpeed = 300f;
+        public float minFlySpeed = 1f;
+        private Transform cam;
+        private Vector3 velocity;
+        private float horizontal;
+        private float vertical;
+        private float up;
+        private float mouseHorizontal;
+        private float mouseVertical;
+        private float mouseWheel;
+
+        public float mouseScrollSpeed;
+
+        // Start is called before the first frame update
+        void Start()
         {
-            WarpSpeed = Mathf.Clamp(WarpSpeed, minFlySpeed, maxFlySpeed);
-            transform.Translate(velocity, Space.World);
-            velocity = ((transform.forward * vertical) + (transform.right * horizontal) + (transform.up * up)) * Time.fixedDeltaTime * WarpSpeed * SpeedOfLight;
+            cam = GameObject.Find("Main Camera").transform;
         }
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        if (IsGod == true)
+
+        public void FixedUpdate()
         {
-            horizontal = Input.GetAxis("Horizontal");
-            vertical = Input.GetAxis("Vertical");
-            up = Input.GetAxis("Up");
+            transform.Rotate(Vector3.up * mouseHorizontal);
+            cam.Rotate(Vector3.right * -mouseVertical);
+            if (IsGod == true)
+            {
+                WarpSpeed = Mathf.Clamp(WarpSpeed, minFlySpeed, maxFlySpeed);
+                transform.Translate(velocity, Space.World);
+                velocity = ((transform.forward * vertical) + (transform.right * horizontal) + (transform.up * up)) *
+                           Time.fixedDeltaTime * WarpSpeed * SpeedOfLight;
+            }
         }
-        mouseHorizontal = Input.GetAxis("Mouse X");
-        mouseVertical = Input.GetAxis("Mouse Y");
-        mouseWheel = Input.GetAxis("Mouse ScrollWheel");
-        if (mouseWheel == 0.1f)
+
+        // Update is called once per frame
+        void Update()
         {
-            //Debug.Log(mouseWheel);
-            WarpSpeed += mouseScrollSpeed;
-        }
-        if (mouseWheel == -0.1f)
-        {
-            //Debug.Log(mouseWheel);
-            WarpSpeed -= mouseScrollSpeed;
+            if (IsGod == true)
+            {
+                horizontal = Input.GetAxis("Horizontal");
+                vertical = Input.GetAxis("Vertical");
+                up = Input.GetAxis("Up");
+            }
+
+            mouseHorizontal = Input.GetAxis("Mouse X");
+            mouseVertical = Input.GetAxis("Mouse Y");
+            mouseWheel = Input.GetAxis("Mouse ScrollWheel");
+            if (mouseWheel == 0.1f)
+            {
+                //Debug.Log(mouseWheel);
+                WarpSpeed += mouseScrollSpeed;
+            }
+
+            if (mouseWheel == -0.1f)
+            {
+                //Debug.Log(mouseWheel);
+                WarpSpeed -= mouseScrollSpeed;
+            }
         }
     }
 }

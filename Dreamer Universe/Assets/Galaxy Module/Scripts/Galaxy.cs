@@ -12,7 +12,7 @@ namespace GalaxyModule
         public StarType[] starTypeTable;
         public Planet[] planetTypeTable;
         public SectorSO[] SectorTypeTable;
-
+        
         public Mesh sphereMesh;
         public GameObject player;
 

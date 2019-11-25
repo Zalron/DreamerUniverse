@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[InitializeOnLoad]
+//[InitializeOnLoad]
 public class SaveOnRun
 {
-    static SaveOnRun() {
-        EditorApplication.playModeStateChanged += SaveScene;
-    }
+    //static SaveOnRun() {
+        //EditorApplication.playModeStateChanged += SaveScene;
+    //}
 
-    static void SaveScene(PlayModeStateChange state) {
-        UnityEngine.SceneManagement.Scene activeScene = UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene();
-        if (!EditorApplication.isPlayingOrWillChangePlaymode || EditorApplication.isPlaying || !activeScene.isDirty) return;
+    //static void SaveScene(PlayModeStateChange state) {
+        //UnityEngine.SceneManagement.Scene activeScene = UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene();
+        //if (!EditorApplication.isPlayingOrWillChangePlaymode || EditorApplication.isPlaying || !activeScene.isDirty) return;
         //Debug.Log("Auto-Saving scene before entering Play mode: " + activeScene.name);
-        UnityEditor.SceneManagement.EditorSceneManager.SaveScene(activeScene);
-        AssetDatabase.SaveAssets();
+        //UnityEditor.SceneManagement.EditorSceneManager.SaveScene(activeScene);
+        //AssetDatabase.SaveAssets();
 
-    }
+    //}
 }

@@ -51,7 +51,7 @@ namespace ItemSubModule
         public ItemAffixsSO[] itemSuffixDropTable;
         public ItemStatsSO[] itemStatDropTable;
 
-        public List<ItemSO> items = new List<ItemSO>();
+        public List<Item> items = new List<Item>();
         public ItemSO item;
         void Start() // Start is called before the first frame update
         {
@@ -65,7 +65,8 @@ namespace ItemSubModule
         {
             ItemSO i = ScriptableObject.CreateInstance<ItemSO>();
             i = ItemCalculations.ItemGenerator(i, itemNameDropTable, itemPrefixDropTable, itemSuffixDropTable, itemStatDropTable, itemRarityDropTable, itemRequirementsDropTable);
-            items.Add(i);
+            LootNames.text = i.itemName.ItemNameString;
+            //Item Ni = new Item();
         }
     }
 }

@@ -5,6 +5,27 @@ namespace ItemSubModule
 {
     public static class ItemCalculations
     {
+        public static Item ItemSOConverter(Item item, ItemSO itemSo)
+        {
+            item.ItemName = ItemNameSoConverter(item.ItemName, itemSo.itemName);
+            item.ItemRaritiy = ItemRaritiesSOConverter(item.ItemRaritiy, itemSo.itemRarity);
+            return item;
+        }
+
+        public static ItemName ItemNameSoConverter(ItemName itemName, ItemNameSO itemNameSo)
+        {
+            itemName.itemName = itemNameSo.ItemNameString;
+            return itemName;
+        }
+
+        public static ItemRarities ItemRaritiesSOConverter(ItemRarities itemRarities, ItemRaritiesSO itemRaritiesSo)
+        {
+            itemRarities.ItemRarityName = itemRaritiesSo.rarityName;
+            itemRarities.ItemRarityInt = Random.Range(itemRaritiesSo.itemRarityIntModifierMin, itemRaritiesSo.itemRarityIntModifierMax + 1);
+            itemRarities.ItemRarityAffixAllowed = itemRaritiesSo.rarityIntAffixsAllowed;
+            return itemRarities;
+        }
+
         public static ItemSO ItemGenerator(ItemSO i, ItemNameSO[] itemNameDropTable, ItemAffixsSO[] itemPrefixDropTable, ItemAffixsSO[] itemSuffixDropTable, ItemStatsSO[] itemStatDropTable, ItemRaritiesSO[] itemRarityDropTable, ItemLevelSO[] itemRequirementsDropTable)
         {
             if (itemNameDropTable == null || itemPrefixDropTable == null || itemSuffixDropTable == null || itemStatDropTable == null || itemRarityDropTable == null || itemRequirementsDropTable == null)
@@ -57,13 +78,13 @@ namespace ItemSubModule
         public static int ItemStatGenerators(ItemNameSO itemName, ItemTypesSO itemType, ItemRaritiesSO itemRarities, ItemLevelSO itemLevel, ItemModSO itemMod)
         {
             int ItemStatInt = 0;
-            int ItemNameIntModifierSolved = Random.Range(itemName.itemNameIntModifierMin, itemName.itemNameIntModifierMax);
+            int ItemNameIntModifierSolved = Random.Range(itemName.itemNameIntModifierMin, itemName.itemNameIntModifierMax + 1);
             ItemStatInt += ItemNameIntModifierSolved;
-            int ItemTypeIntModifierSolved = Random.Range(itemType.itemTypeIntModifierMin, itemType.itemTypeIntModifierMax);
+            int ItemTypeIntModifierSolved = Random.Range(itemType.itemTypeIntModifierMin, itemType.itemTypeIntModifierMax + 1);
             ItemStatInt += ItemTypeIntModifierSolved;
-            int ItemRarityIntModifierSolved = Random.Range(itemRarities.itemRarityIntModifierMin, itemName.itemNameIntModifierMax);
+            int ItemRarityIntModifierSolved = Random.Range(itemRarities.itemRarityIntModifierMin, itemName.itemNameIntModifierMax + 1);
             ItemStatInt += ItemRarityIntModifierSolved;
-            int ItemLevelIntModifierSolved = Random.Range(itemLevel.ItemLevelIntModifierMin, itemLevel.ItemLevelIntModifierMax);
+            int ItemLevelIntModifierSolved = Random.Range(itemLevel.ItemLevelIntModifierMin, itemLevel.ItemLevelIntModifierMax + 1);
             ItemStatInt += ItemLevelIntModifierSolved;
             if (itemMod == null)
             {

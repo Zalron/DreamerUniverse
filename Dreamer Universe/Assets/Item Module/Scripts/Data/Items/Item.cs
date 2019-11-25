@@ -64,6 +64,21 @@ namespace ItemSubModule
             ItemName = itemName;
             ItemType = itemType;
             ItemRaritiy = itemRaritiy;
+            ItemMaterial = itemMaterial;
+            ItemManufacturer = itemManufacturer;
+            ItemQuality = itemQuality;
+        }
+
+        public Item(ItemName itemName, ItemType itemType, ItemMaterial itemMaterial, ItemManufacturer itemManufacturer, ItemRarities itemRaritiy, ItemQuality itemQuality,
+                    ItemAffixs itemPrefix1, ItemAffixs itemPrefix2, ItemAffixs itemPrefix3, ItemAffixs itemPrefix4, ItemAffixs itemPrefix5, ItemAffixs itemSuffix1, ItemAffixs itemSuffix2, ItemAffixs itemSuffix3, ItemAffixs itemSuffix4, ItemAffixs itemSuffix5, 
+                    ItemStats itemStat1, ItemStats itemStat2, ItemStats itemStat3, ItemStats itemStat4, ItemStats itemStat5, ItemStats itemStat6, ItemStats itemStat7, ItemStats itemStat8, ItemStats itemStat9, ItemStats itemStat10)
+        {
+            ItemName = itemName;
+            ItemType = itemType;
+            ItemRaritiy = itemRaritiy;
+            ItemMaterial = itemMaterial;
+            ItemManufacturer = itemManufacturer;
+            ItemQuality = itemQuality;
         }
     }
     public class ItemPart
@@ -76,7 +91,7 @@ namespace ItemSubModule
         {
             ItemPartName = itemPartName;
             ItemStatModifiying = itemStatModifiying;
-            
+            ItemModifiyingInt = itemModifiyingInt;
         }
     }
     public class ItemName

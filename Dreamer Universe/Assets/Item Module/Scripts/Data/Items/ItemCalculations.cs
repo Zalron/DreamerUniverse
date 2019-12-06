@@ -8,17 +8,53 @@ namespace ItemSubModule
         public static Item ItemSOConverter(Item item, ItemSO itemSo)
         {
             item.ItemName = ItemNameSoConverter(item.ItemName, itemSo.itemName);
-            item.ItemRaritiy = ItemRaritiesSOConverter(item.ItemRaritiy, itemSo.itemRarity);
+            item.ItemQuality = ItemQualitySoConverter(item.ItemQuality, itemSo.itemQuality);
+            item.ItemType = ItemTypeSoConverter(item.ItemType, itemSo.itemType);
+            item.ItemLevel = ItemLevelSoConverter(item.ItemLevel, itemSo.itemLevel);
+            item.ItemManufacturer = ItemManufacturerSoConverter(item.ItemManufacturer, itemSo.itemManufacturer);
+            item.ItemMaterial = ItemMaterialSoConverter(item.ItemMaterial, itemSo.itemMaterial);
+            item.ItemRaritiy = ItemRaritiesSoConverter(item.ItemRaritiy, itemSo.itemRarity);
             return item;
         }
-
         public static ItemName ItemNameSoConverter(ItemName itemName, ItemNameSO itemNameSo)
         {
             itemName.itemName = itemNameSo.ItemNameString;
+            itemName.ItemNameInt = Random.Range(itemNameSo.itemNameIntModifierMin, itemNameSo.itemNameIntModifierMax + 1);
             return itemName;
         }
+        public static ItemMaterial ItemMaterialSoConverter(ItemMaterial itemMaterial, ItemMaterialSO itemMaterialSo)
+        {
+            itemMaterial.ItemMaterialName = itemMaterialSo.itemMaterialName;
+            itemMaterial.ItemMaterialInt = Random.Range(itemMaterialSo.ItemMaterialModifierMin, itemMaterialSo.ItemMaterialModifierMax + 1);
+            return itemMaterial;
+        }
+        public static ItemManufacturer ItemManufacturerSoConverter(ItemManufacturer itemManufacturer, ItemManufacturerSO itemManufacturerSo)
+        {
+            itemManufacturer.ManufacturerName = itemManufacturerSo.manufacturerName;
+            return itemManufacturer;
+        }
+        public static ItemType ItemTypeSoConverter(ItemType itemType, ItemTypesSO itemTypesSo)
+        {
+            itemType.ItemSubType = itemTypesSo.itemSubType;
+            itemType.ItemTypeName = itemTypesSo.ItemTypeName;
+            itemType.ItemTypeIntModifier = Random.Range(itemTypesSo.itemTypeIntModifierMin, itemTypesSo.itemTypeIntModifierMax + 1);
+            return itemType;
+        }
+        public static ItemQuality ItemQualitySoConverter(ItemQuality itemQuality, ItemQualitySO itemQualitySo)
+        {
+            itemQuality.ItemQualityPercent = itemQualitySo.itemQualityPercent;
+            itemQuality.ItemQualityType = itemQualitySo.itemQuality;
+            itemQuality.ItemQualityPercentInt = Random.Range(itemQualitySo.itemQualityPercentIntMin, itemQualitySo.itemQualityPercentIntMax = 1);
+            return itemQuality;
+        }
+        public static ItemLevel ItemLevelSoConverter(ItemLevel itemLevel, ItemLevelSO itemLevelSo)
+        {
+            itemLevel.ItemLevelInt = itemLevelSo.ItemLevelint;
+            itemLevel.ItemLevelModifierInt = Random.Range(itemLevelSo.ItemLevelIntModifierMin, itemLevelSo.ItemLevelIntModifierMin + 1);
+            return itemLevel;
+        }
 
-        public static ItemRarities ItemRaritiesSOConverter(ItemRarities itemRarities, ItemRaritiesSO itemRaritiesSo)
+        public static ItemRarities ItemRaritiesSoConverter(ItemRarities itemRarities, ItemRaritiesSO itemRaritiesSo)
         {
             itemRarities.ItemRarityName = itemRaritiesSo.rarityName;
             itemRarities.ItemRarityInt = Random.Range(itemRaritiesSo.itemRarityIntModifierMin, itemRaritiesSo.itemRarityIntModifierMax + 1);
@@ -69,6 +105,26 @@ namespace ItemSubModule
                 i.itemStat9 = itemStatDropTable[8];
                 i.itemStat10 = itemStatDropTable[9];
             }
+            int itemPartDropTableNumber1 = Random.Range(0, i.itemName.itemParts1.Count);
+            i.itemPart1 = i.itemName.itemParts1[itemPartDropTableNumber1];
+            int itemPartDropTableNumber2 = Random.Range(0, i.itemName.itemParts2.Count);
+            i.itemPart2 = i.itemName.itemParts2[itemPartDropTableNumber2];
+            int itemPartDropTableNumber3 = Random.Range(0, i.itemName.itemParts3.Count);
+            i.itemPart3= i.itemName.itemParts3[itemPartDropTableNumber3];
+            int itemPartDropTableNumber4 = Random.Range(0, i.itemName.itemParts4.Count);
+            i.itemPart4 = i.itemName.itemParts4[itemPartDropTableNumber4];
+            int itemPartDropTableNumber5 = Random.Range(0, i.itemName.itemParts5.Count);
+            i.itemPart5 = i.itemName.itemParts5[itemPartDropTableNumber5];
+            int itemPartDropTableNumber6 = Random.Range(0, i.itemName.itemParts6.Count);
+            i.itemPart6 = i.itemName.itemParts6[itemPartDropTableNumber6];
+            int itemPartDropTableNumber7 = Random.Range(0, i.itemName.itemParts7 .Count);
+            i.itemPart7 = i.itemName.itemParts7[itemPartDropTableNumber7];
+            int itemPartDropTableNumber8 = Random.Range(0, i.itemName.itemParts8 .Count);
+            i.itemPart8 = i.itemName.itemParts8[itemPartDropTableNumber8];
+            int itemPartDropTableNumber9 = Random.Range(0, i.itemName.itemParts9.Count);
+            i.itemPart9= i.itemName.itemParts9[itemPartDropTableNumber9];
+            int itemPartDropTableNumber10 = Random.Range(0, i.itemName.itemParts10.Count);
+            i.itemPart10 = i.itemName.itemParts10[itemPartDropTableNumber10];
             return i;
         }
         public static ItemStatsSO ItemModStatGenerator(ItemSO i, ItemStatsSO itemStat, ItemModSO itemMod)

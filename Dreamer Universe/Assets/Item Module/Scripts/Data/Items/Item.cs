@@ -110,6 +110,7 @@ namespace ItemSubModule
     {
         public string ItemLevelString;
         public int ItemLevelInt;
+        public int ItemLevelModifierInt;
     }
     public class ItemMaterial
     {

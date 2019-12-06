@@ -10,6 +10,7 @@ namespace ItemSubModule
         public ItemNameSO itemName;
         public ItemTypesSO itemType;
         public ItemRaritiesSO itemRarity;
+        public ItemQualitySO itemQuality;
         public ItemLevelSO itemLevel;
         public ItemMaterialSO itemMaterial;
         public ItemManufacturerSO itemManufacturer;

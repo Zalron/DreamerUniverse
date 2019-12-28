@@ -14,6 +14,7 @@ namespace ItemSubModule
             item.ItemManufacturer = ItemManufacturerSoConverter(item.ItemManufacturer, itemSo.itemManufacturer);
             item.ItemMaterial = ItemMaterialSoConverter(item.ItemMaterial, itemSo.itemMaterial);
             item.ItemRaritiy = ItemRaritiesSoConverter(item.ItemRaritiy, itemSo.itemRarity);
+            //item.ItemPrefix1 = 
             return item;
         }
         public static ItemName ItemNameSoConverter(ItemName itemName, ItemNameSO itemNameSo)
@@ -60,6 +61,14 @@ namespace ItemSubModule
             itemRarities.ItemRarityInt = Random.Range(itemRaritiesSo.itemRarityIntModifierMin, itemRaritiesSo.itemRarityIntModifierMax + 1);
             itemRarities.ItemRarityAffixAllowed = itemRaritiesSo.rarityIntAffixsAllowed;
             return itemRarities;
+        }
+
+        public static ItemAffixs ItemAffixSoConverter(ItemAffixs itemAffix, ItemAffixsSO itemAffixSo)
+        {
+            itemAffix.ItemAffixString = itemAffixSo.itemAffixString;
+            itemAffix.ItemAffixMod = itemAffixSo.itemAffixMod;
+            //TODO: finish item affix converter code
+            return itemAffix;
         }
 
         public static ItemSO ItemGenerator(ItemSO i, ItemNameSO[] itemNameDropTable, ItemAffixsSO[] itemPrefixDropTable, ItemAffixsSO[] itemSuffixDropTable, ItemStatsSO[] itemStatDropTable, ItemRaritiesSO[] itemRarityDropTable, ItemLevelSO[] itemRequirementsDropTable)

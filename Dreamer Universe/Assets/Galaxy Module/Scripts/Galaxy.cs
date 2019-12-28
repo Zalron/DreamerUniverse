@@ -21,6 +21,8 @@ namespace GalaxyModule
         SectorCoord playerLastSectorCoord;
         
         static int _seed = 5957362;
+        
+        
 
         public System.Random randomNumber = new System.Random(_seed);
         public Vector3 playerSectorCoordVector;
